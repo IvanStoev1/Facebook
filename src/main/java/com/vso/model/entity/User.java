@@ -6,11 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "facebookUsers")
+@Table(name = "users")
 public class User {
     @Id
     @Column
-    private int id;
+    private long id;
 
     public User() {
     }
@@ -19,7 +19,7 @@ public class User {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 }
