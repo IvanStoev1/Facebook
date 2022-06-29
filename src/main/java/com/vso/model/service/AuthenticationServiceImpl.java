@@ -13,15 +13,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     }
 
-
     @Override
     public boolean registerUser(String email,String password,String name,int age) {
         if (database.userExists(email, password)) {
             return false;
         }
 
-        User user = new User();
-        UserDao.addUser(user);
+        User user = new User(email,password,name,age);
+        database.addUser(user);
         return true;
 
     }

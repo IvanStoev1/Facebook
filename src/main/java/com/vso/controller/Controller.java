@@ -91,5 +91,4 @@ public class Controller {
             communication.show("Passwords should match");
         }
     }
-
 }

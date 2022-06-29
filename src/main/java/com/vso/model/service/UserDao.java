@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class UserDao {
 
-    static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();;
+    static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 
     public UserDao() {
@@ -38,7 +38,6 @@ public class UserDao {
     }
 
     public static void addUser(User user) {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
