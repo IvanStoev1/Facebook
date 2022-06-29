@@ -1,9 +1,9 @@
 package com.vso.model.service;
 
 public interface Authentication {
-    boolean registerUser(String clientName, String clientPassword);
+    boolean registerUser(String email,String password);
 
-    LoginStatus login(String username, String password);
+    LoginStatus login(String email,String password);
 
     void logout();
 

@@ -2,27 +2,39 @@ package com.vso.model.service;
 
 import com.vso.model.entity.User;
 
-import java.util.Scanner;
-
 public class AuthenticationImpl implements Authentication{
 
     private User loggedUser;
+    private final UserDao database;
 
     public AuthenticationImpl() {
         this.loggedUser = null;
+        this.database = new UserDao();
+
     }
 
 
     @Override
-    public boolean registerUser(String email, String clientPassword) {
-        User user = new User(email, clientPassword);
+    public boolean registerUser(String email,String password) {
+        if (database.userExists(email, password)) {
+            return false;
+        }
+
+        User user = new User();
+        UserDao.addUser(user);
         return true;
 
     }
 
     @Override
-    public LoginStatus login(String email, String password) {
-        return null;
+    public LoginStatus login(String email,String password) {
+        User user = database.getObject(email);
+        if (user != null && user.getPassword().equals(password)) {
+            loggedUser = user;
+            return LoginStatus.SUCCESS_USER;
+        }
+
+        return LoginStatus.LOGIN_FAILED;
     }
 
     @Override
