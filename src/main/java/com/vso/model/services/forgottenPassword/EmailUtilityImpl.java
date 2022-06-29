@@ -7,12 +7,15 @@ import java.util.Properties;
 import java.util.Random;
 
 public class EmailUtilityImpl implements EmailUtility {
+
     private final String host;
     private final int port;
     private final boolean debug;
 
     private final String senderEmail;
     private final String password;
+
+    private Email email;
 
     public EmailUtilityImpl() {
         host = "smtp.gmail.com";
@@ -25,8 +28,10 @@ public class EmailUtilityImpl implements EmailUtility {
     @Override
     public void sendVerificationEmail(String to) {
         int number = new Random().nextInt(99999 - 10000 + 1) + 10000;
-        sendEmail(to, "5-digit number verification",
-                "Your 5-digit number for password reset is: \n" + number);
+        String subject = "5-digit number verification";
+        String content = "Your 5-digit number for password reset is: \n" + number;
+        email = new Email(subject, content, String.valueOf(number));
+        sendEmail(to, subject, content);
     }
 
     private void sendEmail(String to, String subject, String content) {
@@ -65,5 +70,9 @@ public class EmailUtilityImpl implements EmailUtility {
         props.put("mail.smtp.socketFactory.fallback", "false");
         props.put("mail.smtp.ssl.trust", host);
         return props;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 }

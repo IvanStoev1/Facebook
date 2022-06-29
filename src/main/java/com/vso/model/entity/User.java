@@ -12,6 +12,9 @@ public class User {
     @Column
     private long id;
 
+    @Column
+    private String password;
+
     public User() {
     }
 
@@ -21,5 +24,9 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
