@@ -5,13 +5,13 @@ import com.vso.view.ViewModel;
 
 public class Controller {
 
-    private final Authentication authentication;
+    private final AuthenticationService authentication;
     Communication communication;
     private final UserDao database;
     private final Forms forms;
     private final ViewModel viewModel;
 
-    public Controller(Authentication authentication, UserDao database,Communication communication ) {
+    public Controller(AuthenticationService authentication, UserDao database, Communication communication ) {
         this.authentication = authentication;
         this.database = database;
         this.communication = communication;
@@ -74,12 +74,14 @@ public class Controller {
 
     private void initCreateUserProcess() {
         String[] input = this.forms.processForm();
-        String email = input[0];
-        String password = input[1];
-        String repeatPassword = input[2];
+        int age = Integer.parseInt(input[0]);
+        String name = input[1];
+        String email = input[2];
+        String password = input[3];
+        String repeatPassword = input[4];
 
         if (password.equals(repeatPassword)) {
-            boolean registerIsSuccessful = authentication.registerUser(email, password);
+            boolean registerIsSuccessful = authentication.registerUser(email, password,name,age);
             if (registerIsSuccessful) {
                 communication.show("Registration successful");
             } else {

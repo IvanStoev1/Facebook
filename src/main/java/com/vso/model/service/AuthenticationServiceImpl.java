@@ -2,12 +2,12 @@ package com.vso.model.service;
 
 import com.vso.model.entity.User;
 
-public class AuthenticationImpl implements Authentication{
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private User loggedUser;
     private final UserDao database;
 
-    public AuthenticationImpl() {
+    public AuthenticationServiceImpl() {
         this.loggedUser = null;
         this.database = new UserDao();
 
@@ -15,7 +15,7 @@ public class AuthenticationImpl implements Authentication{
 
 
     @Override
-    public boolean registerUser(String email,String password) {
+    public boolean registerUser(String email,String password,String name,int age) {
         if (database.userExists(email, password)) {
             return false;
         }
