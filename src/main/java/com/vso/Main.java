@@ -1,6 +1,7 @@
 package com.vso;
 
 import com.vso.model.entity.User;
+import com.vso.model.services.forgottenPassword.EmailUtilityImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
