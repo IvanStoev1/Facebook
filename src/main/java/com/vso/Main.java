@@ -2,8 +2,8 @@ package com.vso;
 
 import com.vso.controller.Controller;
 import com.vso.model.service.AuthenticationServiceImpl;
-import com.vso.model.service.CommunicationImpl;
-import com.vso.model.service.UserDao;
+import com.vso.model.UserDao;
+import com.vso.view.AuthView;
 
 public class Main {
 
@@ -11,7 +11,7 @@ public class Main {
 
         new Controller(new AuthenticationServiceImpl(),
                 new UserDao(),
-                new CommunicationImpl())
+                new AuthView())
                 .initializeProgram();
 
     }

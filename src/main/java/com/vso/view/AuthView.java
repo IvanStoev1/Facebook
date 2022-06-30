@@ -1,20 +1,19 @@
-package com.vso.model.service;
+package com.vso.view;
 
 import java.util.Scanner;
 
-public class CommunicationImpl implements Communication {
+public class AuthView {
+
     private final Scanner scanner;
 
-    public CommunicationImpl() {
+    public AuthView() {
         this.scanner = new Scanner(System.in);
     }
 
-    @Override
     public void show(String text) {
         System.out.println(text);
     }
 
-    @Override
     public int getNumberInput() {
         int n;
         String input = scanner.nextLine();
@@ -32,9 +31,18 @@ public class CommunicationImpl implements Communication {
         return n;
     }
 
-
-    @Override
     public String getTextInput() {
         return scanner.nextLine();
     }
+
+    public String getNonRegisteredUserOptions() {
+        return "1. Login\n" +
+                "2. Create new User account";
+    }
+
+    public String getUserOptions() {
+        return "1. Logout\n";
+
+    }
+
 }

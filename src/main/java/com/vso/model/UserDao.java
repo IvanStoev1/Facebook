@@ -1,4 +1,4 @@
-package com.vso.model.service;
+package com.vso.model;
 
 import com.vso.model.entity.User;
 import jakarta.persistence.criteria.CriteriaBuilder;

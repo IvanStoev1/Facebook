@@ -38,10 +38,6 @@ public class User {
     public User() {
     }
 
-    public User(int iD) {
-        this.id = iD;
-    }
-
     public long getId() {
         return id;
     }

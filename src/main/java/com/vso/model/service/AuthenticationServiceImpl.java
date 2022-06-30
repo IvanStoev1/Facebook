@@ -1,5 +1,7 @@
 package com.vso.model.service;
 
+import com.vso.model.LoginStatus;
+import com.vso.model.UserDao;
 import com.vso.model.entity.User;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -20,13 +22,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         User user = new User(email,password,name,age);
-        database.addUser(user);
+        UserDao.addUser(user);
         return true;
 
     }
 
     @Override
-    public LoginStatus login(String email,String password) {
+    public LoginStatus login(String email, String password) {
         User user = database.getObject(email);
         if (user != null && user.getPassword().equals(password)) {
             loggedUser = user;
