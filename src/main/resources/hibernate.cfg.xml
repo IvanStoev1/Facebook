@@ -23,11 +23,11 @@
         </property>
 
         <property name = "hibernate.connection.password">
-            Salata123
+            admin
         </property>
 
         <property name="hbm2ddl.auto">
-            update
+            create
         </property>
         <!-- List of XML mapping files -->
         <mapping class= "com.vso.model.entity.User"/>
