@@ -1,4 +1,4 @@
-package com.vso.model.services.forgottenPassword;
+package com.vso.model.service.forgottenPassword;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
