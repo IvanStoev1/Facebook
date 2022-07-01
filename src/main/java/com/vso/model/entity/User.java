@@ -1,16 +1,14 @@
 package com.vso.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long id;
+    private int id;
     @Column(name = "email")
     String email;
     @Column(name = "password")
@@ -38,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

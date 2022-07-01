@@ -1,8 +1,8 @@
 package com.vso.controller;
 
-import com.vso.model.LoginStatus;
+import com.vso.model.constant.LoginStatus;
 import com.vso.model.UserAuthForm;
-import com.vso.model.UserDao;
+import com.vso.model.data.UserDao;
 import com.vso.model.service.*;
 import com.vso.view.AuthView;
 

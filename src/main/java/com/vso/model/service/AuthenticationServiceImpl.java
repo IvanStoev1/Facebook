@@ -1,7 +1,7 @@
 package com.vso.model.service;
 
-import com.vso.model.LoginStatus;
-import com.vso.model.UserDao;
+import com.vso.model.constant.LoginStatus;
+import com.vso.model.data.UserDao;
 import com.vso.model.entity.User;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
