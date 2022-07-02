@@ -1,17 +1,21 @@
-package com.vso.model.services.forgottenPassword;
+package com.vso.model.service.forgottenPassword;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.Random;
 
 public class EmailUtilityImpl implements EmailUtility {
+
     private final String host;
     private final int port;
     private final boolean debug;
 
     private final String senderEmail;
     private final String password;
+
+    private Email email;
 
     public EmailUtilityImpl() {
         host = "smtp.gmail.com";
@@ -22,17 +26,17 @@ public class EmailUtilityImpl implements EmailUtility {
     }
 
     @Override
-    public void sendEmail(String to, String subject, String content) {
-        Session session = Session.getDefaultInstance(
-                props(),
-                new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(senderEmail, password);
-                    }
-                }
-        );
+    public void sendVerificationEmail(String to) {
+        int number = new Random().nextInt(99999 - 10000 + 1) + 10000;
+        String subject = "5-digit number verification";
+        String content = "Your 5-digit number for password reset is: \n" + number;
+        email = new Email(subject, content, String.valueOf(number));
+        sendEmail(to, subject, content);
+    }
+
+    private void sendEmail(String to, String subject, String content) {
         try {
-            MimeMessage message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(openSession());
             message.setFrom(new InternetAddress(senderEmail));
             message.setReplyTo(InternetAddress.parse(senderEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
@@ -44,7 +48,18 @@ public class EmailUtilityImpl implements EmailUtility {
         }
     }
 
-    private Properties props() {
+    private Session openSession() {
+        return Session.getDefaultInstance(
+                setProps(),
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(senderEmail, password);
+                    }
+                }
+        );
+    }
+
+    private Properties setProps() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", host);
@@ -55,5 +70,9 @@ public class EmailUtilityImpl implements EmailUtility {
         props.put("mail.smtp.socketFactory.fallback", "false");
         props.put("mail.smtp.ssl.trust", host);
         return props;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 }

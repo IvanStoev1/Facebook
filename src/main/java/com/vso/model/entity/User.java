@@ -72,4 +72,7 @@ public class User {
         return profileRole;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
