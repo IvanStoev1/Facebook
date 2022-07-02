@@ -1,4 +1,4 @@
-package com.vso.model;
+package com.vso.model.service.authentication;
 
 import com.vso.view.AuthView;
 

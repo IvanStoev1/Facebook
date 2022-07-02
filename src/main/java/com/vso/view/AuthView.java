@@ -27,7 +27,6 @@ public class AuthView {
             System.out.println("Invalid input, please enter a number");
             return getNumberInput();
         }
-
         return n;
     }
 
@@ -44,5 +43,4 @@ public class AuthView {
         return "1. Logout\n";
 
     }
-
 }

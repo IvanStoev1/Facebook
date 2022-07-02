@@ -1,4 +1,4 @@
-package com.vso.model.service;
+package com.vso.model.service.authentication;
 
 import com.vso.model.constant.LoginStatus;
 
