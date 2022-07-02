@@ -2,37 +2,23 @@ package com.vso.controller;
 
 import com.vso.model.constant.LoginStatus;
 import com.vso.model.service.authentication.UserAuthForm;
-import com.vso.model.data.UserDao;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.view.AuthView;
 
-public class Controller {
+public class AuthController {
 
     private final AuthenticationService authentication;
-    private final UserDao database;
     private final UserAuthForm form;
     private final AuthView authView;
 
-    public Controller(AuthenticationService authentication, UserDao database, AuthView authView) {
+    public AuthController(AuthenticationService authentication, AuthView authView) {
         this.authentication = authentication;
-        this.database = database;
         this.form = new UserAuthForm();
         this.authView = authView;
 
     }
 
-    public void initializeProgram() {
-        while (true) {
-            if (authentication.hasLoggedUser()) {
-                processLoggedUserOptions();
-            } else {
-                authenticateUser();
-            }
-        }
-    }
-
-
-    private void authenticateUser() {
+    public void authenticateUser() {
         authView.show(authView.getNonRegisteredUserOptions());
         int userChoice = authView.getNumberInput();
 
@@ -44,12 +30,11 @@ public class Controller {
                 initCreateUserProcess();
                 break;
             default:
-                System.out.println("No such option");
+                authView.show("No such option");
         }
-
     }
 
-    private void processLoggedUserOptions() {
+    public void processLoggedUserOptions() {
         authView.show(authView.getUserOptions());
         int userChoice = authView.getNumberInput();
         switch (userChoice) {
@@ -58,7 +43,6 @@ public class Controller {
                 break;
         }
     }
-
 
     private void initLoginProcess() {
         String[] input = this.form.processLoginForm();
@@ -70,7 +54,6 @@ public class Controller {
         } else {
             authView.show("Login successful");
         }
-
     }
 
     private void initCreateUserProcess() {

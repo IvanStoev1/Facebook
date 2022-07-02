@@ -12,16 +12,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationServiceImpl() {
         this.loggedUser = null;
         this.database = new UserDao();
-
     }
 
     @Override
-    public boolean registerUser(String email,String password,String name,int age) {
+    public boolean registerUser(String email, String password, String name, int age) {
         if (database.userExists(email, password)) {
             return false;
         }
-
-        User user = new User(email,password,name,age);
+        User user = new User(email, password, name, age);
         UserDao.addUser(user);
         return true;
 
@@ -34,20 +32,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             loggedUser = user;
             return LoginStatus.SUCCESS_USER;
         }
-
         return LoginStatus.LOGIN_FAILED;
     }
 
     @Override
     public void logout() {
         this.loggedUser = null;
-
     }
 
     @Override
     public boolean hasLoggedUser() {
         return loggedUser != null;
-
     }
 
+    @Override
+    public User getLoggedUser() {
+        return loggedUser;
+    }
 }

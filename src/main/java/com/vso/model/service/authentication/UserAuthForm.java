@@ -3,6 +3,7 @@ package com.vso.model.service.authentication;
 import com.vso.view.AuthView;
 
 public class UserAuthForm {
+
     private final AuthView authView;
 
     public UserAuthForm() {
@@ -12,7 +13,7 @@ public class UserAuthForm {
     public String[] processForm() {
         authView.show("Enter age");
         int age = authView.getNumberInput();
-        while(age < 14){
+        while (age < 14) {
             authView.show("You need to be 14 or older to make an account");
             age = authView.getNumberInput();
         }
@@ -24,7 +25,7 @@ public class UserAuthForm {
         String password = authView.getTextInput();
         authView.show("Enter password again:");
         String repeatPassword = authView.getTextInput();
-        return new String[]{String.valueOf(age),name,email, password, repeatPassword};
+        return new String[]{String.valueOf(age), name, email, password, repeatPassword};
     }
 
     public String[] processLoginForm() {
@@ -34,6 +35,4 @@ public class UserAuthForm {
         String password = authView.getTextInput();
         return new String[]{email, password};
     }
-
 }
-
