@@ -31,7 +31,10 @@
         </property>
         <!-- List of XML mapping files -->
         <mapping class= "com.vso.model.entity.User"/>
-
+        <mapping class= "com.vso.model.entity.Friendships"/>
+        <mapping class= "com.vso.model.entity.Photos"/>
+        <mapping class= "com.vso.model.entity.Post"/>
+        <mapping class= "com.vso.model.entity.likes"/>
 
     </session-factory>
 </hibernate-configuration>

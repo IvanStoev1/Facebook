@@ -1,13 +1,50 @@
 package com.vso.model.entity;
 
 import jakarta.persistence.*;
+<<<<<<< HEAD
+
+import java.util.List;
+=======
+>>>>>>> 656a14378d066b2a7af27ecaa4daf1228bdaf9ae
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    @OneToMany(targetEntity = Post.class,mappedBy = "user",cascade=CascadeType.ALL)
+    private List<Post> postList;
+
+    @OneToMany(targetEntity = Photos.class,mappedBy = "user",cascade=CascadeType.ALL)
+    private List<Photos> photosList;
+
+    @OneToMany(targetEntity = Friendships.class,mappedBy = "requester",cascade=CascadeType.ALL )
+    private List<User> requestersList;
+
+    @OneToMany(targetEntity = Friendships.class,mappedBy = "requested",cascade=CascadeType.ALL)
+    private List<User> requestedList;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+<<<<<<< HEAD
+    private long id;
+    @Column
+    private String email;
+    @Column
+    private int pass;
+    @Column
+    private String name;
+    @Column
+    private int age;
+    @Column
+    private String avatar_url;
+    @Column
+    private String cover_url;
+    @Column
+    private String profile_status;
+    @Column
+    private String profile_role;
+=======
     private int id;
     @Column(name = "email")
     String email;
@@ -32,6 +69,7 @@ public class User {
         this.name = name;
         this.age = age;
     }
+>>>>>>> 656a14378d066b2a7af27ecaa4daf1228bdaf9ae
 
     public User() {
     }
