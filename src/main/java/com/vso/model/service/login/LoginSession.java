@@ -7,7 +7,7 @@ import com.vso.model.service.authentication.AuthenticationService;
 public class LoginSession {
 
     private User loggedUser;
-    private int loggedId;
+    private long loggedId;
 
     private AuthenticationService authenticationService;
     private AuthController authController;
@@ -18,7 +18,7 @@ public class LoginSession {
     }
 
     public void initSession() {
-        while (true) {
+        {
             authController.authenticateUser();
             while (authenticationService.hasLoggedUser()) {
                 loggedUser = authenticationService.getLoggedUser();
