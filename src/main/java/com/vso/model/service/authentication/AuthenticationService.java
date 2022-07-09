@@ -1,6 +1,5 @@
 package com.vso.model.service.authentication;
 
-
 import com.vso.model.constant.LoginStatus;
 import com.vso.model.entity.User;
 
