@@ -7,7 +7,7 @@ import com.vso.model.service.authentication.AuthenticationService;
 public class LoginSession {
 
     private User loggedUser;
-    private long loggedId;
+    private int loggedId;
 
     private AuthenticationService authenticationService;
     private AuthController authController;
@@ -18,14 +18,14 @@ public class LoginSession {
     }
 
     public void initSession() {
-        {
-            authController.authenticateUser();
-            while (authenticationService.hasLoggedUser()) {
-                loggedUser = authenticationService.getLoggedUser();
-                loggedId = loggedUser.getId();
-                Login login = new Login(loggedUser);
-                authController.processLoggedUserOptions();
+            while (true){
+                authController.authenticateUser();
+                while (authenticationService.hasLoggedUser()) {
+                    loggedUser = authenticationService.getLoggedUser();
+                    loggedId = loggedUser.getId();
+                    Login login = new Login(loggedUser);
+                    authController.processLoggedUserOptions();
+                }
             }
         }
     }
-}

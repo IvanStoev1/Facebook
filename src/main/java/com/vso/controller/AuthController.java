@@ -1,6 +1,7 @@
 package com.vso.controller;
 
 import com.vso.model.constant.LoginStatus;
+import com.vso.model.entity.User;
 import com.vso.model.service.authentication.UserAuthForm;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.view.AuthView;

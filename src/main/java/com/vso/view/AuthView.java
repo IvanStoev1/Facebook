@@ -40,7 +40,8 @@ public class AuthView {
     }
 
     public String getUserOptions() {
-        return "1. Logout\n";
+        return "1. Logout\n" +
+                "2.Upload post";
 
     }
 }

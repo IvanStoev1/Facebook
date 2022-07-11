@@ -21,6 +21,11 @@ public class Post {
     private Date reported;
     @Column
     private Date deleted;
+
+    public void setPrivacy_status(String privacy_status) {
+        this.privacy_status = privacy_status;
+    }
+
     @Column
     private String privacy_status;
 
