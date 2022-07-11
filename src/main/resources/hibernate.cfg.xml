@@ -22,10 +22,12 @@
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
+
         <mapping class="com.vso.model.entity.User"/>
         <mapping class="com.vso.model.entity.Photo"/>
         <mapping class="com.vso.model.entity.Post"/>
         <mapping class="com.vso.model.entity.Friendship"/>
+
 
     </session-factory>
 </hibernate-configuration>
