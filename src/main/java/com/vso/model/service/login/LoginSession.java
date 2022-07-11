@@ -18,14 +18,14 @@ public class LoginSession {
     }
 
     public void initSession() {
-        while (true) {
-            authController.authenticateUser();
-            while (authenticationService.hasLoggedUser()) {
-                loggedUser = authenticationService.getLoggedUser();
-                loggedId = loggedUser.getId();
-                Login login = new Login(loggedUser);
-                authController.processLoggedUserOptions();
+            while (true){
+                authController.authenticateUser();
+                while (authenticationService.hasLoggedUser()) {
+                    loggedUser = authenticationService.getLoggedUser();
+                    loggedId = loggedUser.getId();
+                    Login login = new Login(loggedUser);
+                    authController.processLoggedUserOptions();
+                }
             }
         }
     }
-}

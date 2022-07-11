@@ -6,6 +6,7 @@ import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.login.LoginSession;
 import com.vso.view.AuthView;
 
+
 public class Main {
 
     public static void main(String[] args) {
