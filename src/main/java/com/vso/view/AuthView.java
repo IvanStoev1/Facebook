@@ -36,7 +36,7 @@ public class AuthView {
 
     public String getNonRegisteredUserOptions() {
         return "1. Login\n" +
-                "2. Create new User account";
+                "2. Register";
     }
 
     public String getUserOptions() {
