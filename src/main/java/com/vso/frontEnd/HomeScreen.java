@@ -2,18 +2,16 @@ package com.vso.frontEnd;
 
 import java.awt.*;
 
-public class ForgottenPassScreen extends BaseScreen{
-
+public class HomeScreen extends BaseScreen{
     Navigation navigation;
 
-    public ForgottenPassScreen(Navigation navigation){
+    public HomeScreen(Navigation navigation){
         this.navigation = navigation;
     }
 
-
     @Override
     protected LayoutManager getLayoutManager() {
-        return new GridBagLayout();
+        return null;
     }
 
     @Override

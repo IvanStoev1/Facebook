@@ -18,14 +18,7 @@ public class AuthController {
 
     public void createUser(int age, String name, String email, String password, String repeatPassword) {
         if (password.equals(repeatPassword)) {
-            boolean registerIsSuccessful = authentication.registerUser(email, password, name, age);
-            if (registerIsSuccessful) {
-                authView.show("Registration successful");
-            } else {
-                authView.show("Such user exists.");
-            }
-        } else {
-            authView.show("Passwords should match");
+            authentication.registerUser(email, password, name, age);
         }
     }
 }

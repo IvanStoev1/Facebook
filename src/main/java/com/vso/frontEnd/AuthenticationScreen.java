@@ -11,12 +11,15 @@ import java.awt.event.ActionEvent;
 public class AuthenticationScreen extends BaseScreen {
     AuthView authView;
     AuthenticationServiceImpl authenticationService;
-    ForgottenPassListener callback1;
     private final AuthScreenListener callback;
+    private final ForgottenPassListener callback1;
 
-    public AuthenticationScreen(AuthScreenListener callback, ForgottenPassListener callback1) {
-        this.callback1 = callback1;
+    private final HomeScreenListener callback2;
+
+    public AuthenticationScreen(AuthScreenListener callback, ForgottenPassListener callback1, HomeScreenListener callback2) {
         this.callback = callback;
+        this.callback1 = callback1;
+        this.callback2 = callback2;
         this.authView = new AuthView();
         this.authenticationService = new AuthenticationServiceImpl();
         getContentPanel().setBackground(Color.white);
@@ -46,7 +49,7 @@ public class AuthenticationScreen extends BaseScreen {
         c.insets = new Insets(0, 5, 0, 50);
         c.gridx = 1;
         c.gridy = 0;
-        getContentPanel().add(email,c);
+        getContentPanel().add(email, c);
 
         JLabel label1 = new JLabel("Password");
         c = new GridBagConstraints();
@@ -100,7 +103,7 @@ public class AuthenticationScreen extends BaseScreen {
                 if (loginStatus == LoginStatus.LOGIN_FAILED) {
                     authView.showLoginFail();
                 } else {
-                    authView.show("Login successful");
+                    callback2.loginSuccessful();
                 }
             }
         });
@@ -116,17 +119,22 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 callback1.onForgottenPassSelected();
+
             }
         });
     }
-}
-interface AuthScreenListener {
-    void onRegisterSelected();
-}
-interface ForgottenPassListener {
-    void onForgottenPassSelected();
-}
 
+    interface AuthScreenListener {
+        void onRegisterSelected();
+    }
+    interface ForgottenPassListener{
+        void onForgottenPassSelected();
+    }
+    interface HomeScreenListener{
+        void loginSuccessful();
+    }
+
+}
 
 
 

@@ -54,7 +54,7 @@ public class RegisterScreen extends BaseScreen {
         c.insets = new Insets(0, 50, 0, 5);
         getContentPanel().add(labAge, c);
 
-        JTextField txtAge = new JTextField();
+        final JTextField txtAge = new JTextField();
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
@@ -127,9 +127,13 @@ public class RegisterScreen extends BaseScreen {
         btnRegister.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
-                        txtPassword.getText(),
-                        txtRepeatPassword.getText());
+                if (Integer.parseInt(txtAge.getText()) < 14){
+                    view.showRegisterFail();
+                } else {
+                    controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
+                            txtPassword.getText(),
+                            txtRepeatPassword.getText());
+                }
             }
         });
     }

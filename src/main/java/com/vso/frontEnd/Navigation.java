@@ -4,38 +4,37 @@ public class Navigation {
 
     private final AuthenticationScreen authenticationScreen;
     private final RegisterScreen registerScreen;
-
-    private final ResetScreen resetScreen;
     private final ForgottenPassScreen forgottenPassScreen;
+    private final HomeScreen homeScreen;
 
     public Navigation() {
-        this.authenticationScreen = new AuthenticationScreen(this::redirectToRegister,this::redirectToForgottenPassword);
+        this.authenticationScreen = new AuthenticationScreen(this::redirectToRegister,this::redirectToForgottenPass, this::redirectToHomeScreen);
         this.registerScreen = new RegisterScreen(this);
-        this.forgottenPassScreen = new ForgottenPassScreen(this,this::redirectToReset);
-        this.resetScreen = new ResetScreen(this);
-    }
+        this.forgottenPassScreen = new ForgottenPassScreen(this);
+        this.homeScreen = new HomeScreen(this);
 
-    private void redirectToRegister() {
+    }
+    private void redirectToRegister(){
         authenticationScreen.hideScreen();
         registerScreen.makeVisible();
     }
 
-    private void redirectToForgottenPassword(){
+    private void redirectToForgottenPass(){
         authenticationScreen.hideScreen();
         forgottenPassScreen.makeVisible();
-    }
-
-    private void redirectToReset(){
-        forgottenPassScreen.hideScreen();
-        resetScreen.makeVisible();
 
     }
 
-    public void startNavigation() {
+    private void redirectToHomeScreen(){
+        authenticationScreen.hideScreen();
+        homeScreen.makeVisible();
+    }
+
+    public void startNavigation () {
         authenticationScreen.makeVisible();
     }
 
-    public void navigateToDashboard() {
+    public void navigateToDashboard () {
 
     }
 }
