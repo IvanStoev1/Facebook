@@ -9,10 +9,10 @@ public class PasswordReset {
     private Email email;
     private PasswordResetView view;
 
-    public PasswordReset(User user, Email email, PasswordResetView view) {
+    public PasswordReset(User user, Email email) {
+        this.view = new PasswordResetView();
         this.user = user;
         this.email = email;
-        this.view = view;
     }
 
     public void reset(String number, String password) {

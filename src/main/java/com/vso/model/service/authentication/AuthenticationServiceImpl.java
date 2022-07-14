@@ -4,8 +4,9 @@ import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.data.UserDao;
 import com.vso.model.entity.User;
 
-public class AuthenticationServiceImpl implements AuthenticationService {
+import java.util.Objects;
 
+public class AuthenticationServiceImpl implements AuthenticationService {
     private User loggedUser;
     private final UserDao database;
 
@@ -16,7 +17,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public boolean registerUser(String email, String password, String name, int age) {
-        if (database.userExists(email, password)) {
+        if (database.userExists(email)) {
             return false;
         }
         User user = new User(email, password, name, age);
@@ -34,10 +35,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         return LoginStatus.LOGIN_FAILED;
     }
-
     @Override
     public void logout() {
         this.loggedUser = null;
+    }
+    @Override
+    public boolean checkIfUserExists(String email){
+        return database.userExists(email);
     }
 
     @Override

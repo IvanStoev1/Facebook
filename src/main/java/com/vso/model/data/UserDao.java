@@ -46,11 +46,10 @@ public class UserDao {
         session.getTransaction().commit();
     }
 
-    public boolean userExists(String email, String password){
+    public boolean userExists(String email){
         Optional<User> existingUser = getAllUsers()
                 .stream()
-                .filter(user -> user.getEmail().equals(email)
-                        && user.getPassword().equals(password))
+                .filter(user -> user.getEmail().equals(email))
                 .findFirst();
 
         return existingUser.isPresent();

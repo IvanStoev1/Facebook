@@ -9,6 +9,8 @@ public interface AuthenticationService {
 
     LoginStatus login(String email, String password);
 
+    public boolean checkIfUserExists(String email);
+
     void logout();
 
     boolean hasLoggedUser();

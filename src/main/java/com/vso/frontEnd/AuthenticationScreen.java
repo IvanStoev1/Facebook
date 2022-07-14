@@ -1,0 +1,133 @@
+package com.vso.frontEnd;
+
+import com.vso.model.enumaration.LoginStatus;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.AuthView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
+public class AuthenticationScreen extends BaseScreen {
+    AuthView authView;
+    AuthenticationServiceImpl authenticationService;
+    ForgottenPassListener callback1;
+    private final AuthScreenListener callback;
+
+    public AuthenticationScreen(AuthScreenListener callback, ForgottenPassListener callback1) {
+        this.callback1 = callback1;
+        this.callback = callback;
+        this.authView = new AuthView();
+        this.authenticationService = new AuthenticationServiceImpl();
+        getContentPanel().setBackground(Color.white);
+    }
+
+    @Override
+    protected GridBagLayout getLayoutManager() {
+        return new GridBagLayout();
+    }
+
+    @Override
+    protected void setupComponents() {
+        getContentPanel().setLayout(getLayoutManager());
+
+        JLabel label = new JLabel("Email");
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.insets = new Insets(0, 50, 0, 5);
+        getContentPanel().add(label, c);
+
+        JTextField email = new JTextField(11);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.insets = new Insets(0, 5, 0, 50);
+        c.gridx = 1;
+        c.gridy = 0;
+        getContentPanel().add(email,c);
+
+        JLabel label1 = new JLabel("Password");
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(0, 50, 0, 5);
+        getContentPanel().add(label1, c);
+
+        JTextField password = new JTextField(11);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.insets = new Insets(0, 5, 0, 50);
+        c.gridx = 1;
+        c.gridy = 1;
+        getContentPanel().add(password, c);
+
+        JButton login = new JButton("Login");
+        login.setBackground(Color.WHITE);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.insets = new Insets(0, 5, 0, 50);
+        c.gridx = 1;
+        c.gridy = 4;
+        getContentPanel().add(login, c);
+
+        JButton register = new JButton("Register");
+        register.setBackground(Color.WHITE);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 4;
+        c.insets = new Insets(0, 50, 0, 5);
+        getContentPanel().add(register, c);
+
+        JButton forgottenPass = new JButton("Forgotten password");
+        forgottenPass.setBackground(Color.WHITE);
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 7;
+        c.insets = new Insets(10, 50, 0, 5);
+        getContentPanel().add(forgottenPass, c);
+
+        login.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                LoginStatus loginStatus = authenticationService.login(email.getText(), password.getText());
+                if (loginStatus == LoginStatus.LOGIN_FAILED) {
+                    authView.showLoginFail();
+                } else {
+                    authView.show("Login successful");
+                }
+            }
+        });
+
+        register.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                callback.onRegisterSelected();
+            }
+        });
+
+        forgottenPass.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback1.onForgottenPassSelected();
+            }
+        });
+    }
+}
+interface AuthScreenListener {
+    void onRegisterSelected();
+}
+interface ForgottenPassListener {
+    void onForgottenPassSelected();
+}
+
+
+
+
+

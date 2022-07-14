@@ -1,10 +1,12 @@
 package com.vso.view;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
-public class AuthView {
+public class AuthView extends JFrame {
 
-    private final Scanner scanner;
+    Scanner scanner;
 
     public AuthView() {
         this.scanner = new Scanner(System.in);
@@ -29,6 +31,10 @@ public class AuthView {
         }
         return n;
     }
+    public void showLoginFail() {
+        JOptionPane.showMessageDialog(this,
+                "Try again");
+    }
 
     public String getTextInput() {
         return scanner.nextLine();
@@ -40,7 +46,8 @@ public class AuthView {
     }
 
     public String getUserOptions() {
-        return "1. Logout\n";
+        return "1. Logout\n" +
+                "2.Upload post";
 
     }
 }
