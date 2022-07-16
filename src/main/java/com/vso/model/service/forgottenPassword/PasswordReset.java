@@ -1,7 +1,7 @@
 package com.vso.model.service.forgottenPassword;
 
 import com.vso.model.entity.User;
-import com.vso.view.PasswordResetView;
+import com.vso.view.auth.PasswordResetView;
 
 public class PasswordReset {
 
@@ -9,10 +9,10 @@ public class PasswordReset {
     private Email email;
     private PasswordResetView view;
 
-    public PasswordReset(User user, Email email, PasswordResetView view) {
+    public PasswordReset(User user, Email email) {
+        this.view = new PasswordResetView();
         this.user = user;
         this.email = email;
-        this.view = view;
     }
 
     public void reset(String number, String password) {

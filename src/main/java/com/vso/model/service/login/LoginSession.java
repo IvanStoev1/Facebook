@@ -15,17 +15,17 @@ public class LoginSession {
     public LoginSession(AuthenticationService authenticationService, AuthController authController) {
         this.authenticationService = authenticationService;
         this.authController = authController;
-    }
+    }}
 
-    public void initSession() {
-            while (true){
-                authController.authenticateUser();
-                while (authenticationService.hasLoggedUser()) {
-                    loggedUser = authenticationService.getLoggedUser();
-                    loggedId = loggedUser.getId();
-                    Login login = new Login(loggedUser);
-                    authController.processLoggedUserOptions();
-                }
-            }
-        }
-    }
+//    public void initSession() {
+//            while (true){
+//                authController.authenticateUser();
+//                while (authenticationService.hasLoggedUser()) {
+//                    loggedUser = authenticationService.getLoggedUser();
+//                    loggedId = loggedUser.getId();
+//                    Login login = new Login(loggedUser);
+//                    authController.processLoggedUserOptions();
+//                }
+//            }
+//        }
+//    }

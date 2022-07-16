@@ -2,8 +2,8 @@ package com.vso.model.service.forgottenPassword;
 
 public class Email {
 
-    private String subject;
-    private String content;
+    private final String subject;
+    private final String content;
     private String verificationNumber;
 
     public Email(String subject, String content, String verificationNumber) {
