@@ -1,9 +1,8 @@
 package com.vso.controller;
 
 
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.authentication.AuthenticationService;
-import com.vso.view.AuthView;
+import com.vso.view.auth.AuthView;
 
 public class AuthController {
 

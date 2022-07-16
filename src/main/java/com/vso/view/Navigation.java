@@ -1,4 +1,9 @@
-package com.vso.frontEnd;
+package com.vso.view;
+
+import com.vso.view.HomeScreen;
+import com.vso.view.auth.AuthenticationScreen;
+import com.vso.view.auth.ForgottenPassScreen;
+import com.vso.view.auth.RegisterScreen;
 
 public class Navigation {
 
@@ -8,7 +13,11 @@ public class Navigation {
     private final HomeScreen homeScreen;
 
     public Navigation() {
-        this.authenticationScreen = new AuthenticationScreen(this::redirectToRegister,this::redirectToForgottenPass, this::redirectToHomeScreen);
+        this.authenticationScreen = new AuthenticationScreen(
+                this::redirectToRegister,
+                this::redirectToForgottenPass,
+                this::redirectToHomeScreen
+        );
         this.registerScreen = new RegisterScreen(this);
         this.forgottenPassScreen = new ForgottenPassScreen(this);
         this.homeScreen = new HomeScreen(this);
@@ -34,7 +43,4 @@ public class Navigation {
         authenticationScreen.makeVisible();
     }
 
-    public void navigateToDashboard () {
-
-    }
 }

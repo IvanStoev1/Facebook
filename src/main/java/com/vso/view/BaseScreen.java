@@ -1,4 +1,4 @@
-package com.vso.frontEnd;
+package com.vso.view;
 
 import javax.swing.*;
 import java.awt.*;

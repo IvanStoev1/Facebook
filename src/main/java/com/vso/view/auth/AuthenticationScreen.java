@@ -1,8 +1,8 @@
-package com.vso.frontEnd;
+package com.vso.view.auth;
 
+import com.vso.view.BaseScreen;
 import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.view.AuthView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,15 +11,14 @@ import java.awt.event.ActionEvent;
 public class AuthenticationScreen extends BaseScreen {
     AuthView authView;
     AuthenticationServiceImpl authenticationService;
-    private final AuthScreenListener callback;
-    private final ForgottenPassListener callback1;
+    private final AuthScreenListener authCallback;
+    private final ForgottenPassListener forgottenPassCallback;
+    private final HomeScreenListener homeScreenCallback;
 
-    private final HomeScreenListener callback2;
-
-    public AuthenticationScreen(AuthScreenListener callback, ForgottenPassListener callback1, HomeScreenListener callback2) {
-        this.callback = callback;
-        this.callback1 = callback1;
-        this.callback2 = callback2;
+    public AuthenticationScreen(AuthScreenListener authCallback, ForgottenPassListener forgottenPassCallback, HomeScreenListener homeScreenCallback) {
+        this.authCallback = authCallback;
+        this.forgottenPassCallback = forgottenPassCallback;
+        this.homeScreenCallback = homeScreenCallback;
         this.authView = new AuthView();
         this.authenticationService = new AuthenticationServiceImpl();
         getContentPanel().setBackground(Color.white);
@@ -103,7 +102,7 @@ public class AuthenticationScreen extends BaseScreen {
                 if (loginStatus == LoginStatus.LOGIN_FAILED) {
                     authView.showLoginFail();
                 } else {
-                    callback2.loginSuccessful();
+                    homeScreenCallback.loginSuccessful();
                 }
             }
         });
@@ -111,26 +110,26 @@ public class AuthenticationScreen extends BaseScreen {
         register.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                callback.onRegisterSelected();
+                authCallback.onRegisterSelected();
             }
         });
 
         forgottenPass.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                callback1.onForgottenPassSelected();
+                forgottenPassCallback.onForgottenPassSelected();
 
             }
         });
     }
 
-    interface AuthScreenListener {
+    public interface AuthScreenListener {
         void onRegisterSelected();
     }
-    interface ForgottenPassListener{
+    public interface ForgottenPassListener{
         void onForgottenPassSelected();
     }
-    interface HomeScreenListener{
+    public interface HomeScreenListener{
         void loginSuccessful();
     }
 

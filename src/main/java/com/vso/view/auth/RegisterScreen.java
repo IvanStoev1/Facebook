@@ -1,9 +1,10 @@
-package com.vso.frontEnd;
+package com.vso.view.auth;
 
 import com.vso.controller.AuthController;
+import com.vso.view.BaseScreen;
+import com.vso.view.Navigation;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.view.AuthView;
 
 import javax.swing.*;
 import java.awt.*;

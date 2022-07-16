@@ -1,4 +1,4 @@
-package com.vso.view;
+package com.vso.view.auth;
 
 import javax.swing.*;
 import java.awt.*;
