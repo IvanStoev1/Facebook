@@ -11,12 +11,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class RegisterScreen extends BaseScreen {
+
     private final Navigation navigation;
     AuthenticationService authenticationService;
     AuthView view;
     private final AuthController controller;
 
     public RegisterScreen(Navigation navigation) {
+        setTitle("Register Screen");
         this.navigation = navigation;
         view = new AuthView();
         authenticationService = new AuthenticationServiceImpl();

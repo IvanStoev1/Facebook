@@ -1,4 +1,4 @@
-package com.vso.model.data;
+package com.vso.model.dao;
 
 import com.vso.model.entity.User;
 import jakarta.persistence.criteria.CriteriaBuilder;

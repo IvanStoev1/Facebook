@@ -1,9 +1,9 @@
 package com.vso.view;
 
-import com.vso.view.HomeScreen;
 import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.auth.ForgottenPassScreen;
 import com.vso.view.auth.RegisterScreen;
+import com.vso.view.uploadPhotoView.UploadView;
 
 public class Navigation {
 
@@ -21,7 +21,6 @@ public class Navigation {
         this.registerScreen = new RegisterScreen(this);
         this.forgottenPassScreen = new ForgottenPassScreen(this);
         this.homeScreen = new HomeScreen(this);
-
     }
     private void redirectToRegister(){
         authenticationScreen.hideScreen();

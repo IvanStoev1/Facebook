@@ -52,4 +52,16 @@ public class Photo {
     public User getUser() {
         return user;
     }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

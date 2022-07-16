@@ -1,10 +1,8 @@
 package com.vso.model.service.authentication;
 
 import com.vso.model.enumaration.LoginStatus;
-import com.vso.model.data.UserDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
-
-import java.util.Objects;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
     private User loggedUser;

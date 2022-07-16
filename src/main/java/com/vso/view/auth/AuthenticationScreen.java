@@ -16,6 +16,7 @@ public class AuthenticationScreen extends BaseScreen {
     private final HomeScreenListener homeScreenCallback;
 
     public AuthenticationScreen(AuthScreenListener authCallback, ForgottenPassListener forgottenPassCallback, HomeScreenListener homeScreenCallback) {
+        setTitle("Login Screen");
         this.authCallback = authCallback;
         this.forgottenPassCallback = forgottenPassCallback;
         this.homeScreenCallback = homeScreenCallback;
