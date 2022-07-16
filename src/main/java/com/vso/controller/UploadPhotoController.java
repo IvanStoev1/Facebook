@@ -20,6 +20,6 @@ public class UploadPhotoController {
 
     public void uploadPhoto(String description, String imageSource) throws IOException {
         //int loggedUser = authenticationService.getLoggedUser().getId();
-        uploadPhotoService.UploadPictures(description, imageSource, 1);
+        uploadPhotoService.UploadPictures(description, imageSource);
     }
 }

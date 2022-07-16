@@ -95,8 +95,8 @@ public class UploadView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String photoDescription = txtPhotoDescription.toString();
-                    String imageSource = lbMessage.toString();
+                    String photoDescription = txtPhotoDescription.getText();
+                    String imageSource = lbMessage.getText();
                     uploadPhotoController.uploadPhoto(photoDescription, imageSource);
                 } catch (IOException ex) {
                     ex.printStackTrace();

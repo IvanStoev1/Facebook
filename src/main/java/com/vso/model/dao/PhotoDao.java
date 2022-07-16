@@ -4,15 +4,16 @@ import com.vso.model.entity.Photo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PhotoDao {
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -38,36 +39,28 @@ public class PhotoDao {
         return query.getResultList();
     }
 
-    private List<Photo> getListOftId(){
+    @Transactional
+    public long getLast() throws NullPointerException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Photo> cr = cb.createQuery(Photo.class);
-        Root<Photo> root = cr.from(Photo.class);
-
-        cr.select(cb.construct(Photo.class, root.get("id")));
-        cr.orderBy(cb.desc(root.get("id")));
-
-        Query<Photo> query = session.createQuery(cr);
-        session.getTransaction().commit();
-        session.close();
-        return query.getResultList();
-
-    }
-
-    public long getLastId(){
-        long photoIdFromResultList = getListOftId().stream().mapToLong(Photo::getId).findFirst().getAsLong();
-
-        if (photoIdFromResultList == 0){
-            photoIdFromResultList = 1;
+        CriteriaQuery<Photo> criteriaQuery = cb.createQuery(Photo.class);
+        Root<Photo> root = criteriaQuery.from(Photo.class);
+        criteriaQuery
+                .select(root)
+                .orderBy(cb.desc(root.get("id")));
+        Query<Photo> findAllPhotos = session.createQuery(criteriaQuery);
+        if(findAllPhotos.getResultStream().findFirst().isPresent()) {
+            Photo photo = findAllPhotos.getResultStream().findFirst().get();
+            return photo.getId();
         }
-        return photoIdFromResultList;
+        return 0;
     }
 
     public void insertNewPhotoInDb(Photo newPhoto){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
         session.persist(newPhoto);
         session.getTransaction().commit();
         session.close();

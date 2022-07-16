@@ -6,39 +6,43 @@ import com.vso.model.entity.Photo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class UploadPhotoService {
-    private String imageSource;
+
     private final PhotoDao photoDao;
 
-    public UploadPhotoService() throws IOException {
+    public UploadPhotoService() {
         this.photoDao = new PhotoDao();
     }
 
-    public void UploadPictures(String description, String imageSource, int loggedUser) throws IOException {
-        UploadPhotoInDirectory(this.imageSource);
-        UploadPhotoInDatabase(loggedUser, description, imageSource);
+    public void UploadPictures(String description, String imageSource) throws IOException {
+        UploadPhotoInDirectory(imageSource);
+        UploadPhotoInDatabase(description);
     }
 
-    private String UploadPhotoInDirectory(String imageSource)throws IOException{
+    private void UploadPhotoInDirectory(String imageSource)throws IOException{
+        Path pasteTo = Path.of(UploadDestination());
+        Path copyFrom = Path.of(imageSource);
+        Files.copy(copyFrom.normalize(), pasteTo.normalize());
+    }
+
+    private void UploadPhotoInDatabase(String description) {
+        Photo newPhoto = new Photo();
+        newPhoto.setUser_id(1L);
+        newPhoto.setDescription(description);
+        newPhoto.setUrl(UploadDestination());
+        photoDao.insertNewPhotoInDb(newPhoto);
+    }
+
+    private String UploadDestination() {
         String appPath = ((new File(".").
                 getAbsoluteFile()).
                 toString()).
                 replace(".","");
         String uploadDestination = appPath + "src\\main\\resources\\Upload";
-        long fileName = photoDao.getLastId() + 1;
+        long fileName = photoDao.getLast() + 1;
 
-        File pasteTo = new File(uploadDestination + "\\" + fileName + ".png");
-        File copyFrom = new File(imageSource);
-        Files.copy(copyFrom.toPath(), pasteTo.toPath());
-        return pasteTo.toString();
-    }
-
-    private void UploadPhotoInDatabase(int loggedUser, String description, String imageSource) throws IOException {
-        Photo newPhoto = new Photo();
-        newPhoto.setUser_id(loggedUser);
-        newPhoto.setDescription(description);
-        newPhoto.setUrl(UploadPhotoInDirectory(imageSource));
-        photoDao.insertNewPhotoInDb(newPhoto);
+        return uploadDestination + "\\" + fileName + ".png";
     }
 }
