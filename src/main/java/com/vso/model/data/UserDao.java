@@ -12,14 +12,9 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-
 public class UserDao {
 
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
-
-    public UserDao() {
-    }
 
     public List<User> getAllUsers(){
         Session session = sessionFactory.openSession();
@@ -34,7 +29,6 @@ public class UserDao {
         session.getTransaction().commit();
 
         return query.getResultList();
-
     }
 
     public static void addUser(User user) {
@@ -42,7 +36,6 @@ public class UserDao {
         session.beginTransaction();
 
         session.persist(user);
-
         session.getTransaction().commit();
     }
 
@@ -56,11 +49,11 @@ public class UserDao {
 
     }
 
-    public User getObject(String object) {
+    public User getUserBy(String email) {
         Optional<User> first =
                 getAllUsers()
                         .stream()
-                        .filter(user -> user.getEmail().equals(object))
+                        .filter(user -> user.getEmail().equals(email))
                         .findFirst();
 
         return first.orElse(null);
