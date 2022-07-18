@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class AuthenticationScreen extends BaseScreen {
+
     AuthView authView;
     AuthenticationServiceImpl authenticationService;
     private final AuthScreenListener authCallback;

@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class RegisterScreen extends BaseScreen {
+
     private final Navigation navigation;
     AuthenticationService authenticationService;
     AuthView view;

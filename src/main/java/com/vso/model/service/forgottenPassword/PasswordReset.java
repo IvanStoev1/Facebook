@@ -1,7 +1,7 @@
 package com.vso.model.service.forgottenPassword;
 
 import com.vso.model.entity.User;
-import com.vso.view.auth.PasswordResetView;
+import com.vso.view.forgottenPassword.PasswordResetView;
 
 public class PasswordReset {
 
