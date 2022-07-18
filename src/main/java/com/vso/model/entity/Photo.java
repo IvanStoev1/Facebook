@@ -12,9 +12,9 @@ public class Photo {
     private long id;
     @Column(insertable = false,updatable = false)
     private long user_id;
-    @Column
+    @Column (name = "description")
     private String description;
-    @Column
+    @Column (name = "url")
     private String url;
 
     @ManyToOne(targetEntity = User.class)

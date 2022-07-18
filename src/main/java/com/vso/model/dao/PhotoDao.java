@@ -1,6 +1,8 @@
 package com.vso.model.dao;
 
 import com.vso.model.entity.Photo;
+import com.vso.model.service.authentication.AuthenticationService;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -16,12 +18,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PhotoDao {
+
+    private final AuthenticationService authenticationService;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public PhotoDao() {
+        this.authenticationService = new AuthenticationServiceImpl();
     }
 
-    public List<Photo> selectPhotosByUserId(int loggedUser) {
+    public List<Photo> selectPhotosByUserId() {
+        long loggedUserId = authenticationService.getLoggedUser().getId();
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -30,7 +37,7 @@ public class PhotoDao {
         Root<Photo> root = cr.from(Photo.class);
 
         cr.select(root);
-        cr.where(cb.equal(root.get("user_id"), loggedUser));
+        cr.where(cb.equal(root.get("user_id"), loggedUserId));
 
         Query<Photo> query = session.createQuery(cr);
         session.getTransaction().commit();
@@ -50,20 +57,24 @@ public class PhotoDao {
                 .select(root)
                 .orderBy(cb.desc(root.get("id")));
         Query<Photo> findAllPhotos = session.createQuery(criteriaQuery);
-        if(findAllPhotos.getResultStream().findFirst().isPresent()) {
+        if (findAllPhotos.getResultStream().findFirst().isPresent()) {
             Photo photo = findAllPhotos.getResultStream().findFirst().get();
             return photo.getId();
         }
         return 0;
     }
 
-    public void insertNewPhotoInDb(Photo newPhoto){
+    public void insertNewPhotoInDb(Photo newPhoto) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         session.persist(newPhoto);
+
         session.getTransaction().commit();
         session.close();
+    }
 
+    public int getGallerySize(){
+        return selectPhotosByUserId().size();
     }
 }

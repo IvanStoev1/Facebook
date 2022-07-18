@@ -13,6 +13,8 @@ public abstract class BaseScreen extends JFrame{
         add(contentPanel);
         setSize(500,500);
         setupComponents();
+        getContentPanel().setBackground(Color.white);
+        setLocationRelativeTo(null);
     }
 
     protected abstract LayoutManager getLayoutManager();

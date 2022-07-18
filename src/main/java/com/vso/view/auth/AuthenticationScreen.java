@@ -22,7 +22,7 @@ public class AuthenticationScreen extends BaseScreen {
         this.homeScreenCallback = homeScreenCallback;
         this.authView = new AuthView();
         this.authenticationService = new AuthenticationServiceImpl();
-        getContentPanel().setBackground(Color.white);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override

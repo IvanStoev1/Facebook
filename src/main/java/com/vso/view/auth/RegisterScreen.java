@@ -9,6 +9,7 @@ import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class RegisterScreen extends BaseScreen {
 
@@ -135,9 +136,21 @@ public class RegisterScreen extends BaseScreen {
                 } else {
                     controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
                             txtPassword.getText(),
-                            txtRepeatPassword.getText());
+                            txtRepeatPassword.getText(),
+                            addDefaultAvatar());
                 }
             }
         });
+    }
+
+    private String addDefaultAvatar() {
+        String appPath = ((new File(".").
+                getAbsoluteFile()).
+                toString()).
+                replace(".", "");
+        String uploadDestination = appPath + "src\\main\\resources\\Upload";
+        String fileName = "default";
+
+        return uploadDestination + "\\" + fileName + ".png";
     }
 }

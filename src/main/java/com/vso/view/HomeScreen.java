@@ -1,24 +1,21 @@
 package com.vso.view;
 
-import com.vso.view.uploadPhotoView.UploadView;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class HomeScreen extends BaseScreen {
-    Navigation navigation;
 
-    public HomeScreen(Navigation navigation){
+    private final UploadViewListener uploadViewCallback;
+    private final AvatarViewListener avatarViewListener;
+    private final ProfileViewListener profileViewCallback;
+
+    public HomeScreen(UploadViewListener uploadViewCallback, AvatarViewListener avatarViewListener, ProfileViewListener profileViewCallback){
+        this.avatarViewListener = avatarViewListener;
+        this.uploadViewCallback = uploadViewCallback;
+        this.profileViewCallback = profileViewCallback;
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Home Screen");
-        JFrame frame = new JFrame();
-        setSize(500, 500);
-        setLocationRelativeTo(null);
-        setupComponents();
-        setVisible(false);
-        this.navigation = navigation;
     }
 
     protected GridBagLayout getLayoutManager() {
@@ -26,7 +23,7 @@ public class HomeScreen extends BaseScreen {
     }
 
     protected void setupComponents() {
-        setLayout(getLayoutManager());
+        getContentPanel().setLayout(getLayoutManager());
 
         JButton btnOpenUpload = new JButton("Upload Photo");
         GridBagConstraints c = new GridBagConstraints();
@@ -35,8 +32,8 @@ public class HomeScreen extends BaseScreen {
         c.weightx = 1;
         c.insets = new Insets(0, 50, 0, 50);
         c.gridx = 0;
-        c.gridy = 2;
-        this.add(btnOpenUpload, c);
+        c.gridy = 0;
+        getContentPanel().add(btnOpenUpload, c);
 
         JButton btnChangeAvatar = new JButton("Change Avatar");
         c = new GridBagConstraints();
@@ -44,21 +41,49 @@ public class HomeScreen extends BaseScreen {
         c.weightx = 1;
         c.insets = new Insets(0, 50, 0, 50);
         c.gridx = 0;
-        c.gridy = 3;
-        this.add(btnChangeAvatar, c);
+        c.gridy = 1;
+        getContentPanel().add(btnChangeAvatar, c);
 
-        btnOpenUpload.addActionListener(new ActionListener() {
+        JButton btnProfile = new JButton("My Profile");
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.insets = new Insets(0, 50, 0, 50);
+        c.gridx = 0;
+        c.gridy = 2;
+        getContentPanel().add(btnProfile, c);
+
+        btnOpenUpload.addActionListener(new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                UploadView uploadView = null;
-                try {
-                    uploadView = new UploadView();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                uploadView.setVisible(true);
-                HomeScreen.this.setVisible(false);
+            public void actionPerformed(ActionEvent actionEvent) {
+                uploadViewCallback.onUploadSelected();
             }
         });
+
+        btnChangeAvatar.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                avatarViewListener.onAvatarSelected();
+            }
+        });
+
+        btnProfile.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                profileViewCallback.onProfileSelected();
+            }
+        });
+    }
+
+    public interface UploadViewListener {
+        void onUploadSelected();
+    }
+
+    public interface AvatarViewListener {
+        void onAvatarSelected();
+    }
+
+    public interface ProfileViewListener {
+        void onProfileSelected();
     }
 }

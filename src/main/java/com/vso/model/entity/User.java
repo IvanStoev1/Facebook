@@ -38,11 +38,12 @@ public class User {
     private List<Photo> photos;
 
 
-    public User(String email,String password,String name, int age) {
+    public User(String email,String password,String name, int age, String avatarUrl) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.age = age;
+        this.avatarUrl = avatarUrl;
     }
 
 
@@ -95,5 +96,17 @@ public class User {
 
     public List<Photo> getPhotos() {
         return photos;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "My info: " +
+                "\n email " + email +
+                "\n name " + name +
+                "\n age " + age;
     }
 }

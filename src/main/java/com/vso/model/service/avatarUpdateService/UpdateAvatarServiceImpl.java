@@ -1,9 +1,10 @@
 package com.vso.model.service.avatarUpdateService;
 
 import com.vso.model.dao.PhotoDao;
-import com.vso.model.dao.UserDao;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationService;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Root;
@@ -16,28 +17,18 @@ import java.util.List;
 public class UpdateAvatarServiceImpl implements UpdateAvatarService {
 
     private final PhotoDao photoDao;
-
+    private final AuthenticationService authenticationService;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
+
     public UpdateAvatarServiceImpl() {
+        this.authenticationService = new AuthenticationServiceImpl();
         this.photoDao = new PhotoDao();
     }
 
-    private String selectAvatarFromUploadedPhotos(int loggedUser, long selectedPhotoId){
-        String newAvatarUrl = null;
-        List<Photo> userPhotos = photoDao.selectPhotosByUserId(loggedUser);
-        for (Photo photo : userPhotos) {
-            if (photo.getId() == selectedPhotoId){
-                newAvatarUrl = photo.getUrl();
-            }
-        }
-        return newAvatarUrl;
-    }
-
     @Override
-    public void updateAvatarOrCoverPhoto(int loggedUserId, long selectedPhotoId, String oldAvatarUrl){
-
-        String newAvatarPhoto = selectAvatarFromUploadedPhotos(loggedUserId, selectedPhotoId);
+    public void updateAvatarPhoto(long selectedPhotoId, String newAvatarPhotoUrl){
+        long loggedUserId = authenticationService.getLoggedUser().getId();
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -46,12 +37,11 @@ public class UpdateAvatarServiceImpl implements UpdateAvatarService {
         CriteriaUpdate<User> cr = cb.createCriteriaUpdate(User.class);
         Root<User> root = cr.from(User.class);
 
-        cr.set(root.get(oldAvatarUrl), newAvatarPhoto);
+        cr.set(root.get("url"), newAvatarPhotoUrl);
         cr.where(cb.equal(root.get("id"), loggedUserId));
 
         session.getTransaction().commit();
         session.close();
     }
-
 
 }
