@@ -28,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public LoginStatus login(String email, String password) {
-        User user = database.getObject(email);
+        User user = database.getUserBy(email);
         if (user != null && user.getPassword().equals(password)) {
             loggedUser = user;
             return LoginStatus.SUCCESS_USER;
