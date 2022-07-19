@@ -13,7 +13,7 @@ public class Navigation {
     private final EmailFormScreen emailForm;
     private final HomeScreen homeScreen;
     private final PasswordResetScreen passwordReset;
-    private DigitConfirmationScreen digitConfirmationScreen;
+    private final DigitConfirmationScreen digitConfirmationScreen;
 
     public Navigation() {
         this.authenticationScreen = new AuthenticationScreen(
@@ -22,24 +22,29 @@ public class Navigation {
                 this::redirectToHomeScreen
         );
         this.registerScreen = new RegisterScreen(this);
-        this.emailForm = new EmailFormScreen();
+        this.emailForm = new EmailFormScreen(this);
         this.homeScreen = new HomeScreen(this);
-        this.passwordReset = new PasswordResetScreen();
-        digitConfirmationScreen = new DigitConfirmationScreen();
+        this.passwordReset = new PasswordResetScreen(this);
+        digitConfirmationScreen = new DigitConfirmationScreen(this);
     }
 
-    private void redirectToRegister(){
+    public void redirectToRegister(){
         authenticationScreen.hideScreen();
         registerScreen.makeVisible();
     }
 
-    private void redirectToForgottenPass(){
+    public void redirectToForgottenPass(){
         authenticationScreen.hideScreen();
         emailForm.makeVisible();
     }
 
-    private void redirectToHomeScreen(){
+    public void redirectToHomeScreen(){
         authenticationScreen.hideScreen();
+        homeScreen.makeVisible();
+    }
+
+    public void redirectToHomeScreenFromPassReset(){
+        passwordReset.hideScreen();
         homeScreen.makeVisible();
     }
 

@@ -4,14 +4,12 @@ import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.data.UserDao;
 import com.vso.model.entity.User;
 
-import java.util.Objects;
-
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private User loggedUser;
+
+    private static User loggedUser;
     private final UserDao database;
 
     public AuthenticationServiceImpl() {
-        this.loggedUser = null;
         this.database = new UserDao();
     }
 
@@ -23,7 +21,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User(email, password, name, age);
         UserDao.addUser(user);
         return true;
-
     }
 
     @Override
@@ -35,12 +32,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         return LoginStatus.LOGIN_FAILED;
     }
+
     @Override
     public void logout() {
-        this.loggedUser = null;
+        loggedUser = null;
     }
+
     @Override
-    public boolean checkIfUserExists(String email){
+    public boolean checkIfUserExists(String email) {
         return database.userExists(email);
     }
 
@@ -49,8 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return loggedUser != null;
     }
 
-    @Override
-    public User getLoggedUser() {
+    public static User getLoggedUser() {
         return loggedUser;
     }
 }
