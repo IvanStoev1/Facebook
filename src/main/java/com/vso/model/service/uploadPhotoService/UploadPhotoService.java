@@ -14,10 +14,8 @@ import java.nio.file.Path;
 public class UploadPhotoService {
 
     private final PhotoDao photoDao;
-    private AuthenticationService authenticationService;
 
     public UploadPhotoService() {
-        this.authenticationService = new AuthenticationServiceImpl();
         this.photoDao = new PhotoDao();
     }
 
@@ -40,7 +38,6 @@ public class UploadPhotoService {
 
     private void UploadPhotoInDatabase(String description) {
         Photo newPhoto = new Photo();
-        newPhoto.setUser_id(authenticationService.getLoggedUser().getId());
         newPhoto.setDescription(description);
         newPhoto.setUrl(UploadDestination());
         photoDao.insertNewPhotoInDb(newPhoto);

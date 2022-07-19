@@ -23,7 +23,7 @@ public class RegisterScreen extends BaseScreen {
         this.navigation = navigation;
         view = new AuthView();
         authenticationService = new AuthenticationServiceImpl();
-        this.controller = new AuthController(authenticationService, view);
+        this.controller = new AuthController(authenticationService);
     }
 
     @Override

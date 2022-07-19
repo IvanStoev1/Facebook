@@ -1,5 +1,6 @@
 package com.vso.model.entity;
 
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
@@ -8,10 +9,11 @@ import org.hibernate.annotations.Cascade;
 public class Photo {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(insertable = false,updatable = false)
-    private long user_id;
+    private Integer user_id;
     @Column (name = "description")
     private String description;
     @Column (name = "url")
@@ -26,18 +28,17 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(long user_id, String description, String url) {
-        this.user = new User();
-        this.user_id = user_id;
+    public Photo(String description, String url) {
+        this.user = AuthenticationServiceImpl.getLoggedUser();
         this.description = description;
         this.url = url;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
@@ -53,7 +54,11 @@ public class Photo {
         return user;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 

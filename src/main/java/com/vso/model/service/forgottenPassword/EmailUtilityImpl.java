@@ -1,5 +1,8 @@
 package com.vso.model.service.forgottenPassword;
 
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.model.service.login.LoginSession;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -15,8 +18,6 @@ public class EmailUtilityImpl implements EmailUtility {
     private final String senderEmail;
     private final String password;
 
-    private Email email;
-
     public EmailUtilityImpl() {
         host = "smtp.gmail.com";
         port = 587;
@@ -30,7 +31,7 @@ public class EmailUtilityImpl implements EmailUtility {
         int number = new Random().nextInt(99999 - 10000 + 1) + 10000;
         String subject = "5-digit number verification";
         String content = "Your 5-digit number for password reset is: \n" + number;
-        email = new Email(subject, content, String.valueOf(number));
+//        AuthenticationServiceImpl.getLoggedUser().getEmails().add(new Email(subject, content, String.valueOf(number)));
         sendEmail(to, subject, content);
     }
 
@@ -70,9 +71,5 @@ public class EmailUtilityImpl implements EmailUtility {
         props.put("mail.smtp.socketFactory.fallback", "false");
         props.put("mail.smtp.ssl.trust", host);
         return props;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 }

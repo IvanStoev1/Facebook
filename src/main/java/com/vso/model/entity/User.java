@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -30,13 +28,14 @@ public class User {
     private String profileStatus;
     @Column(name = "profile_role")
     private String profileRole;
+    @Column(name = "last_verification_number")
+    private int lastSentNumber;
 
-    @OneToMany(targetEntity = Post.class,mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(targetEntity = Photo.class,mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(targetEntity = Photo.class, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Photo> photos;
-
 
     public User(String email,String password,String name, int age, String avatarUrl) {
         this.email = email;
@@ -46,8 +45,8 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
-
     public User() {
+
     }
 
     public String getPassword() {
@@ -108,5 +107,9 @@ public class User {
                 "\n email " + email +
                 "\n name " + name +
                 "\n age " + age;
+    }
+
+    public int getLastSentNumber() {
+        return lastSentNumber;
     }
 }

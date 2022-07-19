@@ -5,6 +5,7 @@ import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.model.service.login.LoginSession;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Root;
@@ -17,18 +18,16 @@ import java.util.List;
 public class UpdateAvatarServiceImpl implements UpdateAvatarService {
 
     private final PhotoDao photoDao;
-    private final AuthenticationService authenticationService;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 
     public UpdateAvatarServiceImpl() {
-        this.authenticationService = new AuthenticationServiceImpl();
         this.photoDao = new PhotoDao();
     }
 
     @Override
     public void updateAvatarPhoto(long selectedPhotoId, String newAvatarPhotoUrl){
-        long loggedUserId = authenticationService.getLoggedUser().getId();
+        long loggedUserId = AuthenticationServiceImpl.getLoggedUser().getId();
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();

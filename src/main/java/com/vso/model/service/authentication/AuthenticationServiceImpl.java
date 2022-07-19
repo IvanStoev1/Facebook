@@ -4,14 +4,12 @@ import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 
-import java.io.File;
-
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private User loggedUser;
+
+    private static User loggedUser;
     private final UserDao database;
 
     public AuthenticationServiceImpl() {
-        this.loggedUser = null;
         this.database = new UserDao();
     }
 
@@ -27,7 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public LoginStatus login(String email, String password) {
-        User user = database.getObject(email);
+        User user = database.getUserBy(email);
         if (user != null && user.getPassword().equals(password)) {
             loggedUser = user;
             return LoginStatus.SUCCESS_USER;
@@ -37,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void logout() {
-        this.loggedUser = null;
+        loggedUser = null;
     }
 
     @Override
@@ -50,9 +48,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return loggedUser != null;
     }
 
-    @Override
-    public User getLoggedUser() {
+    public static User getLoggedUser() {
         return loggedUser;
     }
 
 }
+

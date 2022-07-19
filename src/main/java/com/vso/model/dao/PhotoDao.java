@@ -19,15 +19,15 @@ import java.util.stream.Stream;
 
 public class PhotoDao {
 
-    private final AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public PhotoDao() {
-        this.authenticationService = new AuthenticationServiceImpl();
+        //this.authenticationService = new AuthenticationServiceImpl();
     }
 
     public List<Photo> selectPhotosByUserId() {
-        long loggedUserId = authenticationService.getLoggedUser().getId();
+        int loggedUserId = AuthenticationServiceImpl.getLoggedUser().getId();
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -47,7 +47,7 @@ public class PhotoDao {
     }
 
     @Transactional
-    public long getLast() throws NullPointerException {
+    public Long getLast() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -61,7 +61,7 @@ public class PhotoDao {
             Photo photo = findAllPhotos.getResultStream().findFirst().get();
             return photo.getId();
         }
-        return 0;
+        return 0L;
     }
 
     public void insertNewPhotoInDb(Photo newPhoto) {
@@ -69,9 +69,11 @@ public class PhotoDao {
         session.beginTransaction();
 
         session.persist(newPhoto);
+        session.flush();
 
         session.getTransaction().commit();
         session.close();
+
     }
 
     public int getGallerySize(){

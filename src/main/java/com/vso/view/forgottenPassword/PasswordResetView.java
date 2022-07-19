@@ -1,7 +1,6 @@
-package com.vso.view.auth;
+package com.vso.view.forgottenPassword;
 
 public class PasswordResetView {
-
     public void declineReset() {
         System.out.println("Verification number and input number don't match.");
     }
