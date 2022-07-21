@@ -9,9 +9,9 @@ import org.hibernate.annotations.Cascade;
 public class Photo {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Integer id;
     @Column(insertable = false,updatable = false)
     private Integer user_id;
     @Column (name = "description")
@@ -28,13 +28,13 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(String description, String url) {
-        this.user = AuthenticationServiceImpl.getLoggedUser();
+    public Photo(User user, String description, String url) {
+        this.user = user;
         this.description = description;
         this.url = url;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -1,19 +1,14 @@
 package com.vso.model.service.avatarUpdateService;
 
 import com.vso.model.dao.PhotoDao;
-import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.login.LoginSession;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.util.List;
 
 public class UpdateAvatarServiceImpl implements UpdateAvatarService {
 

@@ -38,6 +38,7 @@ public class UploadPhotoService {
 
     private void UploadPhotoInDatabase(String description) {
         Photo newPhoto = new Photo();
+        newPhoto.setUser(AuthenticationServiceImpl.getLoggedUser());
         newPhoto.setDescription(description);
         newPhoto.setUrl(UploadDestination());
         photoDao.insertNewPhotoInDb(newPhoto);

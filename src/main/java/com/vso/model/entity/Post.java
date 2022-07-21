@@ -1,8 +1,12 @@
 package com.vso.model.entity;
 
+import com.vso.model.enumaration.PostPrivacyStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.type.descriptor.java.LocalDateJavaType;
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,7 +18,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
-    private Date date;
+    private LocalDate date;
     @Column
     private String text;
     @Column
@@ -22,12 +26,12 @@ public class Post {
     @Column
     private Date deleted;
 
-    public void setPrivacy_status(String privacy_status) {
+    public void setPrivacy_status(PostPrivacyStatus privacy_status) {
         this.privacy_status = privacy_status;
     }
-
+    @Enumerated(EnumType.STRING)
     @Column
-    private String privacy_status;
+    private PostPrivacyStatus privacy_status;
 
     @ManyToOne(targetEntity = User.class)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
@@ -50,10 +54,6 @@ public class Post {
     public Post() {
     }
 
-    public Post(String text) {
-        this.text = text;
-        this.date = new Date();
-    }
 
     public Post(String text, User user) {
         this.text = text;
@@ -72,7 +72,7 @@ public class Post {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -88,7 +88,7 @@ public class Post {
         return deleted;
     }
 
-    public String getPrivacy_status() {
+    public PostPrivacyStatus getPrivacy_status() {
         return privacy_status;
     }
 
@@ -106,5 +106,13 @@ public class Post {
 
     public Set<User> getLikes() {
         return likes;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

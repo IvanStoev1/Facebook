@@ -19,11 +19,9 @@ import java.util.stream.Stream;
 
 public class PhotoDao {
 
-    private AuthenticationService authenticationService;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public PhotoDao() {
-        //this.authenticationService = new AuthenticationServiceImpl();
     }
 
     public List<Photo> selectPhotosByUserId() {
@@ -46,8 +44,8 @@ public class PhotoDao {
         return query.getResultList();
     }
 
-    @Transactional
-    public Long getLast() {
+    //@Transactional
+    public Integer getLast() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -61,19 +59,17 @@ public class PhotoDao {
             Photo photo = findAllPhotos.getResultStream().findFirst().get();
             return photo.getId();
         }
-        return 0L;
+        session.getTransaction().commit();
+        session.close();
+        return 0;
     }
 
     public void insertNewPhotoInDb(Photo newPhoto) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         session.persist(newPhoto);
-        session.flush();
-
         session.getTransaction().commit();
         session.close();
-
     }
 
     public int getGallerySize(){

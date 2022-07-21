@@ -13,14 +13,14 @@ import java.io.File;
 
 public class RegisterScreen extends BaseScreen {
 
-    private final Navigation navigation;
+    private final RegisterViewListener registerViewCallback;
     AuthenticationService authenticationService;
     AuthView view;
     private final AuthController controller;
 
-    public RegisterScreen(Navigation navigation) {
+    public RegisterScreen(RegisterViewListener registerViewCallback) {
+        this.registerViewCallback = registerViewCallback;
         setTitle("Register Screen");
-        this.navigation = navigation;
         view = new AuthView();
         authenticationService = new AuthenticationServiceImpl();
         this.controller = new AuthController(authenticationService);
@@ -138,6 +138,7 @@ public class RegisterScreen extends BaseScreen {
                             txtPassword.getText(),
                             txtRepeatPassword.getText(),
                             addDefaultAvatar());
+                    registerViewCallback.onRegisterSuccessful();
                 }
             }
         });
@@ -152,5 +153,9 @@ public class RegisterScreen extends BaseScreen {
         String fileName = "default";
 
         return uploadDestination + "\\" + fileName + ".png";
+    }
+
+    public interface RegisterViewListener {
+        void onRegisterSuccessful();
     }
 }

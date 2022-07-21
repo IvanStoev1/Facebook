@@ -1,5 +1,6 @@
 package com.vso.view;
 
+
 import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
@@ -29,7 +30,7 @@ public class Navigation {
                 this::redirectToForgottenPass,
                 this::redirectToHomeScreen
         );
-        this.registerScreen = new RegisterScreen(this);
+        this.registerScreen = new RegisterScreen(this::redirectRegisterToLogin);
         this.emailForm = new EmailFormScreen(this);
         this.homeScreen = new HomeScreen(
                 this::redirectToUploadView,
@@ -40,6 +41,11 @@ public class Navigation {
         this.profileView = new ProfileView(this::redirectFromProfileToHome);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
+    }
+
+    public void redirectRegisterToLogin(){
+        registerScreen.hideScreen();
+        authenticationScreen.makeVisible();
     }
 
     public void redirectToRegister(){
