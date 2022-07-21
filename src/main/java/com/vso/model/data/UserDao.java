@@ -1,5 +1,6 @@
 package com.vso.model.data;
 
+import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -59,4 +60,11 @@ public class UserDao {
         return first.orElse(null);
     }
 
+    public void addPost(Post post) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.persist(post);
+        session.getTransaction().commit();
+    }
 }

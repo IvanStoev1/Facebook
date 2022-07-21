@@ -51,4 +51,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public static User getLoggedUser() {
         return loggedUser;
     }
+
+    public UserDao getDatabase() {
+        return database;
+    }
 }
