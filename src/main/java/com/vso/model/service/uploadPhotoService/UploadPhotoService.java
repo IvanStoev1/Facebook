@@ -45,13 +45,8 @@ public class UploadPhotoService {
     }
 
     private String UploadDestination() {
-        String appPath = ((new File(".").
-                getAbsoluteFile()).
-                toString()).
-                replace(".","");
-        String uploadDestination = appPath + "src\\main\\resources\\Upload";
+        String uploadDestination = "src\\main\\resources\\Upload";
         long fileName = photoDao.getLast() + 1;
-
         return uploadDestination + "\\" + fileName + ".png";
     }
 }
