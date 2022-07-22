@@ -1,5 +1,6 @@
 package com.vso.model.entity;
 
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
@@ -9,12 +10,13 @@ public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id")
+    private Integer id;
     @Column(insertable = false,updatable = false)
-    private long user_id;
-    @Column
+    private Integer user_id;
+    @Column (name = "description")
     private String description;
-    @Column
+    @Column (name = "url")
     private String url;
 
     @ManyToOne(targetEntity = User.class)
@@ -26,18 +28,17 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(long user_id, String description, String url) {
-        this.user = new User();
-        this.user_id = user_id;
+    public Photo(User user, String description, String url) {
+        this.user = user;
         this.description = description;
         this.url = url;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public long getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
@@ -51,5 +52,21 @@ public class Photo {
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

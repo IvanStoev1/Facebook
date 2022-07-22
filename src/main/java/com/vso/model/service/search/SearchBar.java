@@ -1,6 +1,6 @@
 package com.vso.model.service.search;
 
-import com.vso.model.data.UserDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 
 import java.util.List;

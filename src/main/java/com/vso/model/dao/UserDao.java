@@ -1,4 +1,4 @@
-package com.vso.model.data;
+package com.vso.model.dao;
 
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
@@ -27,17 +27,19 @@ public class UserDao {
         cr.select(root);
 
         Query<User> query = session.createQuery(cr);
+        List<User> resultList = query.getResultList();
         session.getTransaction().commit();
+        session.close();
 
-        return query.getResultList();
+        return resultList;
     }
 
     public static void addUser(User user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         session.persist(user);
         session.getTransaction().commit();
+        session.close();
     }
 
     public boolean userExists(String email){
@@ -66,5 +68,6 @@ public class UserDao {
 
         session.persist(post);
         session.getTransaction().commit();
+        session.close();
     }
 }

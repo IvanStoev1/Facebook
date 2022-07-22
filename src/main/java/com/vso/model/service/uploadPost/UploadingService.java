@@ -1,6 +1,6 @@
 package com.vso.model.service.uploadPost;
 
-import com.vso.model.data.UserDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.enumaration.PostPrivacyStatus;
@@ -14,7 +14,7 @@ public class UploadingService {
     private Post post;
     private UserDao userDao;
 
-    public UploadingService(User user,UserDao userDao) {
+    public UploadingService(User user, UserDao userDao) {
         this.author = user;
         this.uploadPostView = new UploadPostView();
         this.post = new Post();

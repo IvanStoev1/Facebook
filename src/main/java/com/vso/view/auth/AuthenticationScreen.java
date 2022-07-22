@@ -17,12 +17,13 @@ public class AuthenticationScreen extends BaseScreen {
     private final HomeScreenListener homeScreenCallback;
 
     public AuthenticationScreen(AuthScreenListener authCallback, ForgottenPassListener forgottenPassCallback, HomeScreenListener homeScreenCallback) {
+        setTitle("Login Screen");
         this.authCallback = authCallback;
         this.forgottenPassCallback = forgottenPassCallback;
         this.homeScreenCallback = homeScreenCallback;
         this.authView = new AuthView();
         this.authenticationService = new AuthenticationServiceImpl();
-        getContentPanel().setBackground(Color.white);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
