@@ -1,5 +1,6 @@
 package com.vso.model.dao;
 
+import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -69,5 +70,45 @@ public class UserDao {
         session.persist(post);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public String accessUserAvatar(User userId){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
+
+        criteriaQuery.select(root);
+        criteriaQuery.where(cb.equal(root.get("id"), userId));
+
+        Query<User> findUserAvatar = session.createQuery(criteriaQuery);
+        if (findUserAvatar.getResultStream().findFirst().isPresent()) {
+            User user = findUserAvatar.getResultStream().findFirst().get();
+            return user.getAvatarUrl();
+        }
+        session.getTransaction().commit();
+        session.close();
+        return null;
+    }
+
+    public String accessUserInfo(User userId){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Photo> criteriaQuery = cb.createQuery(Photo.class);
+        Root<Photo> root = criteriaQuery.from(Photo.class);
+
+        criteriaQuery.select(root);
+        criteriaQuery.where(cb.equal(root.get("user_id"), userId));
+
+        Query<Photo> findInfo = session.createQuery(criteriaQuery);
+        if (findInfo.getResultStream().findFirst().isPresent()) {
+            Photo photo = findInfo.getResultStream().findFirst().get();
+            return photo.getUrl();
+        }
+        session.getTransaction().commit();
+        session.close();
+        return null;
     }
 }

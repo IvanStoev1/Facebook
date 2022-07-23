@@ -1,6 +1,7 @@
 package com.vso.model.dao;
 
 import com.vso.model.entity.Photo;
+import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -24,8 +25,7 @@ public class PhotoDao {
     public PhotoDao() {
     }
 
-    public List<Photo> selectPhotosByUserId() {
-        int loggedUserId = AuthenticationServiceImpl.getLoggedUser().getId();
+    public List<Photo> selectPhotosByUserId(User user) {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -35,7 +35,7 @@ public class PhotoDao {
         Root<Photo> root = cr.from(Photo.class);
 
         cr.select(root);
-        cr.where(cb.equal(root.get("user_id"), loggedUserId));
+        cr.where(cb.equal(root.get("user_id"), user));
 
         Query<Photo> query = session.createQuery(cr);
         session.getTransaction().commit();
@@ -72,7 +72,7 @@ public class PhotoDao {
         session.close();
     }
 
-    public int getGallerySize(){
-        return selectPhotosByUserId().size();
+    public int getGallerySize(User user){
+        return selectPhotosByUserId(user).size();
     }
 }

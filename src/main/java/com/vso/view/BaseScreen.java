@@ -11,9 +11,11 @@ public abstract class BaseScreen extends JFrame{
         contentPanel = new JPanel();
         contentPanel.setLayout(getLayoutManager());
         add(contentPanel);
-        setSize(500,500);
-        setupComponents();
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        add(scrollPane);
+        setSize(1000, 780);
         getContentPanel().setBackground(Color.white);
+        setupComponents();
         setLocationRelativeTo(null);
     }
 
@@ -27,6 +29,7 @@ public abstract class BaseScreen extends JFrame{
 
     public void makeVisible() {
         setVisible(true);
+        repaint();
     }
 
     public void hideScreen() {

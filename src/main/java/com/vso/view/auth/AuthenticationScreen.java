@@ -3,6 +3,7 @@ package com.vso.view.auth;
 import com.vso.view.BaseScreen;
 import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.event.ActionEvent;
 
 public class AuthenticationScreen extends BaseScreen {
 
-    AuthView authView;
+    SystemMsgsView systemMsgsView;
     AuthenticationServiceImpl authenticationService;
     private final AuthScreenListener authCallback;
     private final ForgottenPassListener forgottenPassCallback;
@@ -21,7 +22,7 @@ public class AuthenticationScreen extends BaseScreen {
         this.authCallback = authCallback;
         this.forgottenPassCallback = forgottenPassCallback;
         this.homeScreenCallback = homeScreenCallback;
-        this.authView = new AuthView();
+        this.systemMsgsView = new SystemMsgsView();
         this.authenticationService = new AuthenticationServiceImpl();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -102,7 +103,7 @@ public class AuthenticationScreen extends BaseScreen {
             public void actionPerformed(ActionEvent actionEvent) {
                 LoginStatus loginStatus = authenticationService.login(email.getText(), password.getText());
                 if (loginStatus == LoginStatus.LOGIN_FAILED) {
-                    authView.showLoginFail();
+                    systemMsgsView.showLoginFail();
                 } else {
                     homeScreenCallback.loginSuccessful();
                 }

@@ -1,7 +1,9 @@
 package com.vso.view.uploadPhotoView;
 
+import com.vso.controller.uploadPhotoController.UploadPhotoController;
 import com.vso.controller.uploadPhotoController.UploadPhotoControllerImpl;
 import com.vso.view.BaseScreen;
+import com.vso.view.InitComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,7 @@ import java.nio.file.Path;
 
 public class UploadView extends BaseScreen {
 
-    private final UploadPhotoControllerImpl uploadPhotoController = new UploadPhotoControllerImpl();
+    private final UploadPhotoController uploadPhotoController = new UploadPhotoControllerImpl();
     private final UploadToHomeListener uploadToHomeCallback;
 
     public UploadView(UploadToHomeListener uploadToHomeCallback) {
@@ -29,58 +31,26 @@ public class UploadView extends BaseScreen {
     @Override
     protected void setupComponents() {
         getContentPanel().setLayout(getLayoutManager());
-
-        JLabel lbService = new JLabel("Image uploader");
         GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.insets = new Insets(0, 50, 0, 50);
+
+        JLabel lbService = InitComponent.txtLabel("Image uploader", c, 0, 0, 10 , 0);
         getContentPanel().add(lbService, c);
 
-        JTextField txtPhotoDescription = new JTextField();
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 1;
+        JTextField txtPhotoDescription = InitComponent.txtField(c,0,1,50,50);
         getContentPanel().add(txtPhotoDescription, c);
 
-        JButton btnUpload = new JButton("Upload image...");
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 2;
+        JButton btnUpload = InitComponent.button("Upload image...", c, 0, 2, 50, 50);
         getContentPanel().add(btnUpload, c);
 
-        JButton btnSave = new JButton("Save");
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 3;
+        JButton btnSave = InitComponent.button("Save", c, 0, 3, 50, 50);
         getContentPanel().add(btnSave, c);
 
-        JLabel lbMessage = new JLabel();
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 4;
-        c.insets = new Insets(0, 50, 0, 50);
+        JLabel lbMessage = InitComponent.txtLabel("", c, 0, 4, 50, 50);
         getContentPanel().add(lbMessage, c);
 
-        JButton btnHome = new JButton("HOME");
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 5;
+        JButton btnHome = InitComponent.button("HOME", c, 0, 5, 50, 50);
         getContentPanel().add(btnHome, c);
+
 
         btnUpload.addActionListener(new ActionListener() {
             @Override
@@ -121,4 +91,5 @@ public class UploadView extends BaseScreen {
     public interface UploadToHomeListener {
         void onHomeSelected();
     }
+
 }

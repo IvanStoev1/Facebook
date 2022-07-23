@@ -7,11 +7,9 @@ import java.awt.event.ActionEvent;
 public class HomeScreen extends BaseScreen {
 
     private final UploadViewListener uploadViewCallback;
-    private final AvatarViewListener avatarViewListener;
     private final ProfileViewListener profileViewCallback;
 
-    public HomeScreen(UploadViewListener uploadViewCallback, AvatarViewListener avatarViewListener, ProfileViewListener profileViewCallback){
-        this.avatarViewListener = avatarViewListener;
+    public HomeScreen(UploadViewListener uploadViewCallback, ProfileViewListener profileViewCallback){
         this.uploadViewCallback = uploadViewCallback;
         this.profileViewCallback = profileViewCallback;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -24,46 +22,21 @@ public class HomeScreen extends BaseScreen {
 
     protected void setupComponents() {
         getContentPanel().setLayout(getLayoutManager());
-
-        JButton btnOpenUpload = new JButton("Upload Photo");
         GridBagConstraints c = new GridBagConstraints();
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 0;
+
+        JButton btnOpenUpload = InitComponent.button("Upload Photo", c, 0, 0, 50, 50);
         getContentPanel().add(btnOpenUpload, c);
 
-        JButton btnChangeAvatar = new JButton("Change Avatar");
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 1;
+        JButton btnChangeAvatar = InitComponent.button("Change Avatar", c, 0, 1, 50, 50);
         getContentPanel().add(btnChangeAvatar, c);
 
-        JButton btnProfile = new JButton("My Profile");
-        c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.insets = new Insets(0, 50, 0, 50);
-        c.gridx = 0;
-        c.gridy = 2;
+        JButton btnProfile = InitComponent.button("My Profile", c, 0, 2, 50, 50);
         getContentPanel().add(btnProfile, c);
 
         btnOpenUpload.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 uploadViewCallback.onUploadSelected();
-            }
-        });
-
-        btnChangeAvatar.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                avatarViewListener.onAvatarSelected();
             }
         });
 
@@ -77,10 +50,6 @@ public class HomeScreen extends BaseScreen {
 
     public interface UploadViewListener {
         void onUploadSelected();
-    }
-
-    public interface AvatarViewListener {
-        void onAvatarSelected();
     }
 
     public interface ProfileViewListener {

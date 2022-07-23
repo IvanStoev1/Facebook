@@ -1,12 +1,10 @@
-package com.vso.view.auth;
+package com.vso.view;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Scanner;
 
-public class AuthView extends JFrame {
+public class SystemMsgsView extends JFrame {
 
-    public AuthView() {
+    public SystemMsgsView() {
     }
 
     public void showLoginFail(){
@@ -16,5 +14,10 @@ public class AuthView extends JFrame {
     public void showRegisterFail(){
         JOptionPane.showMessageDialog(this,
                 "You must be 14 or older to make an account");
+    }
+
+    public void showEmptyFileChooser(){
+        JOptionPane.showMessageDialog(this,
+                "No file was selected. Select file.");
     }
 }
