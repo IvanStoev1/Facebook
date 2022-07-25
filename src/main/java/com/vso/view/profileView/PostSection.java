@@ -84,10 +84,13 @@ public class PostSection extends BaseScreen {
     }
 
     public static int getLastYgrid(){
-        int printedComponents = posts().size();
-        if (printedComponents % 3 == 0){
-            return  printedComponents / 3;
-        } return (printedComponents / 3) + 1;
+        if(posts() != null) {
+            int printedComponents = posts().size();
+            if (printedComponents % 3 == 0) {
+                return printedComponents / 3;
+            }
+            return (printedComponents / 3) + 1;
+        } return 4;
     }
 
     public static List<Post> posts() {

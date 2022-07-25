@@ -76,6 +76,8 @@ public class UploadView extends BaseScreen {
                 String photoDescription = txtPhotoDescription.getText();
                 String imageSource = lbMessage.getText();
                 uploadPhotoController.uploadPhoto(photoDescription, imageSource);
+                lbMessage.setText("");
+                txtPhotoDescription.setText("");
             }
         });
 

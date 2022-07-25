@@ -96,16 +96,16 @@ public class UserDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Photo> criteriaQuery = cb.createQuery(Photo.class);
-        Root<Photo> root = criteriaQuery.from(Photo.class);
+        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
 
         criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("user_id"), userId));
+        criteriaQuery.where(cb.equal(root.get("id"), userId));
 
-        Query<Photo> findInfo = session.createQuery(criteriaQuery);
+        Query<User> findInfo = session.createQuery(criteriaQuery);
         if (findInfo.getResultStream().findFirst().isPresent()) {
-            Photo photo = findInfo.getResultStream().findFirst().get();
-            return photo.getUrl();
+            User user = findInfo.getResultStream().findFirst().get();
+            return user.toString();
         }
         session.getTransaction().commit();
         session.close();

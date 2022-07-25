@@ -2,7 +2,6 @@ package com.vso.model.dao;
 
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -26,16 +25,19 @@ public class PostDao {
         session.beginTransaction();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Post> cr = cb.createQuery(Post.class);
-        Root<Post> root = cr.from(Post.class);
+        CriteriaQuery<Post> createQuery = cb.createQuery(Post.class);
+        Root<Post> root = createQuery.from(Post.class);
 
-        cr.select(root).orderBy(cb.desc(root.get("id")));
-        cr.where(cb.equal(root.get("user_id"), thisUser.getId()));
+        createQuery.select(root).orderBy(cb.desc(root.get("date")));;
+        //createQuery.where(cb.equal(root.get("user_id"), thisUser.getId()));
 
-        Query<Post> query = session.createQuery(cr);
+        Query<Post> query = session.createQuery(createQuery);
+        if (query.getResultStream().findAny().isPresent()) {
+            return query.getResultList();
+        }
         session.getTransaction().commit();
         session.close();
 
-        return query.getResultList();
+        return null;
     }
 }

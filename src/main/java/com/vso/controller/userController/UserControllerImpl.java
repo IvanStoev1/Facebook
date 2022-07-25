@@ -37,13 +37,11 @@ public class UserControllerImpl implements UserController {
     }
     @Override
     public String showUserAvatar(User user){
-        //User user = AuthenticationServiceImpl.getLoggedUser();
         return userDao.accessUserAvatar(user);
     }
 
     @Override
     public String userInfo(User user){
-        //User user = AuthenticationServiceImpl.getLoggedUser();
         return userDao.accessUserInfo(user);
     }
 

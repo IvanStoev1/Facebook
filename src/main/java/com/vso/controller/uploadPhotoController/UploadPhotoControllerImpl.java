@@ -19,10 +19,10 @@ public class UploadPhotoControllerImpl implements UploadPhotoController {
 
     @Override
     public void uploadPhoto(String description, String imageSource) {
-        if (imageSource.isBlank()){
-            systemMsgsView.showEmptyFileChooser();
-        } else {
+        if (imageSource.isEmpty()) systemMsgsView.showEmptyFileChooser();
+        else {
             uploadPhotoService.UploadPictures(description, imageSource);
+            systemMsgsView.showSuccessfulUpload();
         }
     }
 }

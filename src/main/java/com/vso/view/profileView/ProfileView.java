@@ -33,15 +33,19 @@ public class ProfileView extends BaseScreen {
 
     @Override
     protected void setupComponents() {
-        User loggedUser = userController.getLoggedUser();
+        //User loggedUser = userController.getLoggedUser();
+        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
+
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
+
         //TODO Change the way user is passed
         JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 200, 200, c, 0, 0, 10, 0);
         assert lbAvatar != null;
         getContentPanel().add(lbAvatar, c);
+
         //TODO Change the way user is passed
-        JLabel lbUserInfo = InitComponent.txtLabel("Info", c, 1, 0, 10, 0);
+        JLabel lbUserInfo = InitComponent.txtLabel(userController.userInfo(loggedUser), c, 1, 0, 10, 0);
         getContentPanel().add(lbUserInfo, c);
 
         JButton btnChangeAvatar = InitComponent.button("Change Avatar", c, 0, 1, 10, 0);

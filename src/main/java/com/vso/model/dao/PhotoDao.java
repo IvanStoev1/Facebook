@@ -31,17 +31,21 @@ public class PhotoDao {
         session.beginTransaction();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Photo> cr = cb.createQuery(Photo.class);
-        Root<Photo> root = cr.from(Photo.class);
+        CriteriaQuery<Photo> criteriaQuery = cb.createQuery(Photo.class);
+        Root<Photo> root = criteriaQuery.from(Photo.class);
 
-        cr.select(root);
-        cr.where(cb.equal(root.get("user_id"), user));
+        criteriaQuery.select(root);
+        criteriaQuery.where(cb.equal(root.get("user"), user));
 
-        Query<Photo> query = session.createQuery(cr);
+        Query<Photo> findAllPhotos = session.createQuery(criteriaQuery);
+        if (findAllPhotos.getResultStream().findAny().isPresent()) {
+            return findAllPhotos.getResultList();
+        }
+
         session.getTransaction().commit();
         session.close();
 
-        return query.getResultList();
+        return null;
     }
 
     //@Transactional

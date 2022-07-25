@@ -20,4 +20,9 @@ public class SystemMsgsView extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "No file was selected. Select file.");
     }
+
+    public void showSuccessfulUpload(){
+        JOptionPane.showMessageDialog(this,
+                "Image was successfully uploaded.");
+    }
 }

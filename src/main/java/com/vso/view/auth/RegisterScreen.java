@@ -135,8 +135,8 @@ public class RegisterScreen extends BaseScreen {
                     view.showRegisterFail();
                 } else {
                     controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
-                            txtPassword.getPassword(),
-                            txtRepeatPassword.getPassword(),
+                            txtPassword.getText(),
+                            txtRepeatPassword.getText(),
                             addDefaultAvatar());
                     registerViewCallback.onRegisterSuccessful();
                 }

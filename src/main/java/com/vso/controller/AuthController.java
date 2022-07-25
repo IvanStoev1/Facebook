@@ -17,7 +17,7 @@ public class AuthController {
         scanner = new Scanner(System.in);
     }
 
-    public void createUser(int age, String name, String email, char[] password, char[] repeatPassword, String avatarUrl) {
+    public void createUser(int age, String name, String email, String password, String repeatPassword, String avatarUrl) {
         if (password.equals(repeatPassword)) {
             authentication.registerUser(email, String.valueOf(password), name, age, avatarUrl);
         }

@@ -56,13 +56,8 @@ public class InitComponent {
     }
 
     public static JLabel txtLabel(String text, GridBagConstraints c, int gridx, int gridy, int insetL, int insetR) {
-       text = Objects.requireNonNullElse(text, ("LABEL"));
-//        String myInfo;
-//        if (AuthenticationServiceImpl.getLoggedUser() == null){
-//            myInfo = "no info here!";
-//        } else {
-//            myInfo = text;
-//        }
+       text = Objects.requireNonNullElse(text, "LABEL");
+
         JLabel label = new JLabel(text);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;

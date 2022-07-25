@@ -19,7 +19,6 @@ import java.util.List;
 public class GallerySection extends BaseScreen {
 
     private static final PhotoController photoController = new PhotoControllerImpl();
-    private static final UserController userController = new UserControllerImpl();
 
     public GallerySection() {
 
@@ -71,10 +70,16 @@ public class GallerySection extends BaseScreen {
     }
 
     public static int getLastYgrid(){
-        int printedComponents = gallery().size();
-        if (printedComponents % 3 == 0){
-            return  printedComponents / 3;
-        } return (printedComponents / 3) + 1;
+
+        if(gallery() != null) {
+            int printedComponents = gallery().size();
+            if (printedComponents % 3 == 0) {
+                return printedComponents / 3;
+            }
+            return (printedComponents / 3) + 1;
+        } else {
+            return 1;
+        }
     }
 
     private static List<Photo> gallery() throws NullPointerException {
