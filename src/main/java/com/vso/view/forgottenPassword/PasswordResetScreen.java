@@ -1,5 +1,6 @@
 package com.vso.view.forgottenPassword;
 
+import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
@@ -75,8 +76,9 @@ public class PasswordResetScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(password1.equals(password2)) {
-                    AuthenticationServiceImpl.getLoggedUser().setPassword(password1.getText());
+                    UserDao.getUserBy(EmailFormScreen.getEmail()).setPassword(password1.getText());
                     new Message("Password reset successfully!");
+                    AuthenticationServiceImpl.setLoggedUser(UserDao.getUserBy(EmailFormScreen.getEmail()));
                     navigation.redirectToHomeScreenFromPassReset();
                 } else {
                     new Message("Passwords mismatch!");

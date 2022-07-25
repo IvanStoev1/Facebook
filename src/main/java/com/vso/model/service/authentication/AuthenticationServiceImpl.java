@@ -52,6 +52,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return loggedUser;
     }
 
+    public static void setLoggedUser(User loggedUser) {
+        AuthenticationServiceImpl.loggedUser = loggedUser;
+    }
+
     public UserDao getDatabase() {
         return database;
     }
