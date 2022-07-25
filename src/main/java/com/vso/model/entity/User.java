@@ -116,4 +116,8 @@ public class User {
     public int getLastSentNumber() {
         return lastSentNumber;
     }
+
+    public void setProfileStatus(String profileStatus) {
+        this.profileStatus = profileStatus;
+    }
 }
