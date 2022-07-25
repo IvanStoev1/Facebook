@@ -1,7 +1,7 @@
 package com.vso.model.service.authentication;
 
 import com.vso.model.enumaration.LoginStatus;
-import com.vso.model.data.UserDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -14,11 +14,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public boolean registerUser(String email, String password, String name, int age) {
+    public boolean registerUser(String email, String password, String name, int age, String avatarUrl) {
         if (database.userExists(email)) {
             return false;
         }
-        User user = new User(email, password, name, age);
+        User user = new User(email, password, name, age, avatarUrl);
         UserDao.addUser(user);
         return true;
     }
@@ -50,5 +50,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public static User getLoggedUser() {
         return loggedUser;
+    }
+
+    public UserDao getDatabase() {
+        return database;
     }
 }
