@@ -17,7 +17,7 @@ public class UserDao {
 
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public List<User> getAllUsers(){
+    public static List<User> getAllUsers(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
