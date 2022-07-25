@@ -5,7 +5,7 @@ import com.vso.model.entity.User;
 
 public interface AuthenticationService {
 
-    boolean registerUser(String email, String password, String name, int age);
+    boolean registerUser(String email, String password, String name, int age, String avatar_url);
 
     LoginStatus login(String email, String password);
 
@@ -14,4 +14,5 @@ public interface AuthenticationService {
     void logout();
 
     boolean hasLoggedUser();
+
 }
