@@ -10,8 +10,6 @@ public class AuthController {
     private final AuthenticationService authentication;
     private final Scanner scanner;
 
-
-
     public AuthController(AuthenticationService authentication) {
         this.authentication = authentication;
         scanner = new Scanner(System.in);
