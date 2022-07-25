@@ -1,4 +1,4 @@
-package com.vso.model.service.uploadPost;
+package com.vso.model.service.upload;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.entity.Post;

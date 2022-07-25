@@ -1,12 +1,9 @@
-package com.vso.controller;
+package com.vso.controller.auth;
 
 
 import com.vso.model.service.authentication.AuthenticationService;
-import com.vso.model.service.uploadPost.UploadingService;
 
 import java.util.Scanner;
-
-import java.io.File;
 
 public class AuthController {
 

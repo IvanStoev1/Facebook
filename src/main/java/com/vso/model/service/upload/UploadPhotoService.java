@@ -1,12 +1,9 @@
-package com.vso.model.service.uploadPhotoService;
+package com.vso.model.service.upload;
 
 import com.vso.model.dao.PhotoDao;
 import com.vso.model.entity.Photo;
-import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

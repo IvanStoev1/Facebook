@@ -1,9 +1,6 @@
 package com.vso.controller.uploadPhotoController;
 
-import com.vso.model.entity.Photo;
-import com.vso.model.service.uploadPhotoService.UploadPhotoService;
-
-import java.util.List;
+import com.vso.model.service.upload.UploadPhotoService;
 
 public class UploadPhotoControllerImpl implements UploadPhotoController {
 

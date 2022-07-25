@@ -31,7 +31,7 @@ public class EmailUtilityImpl implements EmailUtility {
         int number = new Random().nextInt(99999 - 10000 + 1) + 10000;
         String subject = "5-digit number verification";
         String content = "Your 5-digit number for password reset is: \n" + number;
-//        AuthenticationServiceImpl.getLoggedUser().getEmails().add(new Email(subject, content, String.valueOf(number)));
+        AuthenticationServiceImpl.getLoggedUser().setLastSentNumber(number);
         sendEmail(to, subject, content);
     }
 
