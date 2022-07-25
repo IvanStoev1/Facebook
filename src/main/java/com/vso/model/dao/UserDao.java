@@ -52,7 +52,7 @@ public class UserDao {
 
     }
 
-    public User getUserBy(String email) {
+    public static User getUserBy(String email) {
         Optional<User> first =
                 getAllUsers()
                         .stream()

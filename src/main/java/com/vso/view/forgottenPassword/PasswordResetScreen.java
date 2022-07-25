@@ -75,7 +75,7 @@ public class PasswordResetScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(password1.equals(password2)) {
-                    AuthenticationServiceImpl.getLoggedUser().setPassword(String.valueOf(password1));
+                    AuthenticationServiceImpl.getLoggedUser().setPassword(password1.getText());
                     new Message("Password reset successfully!");
                     navigation.redirectToHomeScreenFromPassReset();
                 } else {
