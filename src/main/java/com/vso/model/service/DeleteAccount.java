@@ -1,6 +1,6 @@
 package com.vso.model.service;
 
-import com.vso.model.data.UserDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 import com.vso.view.Message;
 import org.hibernate.Session;
