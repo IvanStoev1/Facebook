@@ -14,5 +14,4 @@ public class UploadPhotoControllerImpl implements UploadPhotoController {
     public void uploadPhoto(String description, String imageSource) {
         uploadPhotoService.UploadPictures(description, imageSource);
     }
-
 }
