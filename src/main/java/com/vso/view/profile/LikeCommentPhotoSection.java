@@ -1,6 +1,6 @@
 package com.vso.view.profile;
 
-import com.vso.controller.userController.UserController;
+import com.vso.controller.user.UserController;
 import com.vso.model.entity.Photo;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
@@ -10,12 +10,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LikeAndCommentSection extends BaseScreen {
+public class LikeCommentPhotoSection extends BaseScreen {
 
     private final UserController userController = new UserController();
     Photo newAvatar;
 
-    public LikeAndCommentSection(Photo newAvatar) {
+    public LikeCommentPhotoSection(Photo newAvatar) {
         this.newAvatar = newAvatar;
         setSize(300, 200);
         makeVisible();

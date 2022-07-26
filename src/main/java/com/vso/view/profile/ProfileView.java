@@ -1,11 +1,9 @@
 package com.vso.view.profile;
 
-import com.vso.controller.userController.UserController;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.controller.user.UserController;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 import javax.swing.*;
-import javax.xml.transform.Source;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -21,7 +19,6 @@ public class ProfileView extends BaseScreen {
         this.newAvatarCallback = newAvatarCallback;
         setTitle("My Profile");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
     }
 
     @Override
@@ -43,11 +40,11 @@ public class ProfileView extends BaseScreen {
         assert lbAvatar != null;
         getContentPanel().add(lbAvatar, c);
 
-        JLabel lbUserInfo = InitComponent.txtLabel(AuthenticationServiceImpl.getLoggedUser().toString(), c, 1, 0, 10, 0);
+        JLabel lbUserInfo = InitComponent.txtLabel(userController.userInfo(), c, 1, 0, 10, 0);
         getContentPanel().add(lbUserInfo, c);
 
-        JButton btnChangeAvatar = InitComponent.button("Change Avatar", c, 0, 1, 10, 0);
-        getContentPanel().add(btnChangeAvatar, c);
+        JButton btnBlockUser = InitComponent.button("Block User", c, 0, 1, 10, 0);
+        getContentPanel().add(btnBlockUser, c);
 
         JButton btnHome = InitComponent.button("HOME", c, 0, 2, 10, 0);
         getContentPanel().add(btnHome, c);
@@ -64,8 +61,8 @@ public class ProfileView extends BaseScreen {
         gridYInitial = GallerySection.getLastYgrid() + gridYInitial;
         PostSection.setupPostSection(gridYInitial, getContentPanel());
 
-
-        btnChangeAvatar.addActionListener(new AbstractAction() {
+        //TODO SOMETHING ELSE
+        btnBlockUser.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 newAvatarCallback.onNewAvatarSelected();

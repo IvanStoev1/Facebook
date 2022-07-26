@@ -3,7 +3,7 @@ package com.vso.controller.photo;
 import com.vso.model.dao.PhotoDao;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
-import com.vso.model.service.upload.UploadPhoto;
+import com.vso.model.service.upload.UploadPhotoImpl;
 import com.vso.view.SystemMsgsView;
 
 import java.util.List;
@@ -11,12 +11,12 @@ import java.util.List;
 public class PhotoController {
 
     private final PhotoDao photoDao;
-    private final UploadPhoto uploadPhoto;
+    private final UploadPhotoImpl uploadPhoto;
     private final SystemMsgsView systemMsgsView;
 
     public PhotoController() {
         this.photoDao = new PhotoDao();
-        this.uploadPhoto = new UploadPhoto();
+        this.uploadPhoto = new UploadPhotoImpl();
         this.systemMsgsView = new SystemMsgsView();
     }
 

@@ -1,6 +1,6 @@
 package com.vso.view;
 
-import com.vso.controller.userController.UserController;
+import com.vso.controller.user.UserController;
 
 import javax.swing.*;
 import java.awt.*;

@@ -4,7 +4,6 @@ import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
-import com.vso.view.profile.NewAvatarSection;
 import com.vso.view.profile.ProfileView;
 import com.vso.view.uploadphoto.UploadView;
 import com.vso.view.forgottenPassword.PasswordResetScreen;

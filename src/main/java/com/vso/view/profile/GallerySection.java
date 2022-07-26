@@ -54,8 +54,8 @@ public class GallerySection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        LikeAndCommentSection likeAndCommentSection = new LikeAndCommentSection(newAvatar);
-                        likeAndCommentSection.setId(newAvatar);
+                        LikeCommentPhotoSection likeCommentPhotoSection = new LikeCommentPhotoSection(newAvatar);
+                        likeCommentPhotoSection.setId(newAvatar);
                     }
                 });
             }

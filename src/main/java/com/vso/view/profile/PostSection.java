@@ -2,7 +2,7 @@ package com.vso.view.profile;
 
 import com.vso.controller.postController.PostController;
 import com.vso.controller.postController.PostControllerImpl;
-import com.vso.controller.userController.UserController;
+import com.vso.controller.user.UserController;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.view.BaseScreen;
@@ -10,8 +10,6 @@ import com.vso.view.InitComponent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class PostSection extends BaseScreen {
