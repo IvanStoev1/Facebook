@@ -1,15 +1,12 @@
 package com.vso.view;
 
-
 import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
-import com.vso.view.avatarView.AvatarView;
-import com.vso.view.profileView.ProfileView;
-import com.vso.view.uploadPhotoView.UploadView;
+import com.vso.view.profile.ProfileView;
+import com.vso.view.uploadphoto.UploadView;
 import com.vso.view.forgottenPassword.PasswordResetScreen;
-
 
 public class Navigation {
 
@@ -18,10 +15,10 @@ public class Navigation {
     private final EmailFormScreen emailForm;
     private final HomeScreen homeScreen;
     private final UploadView uploadView;
-    private final AvatarView avatarView;
     private final ProfileView profileView;
     private final PasswordResetScreen passwordReset;
     private final DigitConfirmationScreen digitConfirmationScreen;
+    private final NewAvatarSection newAvatarSection;
 
 
     public Navigation() {
@@ -34,13 +31,24 @@ public class Navigation {
         this.emailForm = new EmailFormScreen(this);
         this.homeScreen = new HomeScreen(
                 this::redirectToUploadView,
-                this::redirectToAvatarView,
                 this::redirectToProfile);
         this.uploadView = new UploadView(this::redirectUploadToHome);
-        this.avatarView = new AvatarView(this::redirectFromAvatarToHome);
-        this.profileView = new ProfileView(this::redirectFromProfileToHome);
+        this.profileView = new ProfileView(
+                this::redirectFromProfileToHome,
+                this::redirectToNewAvatar);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
+        this.newAvatarSection = new NewAvatarSection(this::redirectFromNewAvatarToProfile);
+    }
+
+    public void redirectFromNewAvatarToProfile(){
+        newAvatarSection.hideScreen();
+        profileView.makeVisible();
+    }
+
+    public void redirectToNewAvatar(){
+        profileView.hideScreen();
+        newAvatarSection.makeVisible();
     }
 
     public void redirectRegisterToLogin(){
@@ -73,18 +81,9 @@ public class Navigation {
         uploadView.makeVisible();
     }
 
-    private void redirectToAvatarView(){
-        homeScreen.hideScreen();
-        avatarView.makeVisible();
-    }
-
-    private void redirectFromAvatarToHome(){
-        avatarView.hideScreen();
-        homeScreen.makeVisible();
-    }
-
     private void redirectToProfile(){
         profileView.makeVisible();
+        profileView.setComponents();
         homeScreen.hideScreen();
     }
 

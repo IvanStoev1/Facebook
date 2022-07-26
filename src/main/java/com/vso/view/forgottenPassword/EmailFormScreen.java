@@ -1,6 +1,5 @@
 package com.vso.view.forgottenPassword;
 
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
 import com.vso.model.service.forgottenPassword.EmailValidator;
 import com.vso.view.BaseScreen;
