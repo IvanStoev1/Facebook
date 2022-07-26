@@ -29,7 +29,7 @@ public class User {
     @Column(name = "profile_role")
     private String profileRole;
     @Column(name = "last_verification_number")
-    private int lastSentNumber;
+    private Integer lastSentNumber;
 
     @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
