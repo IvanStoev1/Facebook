@@ -4,9 +4,9 @@ import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
-import com.vso.view.profileView.NewAvatarSelector;
-import com.vso.view.profileView.ProfileView;
-import com.vso.view.uploadPhotoView.UploadView;
+import com.vso.view.profile.NewAvatarSection;
+import com.vso.view.profile.ProfileView;
+import com.vso.view.uploadphoto.UploadView;
 import com.vso.view.forgottenPassword.PasswordResetScreen;
 
 public class Navigation {
@@ -19,7 +19,7 @@ public class Navigation {
     private final ProfileView profileView;
     private final PasswordResetScreen passwordReset;
     private final DigitConfirmationScreen digitConfirmationScreen;
-    private final NewAvatarSelector newAvatarSelector;
+    private final NewAvatarSection newAvatarSection;
 
 
     public Navigation() {
@@ -39,17 +39,17 @@ public class Navigation {
                 this::redirectToNewAvatar);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
-        this.newAvatarSelector = new NewAvatarSelector(this::redirectFromNewAvatarToProfile);
+        this.newAvatarSection = new NewAvatarSection(this::redirectFromNewAvatarToProfile);
     }
 
     public void redirectFromNewAvatarToProfile(){
-        newAvatarSelector.hideScreen();
+        newAvatarSection.hideScreen();
         profileView.makeVisible();
     }
 
     public void redirectToNewAvatar(){
         profileView.hideScreen();
-        newAvatarSelector.makeVisible();
+        newAvatarSection.makeVisible();
     }
 
     public void redirectRegisterToLogin(){
@@ -84,6 +84,7 @@ public class Navigation {
 
     private void redirectToProfile(){
         profileView.makeVisible();
+        profileView.setComponents();
         homeScreen.hideScreen();
     }
 

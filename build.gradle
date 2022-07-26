@@ -16,6 +16,7 @@ dependencies {
 
     implementation 'org.postgresql:postgresql:42.3.4'
     implementation "org.hibernate:hibernate-core:6.0.2.Final"
+    implementation 'commons-io:commons-io:2.6'
 
     implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
 }

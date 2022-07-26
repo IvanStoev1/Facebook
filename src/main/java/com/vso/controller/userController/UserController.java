@@ -1,21 +1,48 @@
 package com.vso.controller.userController;
 
+import com.vso.model.dao.PhotoDao;
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.model.service.avatar.UpdateAvatarService;
+import com.vso.model.service.avatar.UpdateAvatarServiceImpl;
 
 import java.util.List;
 
-public interface UserController {
+public class UserController {
 
-    int getGallerySize();
+    private final PhotoDao photoDao;
+    private final UserDao userDao;
+    private final UpdateAvatarService updateAvatarService;
 
-    List<Photo> getGallery(User loggedUser);
+    public UserController() {
+        this.photoDao = new PhotoDao();
+        this.updateAvatarService = new UpdateAvatarServiceImpl();
+        this.userDao = new UserDao();
+    }
 
-    void setNewAvatar(long newAvatarId, String newAvatarPhotoUrl);
+    public int getGallerySize() {
+        return photoDao.getGallerySize(getLoggedUser());
+    }
 
-    public String showUserAvatar(User user);
+    public List<Photo> getGallery(User loggedUser) {
+        return photoDao.selectPhotosByUserId(loggedUser);
+    }
 
-    public String userInfo(User user);
+    public void setNewAvatar(String newAvatarPhotoUrl) {
+        updateAvatarService.updateAvatarPhoto(newAvatarPhotoUrl);
+    }
 
-    public User getLoggedUser();
+    public String showUserAvatar(){
+        return userDao.accessUserAvatar();
+    }
+
+    public String userInfo(){
+        return userDao.accessUserInfo();
+    }
+
+    public User getLoggedUser(){
+        return AuthenticationServiceImpl.getLoggedUser();
+    }
 }

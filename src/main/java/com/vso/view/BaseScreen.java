@@ -2,7 +2,6 @@ package com.vso.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public abstract class BaseScreen extends JFrame{
     private final JPanel contentPanel;

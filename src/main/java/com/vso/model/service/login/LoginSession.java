@@ -1,6 +1,6 @@
 package com.vso.model.service.login;
 
-import com.vso.controller.AuthController;
+import com.vso.controller.auth.AuthController;
 import com.vso.model.service.authentication.AuthenticationService;
 
 public class LoginSession {

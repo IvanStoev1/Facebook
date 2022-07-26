@@ -101,6 +101,10 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
+    public void setLastSentNumber(int lastSentNumber) {
+        this.lastSentNumber = lastSentNumber;
+    }
+
     @Override
     public String toString() {
         return "<html>My info:<br> " +

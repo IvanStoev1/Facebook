@@ -115,4 +115,12 @@ public class Post {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public void setReported(Date reported) {
+        this.reported = reported;
+    }
+
+    public void setDeleted(Date deleted) {
+        this.deleted = deleted;
+    }
 }

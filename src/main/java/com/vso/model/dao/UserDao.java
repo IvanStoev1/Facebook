@@ -3,6 +3,7 @@ package com.vso.model.dao;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -18,7 +19,7 @@ public class UserDao {
 
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public List<User> getAllUsers(){
+    public static List<User> getAllUsers(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -72,43 +73,34 @@ public class UserDao {
         session.close();
     }
 
-    public String accessUserAvatar(User userId){
+    public String accessUserAvatar(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
 
-        criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("id"), userId));
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
 
-        Query<User> findUserAvatar = session.createQuery(criteriaQuery);
-        if (findUserAvatar.getResultStream().findFirst().isPresent()) {
-            User user = findUserAvatar.getResultStream().findFirst().get();
-            return user.getAvatarUrl();
-        }
         session.getTransaction().commit();
         session.close();
-        return null;
+
+        return user.getAvatarUrl();
     }
 
-    public String accessUserInfo(User userId){
+    public String accessUserInfo(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
 
-        criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("id"), userId));
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
 
-        Query<User> findInfo = session.createQuery(criteriaQuery);
-        if (findInfo.getResultStream().findFirst().isPresent()) {
-            User user = findInfo.getResultStream().findFirst().get();
-            return user.toString();
-        }
         session.getTransaction().commit();
         session.close();
-        return null;
+        return user.toString();
     }
 }
