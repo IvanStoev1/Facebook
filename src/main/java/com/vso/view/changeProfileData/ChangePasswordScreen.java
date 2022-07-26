@@ -1,12 +1,10 @@
-package com.vso.view.forgottenPassword;
+package com.vso.view.changeProfileData;
 
 import com.vso.model.dao.UserDao;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.changeProfileData.EmailReset;
 import com.vso.model.service.changeProfileData.ProfileDataService;
 import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.view.BaseScreen;
-import com.vso.view.Message;
 import com.vso.view.Navigation;
 
 import javax.swing.*;
@@ -14,13 +12,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PasswordResetScreen extends BaseScreen {
+public class ChangePasswordScreen extends BaseScreen {
 
     private final Navigation navigation;
     private final ProfileDataService profileDataService;
+    private final ChangeProfileDataView changeProfileDataView;
 
-    public PasswordResetScreen(Navigation navigation) {
+    public ChangePasswordScreen(Navigation navigation) {
         this.navigation = navigation;
+        this.changeProfileDataView = new ChangeProfileDataView();
         this.profileDataService = new ProfileDataServiceImpl(new EmailReset());
     }
 
@@ -80,14 +80,14 @@ public class PasswordResetScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(password1.equals(password2)) {
-                    UserDao.getUserBy(EmailFormScreen.getEmail()).setPassword(password1.getText());
-                    new Message("Password reset successfully!");
-                    AuthenticationServiceImpl.setLoggedUser(UserDao.getUserBy(EmailFormScreen.getEmail()));
-                    navigation.redirectToHomeScreenFromPassReset();
-                } else {
-                    new Message("Passwords mismatch!");
+                if(password1.getText().equals(password2.getText())){
+                    profileDataService.changePassword(password2.getText());
+                    changeProfileDataView.showSuccessfulReset();
+                    navigation.redirectToHomeScreen();
+                }else {
+                    changeProfileDataView.showPasswordMismatch();
                 }
+
             }
         });
     }

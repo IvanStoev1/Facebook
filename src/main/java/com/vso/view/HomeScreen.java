@@ -53,6 +53,7 @@ public class HomeScreen extends BaseScreen {
         c.gridy = 2;
         getContentPanel().add(btnProfile, c);
 
+
         btnOpenUpload.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

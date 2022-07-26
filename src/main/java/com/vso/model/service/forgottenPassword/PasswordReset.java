@@ -1,6 +1,7 @@
 package com.vso.model.service.forgottenPassword;
 
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 
 public class PasswordReset {
     private User user;
@@ -14,6 +15,6 @@ public class PasswordReset {
     }
 
     public void reset(String password) {
-        user.setPassword(password);
+        AuthenticationServiceImpl.getLoggedUser().setPassword(password);
     }
 }

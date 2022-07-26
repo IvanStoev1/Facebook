@@ -120,4 +120,8 @@ public class User {
     public void setProfileStatus(String profileStatus) {
         this.profileStatus = profileStatus;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

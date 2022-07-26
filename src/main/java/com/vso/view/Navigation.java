@@ -2,6 +2,7 @@ package com.vso.view;
 
 
 import com.vso.view.auth.AuthenticationScreen;
+import com.vso.view.changeProfileData.*;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
@@ -22,8 +23,11 @@ public class Navigation {
     private final ProfileView profileView;
     private final PasswordResetScreen passwordReset;
     private final DigitConfirmationScreen digitConfirmationScreen;
-
-
+    private final ProfileDataScreen profileDataScreen;
+    private final LoginScreen loginScreen;
+    private final ChangeEmailScreen emailScreen;
+    private final AddEmailScreen addEmailScreen;
+    private final ChangePasswordScreen changePasswordScreen;
     public Navigation() {
         this.authenticationScreen = new AuthenticationScreen(
                 this::redirectToRegister,
@@ -38,9 +42,14 @@ public class Navigation {
                 this::redirectToProfile);
         this.uploadView = new UploadView(this::redirectUploadToHome);
         this.avatarView = new AvatarView(this::redirectFromAvatarToHome);
-        this.profileView = new ProfileView(this::redirectFromProfileToHome);
+        this.profileView = new ProfileView(this::redirectFromProfileToHome,this);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
+        this.profileDataScreen = new ProfileDataScreen(this);
+        this.loginScreen = new LoginScreen(this);
+        this.emailScreen = new ChangeEmailScreen(this);
+        this.addEmailScreen = new AddEmailScreen(this);
+        this.changePasswordScreen = new ChangePasswordScreen(this);
     }
 
     public void redirectRegisterToLogin(){
@@ -112,4 +121,24 @@ public class Navigation {
         authenticationScreen.makeVisible();
     }
 
+    public void redirectToLoginScreen() {
+        profileDataScreen.hideScreen();
+        loginScreen.makeVisible();
+    }
+
+    public void redirectToChangeEmailScreen() {
+        profileDataScreen.hideScreen();
+        emailScreen.makeVisible();
+    }
+
+
+    public void redirectToProfileDataScreen(){
+        authenticationScreen.hideScreen();
+        profileDataScreen.makeVisible();
+    }
+
+    public void redirectToChangePasswordScreen(){
+        loginScreen.hideScreen();
+        changePasswordScreen.makeVisible();
+    }
 }

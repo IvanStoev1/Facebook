@@ -2,6 +2,7 @@ package com.vso.view.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.model.service.changeProfileData.EmailReset;
 import com.vso.model.service.forgottenPassword.PasswordReset;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
@@ -15,9 +16,10 @@ import java.awt.event.ActionListener;
 public class DigitConfirmationScreen extends BaseScreen {
 
     private final Navigation navigation;
-
+    private final EmailReset emailReset;
     public DigitConfirmationScreen(Navigation navigation) {
         this.navigation = navigation;
+        this.emailReset = new EmailReset();
     }
 
     @Override
@@ -61,6 +63,7 @@ public class DigitConfirmationScreen extends BaseScreen {
             public void actionPerformed(ActionEvent e) {
                 if (new PasswordReset(UserDao.getUserBy(EmailFormScreen.getEmail())).numbersMatch
                         (Integer.getInteger(digit.getText()))) {
+             //   emailReset.numbersMatch(Integer.getInteger(digit.getText()))) {
                     new Message("Reset approved!");
                     navigation.redirectToPassReset();
                 } else {
