@@ -7,22 +7,28 @@ public class SystemMsgsView extends JFrame {
     public SystemMsgsView() {
     }
 
-    public void showLoginFail(){
+    public void showLoginFail() {
         JOptionPane.showMessageDialog(this,
                 "Login failed");
     }
-    public void showRegisterFail(){
+
+    public void showRegisterFail() {
         JOptionPane.showMessageDialog(this,
                 "You must be 14 or older and fill out all the fields to make an account");
     }
 
-    public void showEmptyFileChooser(){
+    public void showEmptyFileChooser() {
         JOptionPane.showMessageDialog(this,
                 "No file was selected. Select file.");
     }
 
-    public void showSuccessfulUpload(){
+    public void showSuccessfulUpload() {
         JOptionPane.showMessageDialog(this,
                 "Image was successfully uploaded.");
+    }
+
+    public void showRegisterError() {
+        JOptionPane.showMessageDialog(this,
+                "User already exists or passwords don't match");
     }
 }

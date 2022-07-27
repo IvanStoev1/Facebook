@@ -1,37 +1,33 @@
 package com.vso.controller.auth;
 
 
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.Message;
+import com.vso.view.SystemMsgsView;
 
+import javax.swing.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class AuthController {
 
     private final AuthenticationService authentication;
-    private final Scanner scanner;
+    private final SystemMsgsView messagesView;
 
     public AuthController(AuthenticationService authentication) {
         this.authentication = authentication;
-        scanner = new Scanner(System.in);
+        this.messagesView = new SystemMsgsView();
     }
 
     public void createUser(int age, String name, String email, String password, String repeatPassword, String avatarUrl) {
-        if (password.equals(repeatPassword)) {
+        User user = UserDao.getUserBy(email);
+        if (password.equals(repeatPassword) && user == null) {
             authentication.registerUser(email, password, name, age, avatarUrl);
-        }
-    }
-
-    public String getTextInput() {
-        return scanner.nextLine();
-    }
-
-    public void processLoggedUserOptions() {
-        switch (scanner.nextInt()) {
-            case 1:
-                authentication.logout();
-                break;
+        } else {
+            messagesView.showRegisterError();
         }
     }
 

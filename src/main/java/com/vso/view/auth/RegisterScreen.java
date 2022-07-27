@@ -132,9 +132,8 @@ public class RegisterScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (Integer.parseInt(txtAge.getText()) < 14
-                        && txtAge.getText().isEmpty()
-                        && txtName.getText().isEmpty()
-                        && txtEmailField.getText().isEmpty()){
+                        || txtName.getText().isEmpty()
+                        || txtEmailField.getText().isEmpty()){
                     view.showRegisterFail();
                 } else {
                     controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
