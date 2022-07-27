@@ -16,7 +16,7 @@ public class AuthController {
     }
 
     public void createUser(int age, String name, String email, String password, String repeatPassword, String avatarUrl) {
-        if (password.equals(repeatPassword)) {
+        if (password.equals(repeatPassword) && email != null && name != null) {
             authentication.registerUser(email, password, name, age, avatarUrl);
         }
     }
