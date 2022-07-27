@@ -16,8 +16,14 @@ import java.util.List;
 public class GallerySection extends BaseScreen {
 
     private static final PhotoController photoController = new PhotoController();
+    private User user;
 
-    public GallerySection() {
+    public GallerySection(User user) {
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -25,13 +31,13 @@ public class GallerySection extends BaseScreen {
         return new GridBagLayout();
     }
 
-    public static void setupGallery(int gridYInitial, JPanel controlPanel) {
+    public static void setupGallery(int gridYInitial, JPanel controlPanel, User user) {
 
         try {
             int counter = 0;
             int gridXInitial = 0;
 
-            for (Photo photo : gallery()) {
+            for (Photo photo : gallery(user)) {
 
                 GridBagConstraints c;
                 c = new GridBagConstraints();
@@ -64,10 +70,10 @@ public class GallerySection extends BaseScreen {
         }
     }
 
-    public static int getLastYgrid(){
+    public static int getLastYgrid(User user){
 
-        if(gallery() != null) {
-            int printedComponents = gallery().size();
+        if(gallery(user) != null) {
+            int printedComponents = gallery(user).size();
             if (printedComponents % 3 == 0) {
                 return printedComponents / 3;
             }
@@ -77,7 +83,7 @@ public class GallerySection extends BaseScreen {
         }
     }
 
-    private static List<Photo> gallery() throws NullPointerException {
+    private static List<Photo> gallery(User user) throws NullPointerException {
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
         return photoController.showUserPhotos(loggedUser);
     }

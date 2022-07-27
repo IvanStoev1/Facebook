@@ -17,12 +17,12 @@ public class AuthController {
     private final AuthenticationService authentication;
     private final SystemMsgsView messagesView;
 
-    public AuthController(AuthenticationService authentication) {
-        this.authentication = authentication;
+    public AuthController() {
+        this.authentication = new AuthenticationServiceImpl();
         this.messagesView = new SystemMsgsView();
     }
 
-    public void createUser(int age, String name, String email, String password, String repeatPassword, String avatarUrl) {
+    public void createUser (int age, String name, String email, String password, String repeatPassword, String avatarUrl){
         User user = UserDao.getUserBy(email);
         if (password.equals(repeatPassword) && user == null) {
             authentication.registerUser(email, password, name, age, avatarUrl);
@@ -31,7 +31,7 @@ public class AuthController {
         }
     }
 
-    public User getLoggedUser() {
-        return AuthenticationServiceImpl.getLoggedUser();
+    public void logoutUser(){
+        authentication.logout();
     }
 }

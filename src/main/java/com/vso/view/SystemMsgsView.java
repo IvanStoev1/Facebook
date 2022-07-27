@@ -31,4 +31,19 @@ public class SystemMsgsView extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "User already exists or passwords don't match");
     }
+
+    public void showLoggedUserIsNull() {
+        JOptionPane.showMessageDialog(this,
+                "Logged user is null.");
+    }
+
+    public void showRequestedUserIsNull() {
+        JOptionPane.showMessageDialog(this,
+                "Requested user is null.");
+    }
+
+    public void showAccountDeleted() {
+        JOptionPane.showMessageDialog(this,
+                "Your account was successfully deleted.");
+    }
 }
