@@ -1,7 +1,6 @@
 package com.vso.view.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.forgottenPassword.PasswordReset;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
