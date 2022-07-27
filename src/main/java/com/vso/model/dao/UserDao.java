@@ -1,6 +1,5 @@
 package com.vso.model.dao;
 
-import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
@@ -14,6 +13,8 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.function.Predicate.not;
 
 public class UserDao {
 
@@ -73,34 +74,34 @@ public class UserDao {
         session.close();
     }
 
-    public String accessUserAvatar(){
-        if (AuthenticationServiceImpl.getLoggedUser() == null){
+    public String accessUserAvatar(User user){
+        if (user == null){
             return null;
         }
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+        User userAvatar = session.get(User.class, user.getId());
 
         session.getTransaction().commit();
         session.close();
 
-        return user.getAvatarUrl();
+        return userAvatar.getAvatarUrl();
     }
 
-    public String accessUserInfo(){
-        if (AuthenticationServiceImpl.getLoggedUser() == null){
+    public String accessUserInfo(User user){
+        if (user == null){
             return null;
         }
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+        User userInfo = session.get(User.class, user.getId());
 
         session.getTransaction().commit();
         session.close();
-        return user.toString();
+        return userInfo.toString();
     }
 }

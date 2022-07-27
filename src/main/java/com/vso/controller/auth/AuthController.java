@@ -9,11 +9,10 @@ import java.util.Scanner;
 
 public class AuthController {
 
-    private final AuthenticationService authentication;
+    private final AuthenticationService authentication = new AuthenticationServiceImpl();
     private final Scanner scanner;
 
-    public AuthController(AuthenticationService authentication) {
-        this.authentication = authentication;
+    public AuthController() {
         scanner = new Scanner(System.in);
     }
 
@@ -27,15 +26,11 @@ public class AuthController {
         return scanner.nextLine();
     }
 
-    public void processLoggedUserOptions() {
-        switch (scanner.nextInt()) {
-            case 1:
-                authentication.logout();
-                break;
-        }
+    public void logoutUser() {
+        authentication.logout();
     }
 
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         return AuthenticationServiceImpl.getLoggedUser();
     }
 }
