@@ -1,5 +1,6 @@
 package com.vso.model.dao;
 
+import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
@@ -104,7 +105,8 @@ public class UserDao {
         session.close();
     }
 
-    public static void setNewPassword(String newPassword){
+
+    public static void setNewPassword(String newPassword) {
         Session session = sessionFactory.openSession();
         long loggedUserId = AuthenticationServiceImpl.getLoggedUser().getId();
         session.beginTransaction();
@@ -117,5 +119,35 @@ public class UserDao {
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();
+    }
+    public String accessUserAvatar(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return user.getAvatarUrl();
+    }
+
+    public String accessUserInfo(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+
+        session.getTransaction().commit();
+        session.close();
+        return user.toString();
     }
 }

@@ -4,6 +4,7 @@ import com.vso.controller.auth.AuthController;
 import com.vso.view.BaseScreen;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +15,13 @@ public class RegisterScreen extends BaseScreen {
 
     private final RegisterViewListener registerViewCallback;
     AuthenticationService authenticationService;
-    AuthView view;
+    SystemMsgsView view;
     private final AuthController controller;
 
     public RegisterScreen(RegisterViewListener registerViewCallback) {
         this.registerViewCallback = registerViewCallback;
         setTitle("Register Screen");
-        view = new AuthView();
+        view = new SystemMsgsView();
         authenticationService = new AuthenticationServiceImpl();
         this.controller = new AuthController(authenticationService);
     }
