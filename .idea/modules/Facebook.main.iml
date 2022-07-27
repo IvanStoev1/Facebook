@@ -14,6 +14,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.postgresql:postgresql:42.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Gradle: javax.mail:mail:1.5.0-b01" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate.orm:hibernate-core:6.0.2.Final" level="project" />
     <orderEntry type="library" name="Gradle: javax.activation:activation:1.1" level="project" />

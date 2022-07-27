@@ -107,10 +107,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "My info: " +
-                "\n email " + email +
-                "\n name " + name +
-                "\n age " + age;
+        return "<html>My info:<br> " +
+                "\n email<br> " + email +
+                "\n name<br> " + name +
+                "\n age<br> " + age;
     }
 
     public int getLastSentNumber() {
