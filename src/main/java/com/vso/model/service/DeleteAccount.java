@@ -9,19 +9,17 @@ import org.hibernate.cfg.Configuration;
 
 public class DeleteAccount {
 
-    UserDao database;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public DeleteAccount() {
-        this.database = new UserDao();
 
     }
 
     public void deleteAccount(String email, String password) {
-        User user = database.getUserBy(email);
+        User user = UserDao.getUserBy(email);
         Session session = sessionFactory.openSession();
         if (user != null && user.getPassword().equals(password)) {
-            user.setProfileStatus(null);
+            user.setProfileStatus("deleted");
             session.beginTransaction();
             session.merge(user);
             session.getTransaction().commit();

@@ -1,6 +1,5 @@
 package com.vso.view.forgottenPassword;
 
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
 import com.vso.model.service.forgottenPassword.EmailValidator;
 import com.vso.view.BaseScreen;
@@ -15,6 +14,7 @@ import java.awt.event.ActionListener;
 public class EmailFormScreen extends BaseScreen {
 
     private final Navigation navigation;
+    private static String email;
 
     public EmailFormScreen(Navigation navigation) {
         this.navigation = navigation;
@@ -37,14 +37,14 @@ public class EmailFormScreen extends BaseScreen {
         c.insets = new Insets(0, 50, 0, 5);
         getContentPanel().add(label, c);
 
-        JTextField email = new JTextField(11);
+        JTextField emailTf = new JTextField(11);
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.insets = new Insets(0, 5, 0, 50);
         c.gridx = 1;
         c.gridy = 0;
-        getContentPanel().add(email, c);
+        getContentPanel().add(emailTf, c);
 
         JButton submitBtn = new JButton("Submit");
         c = new GridBagConstraints();
@@ -59,8 +59,10 @@ public class EmailFormScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (new EmailValidator().isEmailValid(email.getText())) {
-                    new EmailUtilityImpl().sendVerificationEmail(email.getText());
+                email = emailTf.getText();
+
+                if (new EmailValidator().isEmailValid(email)) {
+                    new EmailUtilityImpl().sendVerificationEmail(email);
                     new Message("Email sent!");
                     navigation.redirectToDigitConformation();
                 } else {
@@ -68,5 +70,9 @@ public class EmailFormScreen extends BaseScreen {
                 }
             }
         });
+    }
+
+    public static String getEmail() {
+        return email;
     }
 }

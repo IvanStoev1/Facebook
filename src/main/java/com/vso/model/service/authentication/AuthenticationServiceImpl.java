@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public LoginStatus login(String email, String password) {
         User user = database.getUserBy(email);
         if (user != null && user.getPassword().equals(password)) {
-            loggedUser = user;
+            AuthenticationServiceImpl.loggedUser = user;
             return LoginStatus.SUCCESS_USER;
         }
         return LoginStatus.LOGIN_FAILED;
@@ -50,6 +50,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public static User getLoggedUser() {
         return loggedUser;
+    }
+
+    public static void setLoggedUser(User loggedUser) {
+        AuthenticationServiceImpl.loggedUser = loggedUser;
     }
 
     public UserDao getDatabase() {

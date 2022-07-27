@@ -1,7 +1,9 @@
 package com.vso.model.dao;
 
+import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -52,7 +54,7 @@ public class UserDao {
 
     }
 
-    public User getUserBy(String email) {
+    public static User getUserBy(String email) {
         Optional<User> first =
                 getAllUsers()
                         .stream()
@@ -69,5 +71,36 @@ public class UserDao {
         session.persist(post);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public String accessUserAvatar(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return user.getAvatarUrl();
+    }
+
+    public String accessUserInfo(){
+        if (AuthenticationServiceImpl.getLoggedUser() == null){
+            return null;
+        }
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+
+        session.getTransaction().commit();
+        session.close();
+        return user.toString();
     }
 }

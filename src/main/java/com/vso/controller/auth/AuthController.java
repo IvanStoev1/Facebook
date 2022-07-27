@@ -1,7 +1,9 @@
 package com.vso.controller.auth;
 
 
+import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class AuthController {
     }
 
     public void createUser(int age, String name, String email, String password, String repeatPassword, String avatarUrl) {
-        if (password.equals(repeatPassword) && email != null && name != null) {
+        if (password.equals(repeatPassword)) {
             authentication.registerUser(email, password, name, age, avatarUrl);
         }
     }
@@ -30,8 +32,10 @@ public class AuthController {
             case 1:
                 authentication.logout();
                 break;
-
-
         }
+    }
+
+    public User getLoggedUser() {
+        return AuthenticationServiceImpl.getLoggedUser();
     }
 }

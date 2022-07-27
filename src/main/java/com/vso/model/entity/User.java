@@ -29,7 +29,7 @@ public class User {
     @Column(name = "profile_role")
     private String profileRole;
     @Column(name = "last_verification_number")
-    private int lastSentNumber;
+    private Integer lastSentNumber;
 
     @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
@@ -107,10 +107,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "My info: " +
-                "\n email " + email +
-                "\n name " + name +
-                "\n age " + age;
+        return "<html>My info:<br> " +
+                "\n email<br> " + email +
+                "\n name<br> " + name +
+                "\n age<br> " + age;
     }
 
     public int getLastSentNumber() {
