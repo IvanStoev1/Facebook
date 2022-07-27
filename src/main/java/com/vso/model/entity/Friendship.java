@@ -51,4 +51,16 @@ public class Friendship {
     public User getRequested() {
         return requested;
     }
+
+    public void setFriendship_status(String friendship_status) {
+        this.friendship_status = friendship_status;
+    }
+
+    public void setRequester(User requester) {
+        this.requester = requester;
+    }
+
+    public void setRequested(User requested) {
+        this.requested = requested;
+    }
 }

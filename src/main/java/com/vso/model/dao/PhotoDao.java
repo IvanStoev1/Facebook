@@ -75,7 +75,4 @@ public class PhotoDao {
         session.close();
     }
 
-    public int getGallerySize(User user){
-        return selectPhotosByUserId(user).size();
-    }
 }

@@ -14,7 +14,6 @@ import java.io.File;
 public class RegisterScreen extends BaseScreen {
 
     private final RegisterViewListener registerViewCallback;
-    AuthenticationService authenticationService;
     SystemMsgsView view;
     private final AuthController controller;
 
@@ -22,8 +21,7 @@ public class RegisterScreen extends BaseScreen {
         this.registerViewCallback = registerViewCallback;
         setTitle("Register Screen");
         view = new SystemMsgsView();
-        authenticationService = new AuthenticationServiceImpl();
-        this.controller = new AuthController(authenticationService);
+        this.controller = new AuthController();
     }
 
     @Override
