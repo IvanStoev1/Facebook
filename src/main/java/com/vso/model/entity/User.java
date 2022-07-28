@@ -85,8 +85,6 @@ public class User {
         return profileStatus;
     }
 
-
-
     public String getProfileRole() {
         return profileRole;
     }
@@ -109,10 +107,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "<html>My info:<br> " +
-                "\n email<br> " + email +
-                "\n name<br> " + name +
-                "\n age<br> " + age;
+        return "<html>User Info:<br> Name: " + name + "<br> Age: " + age + "<br> e-mail: " + email + "</html>";
     }
 
     public int getLastSentNumber() {

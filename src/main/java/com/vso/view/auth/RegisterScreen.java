@@ -126,6 +126,8 @@ public class RegisterScreen extends BaseScreen {
         c.gridwidth = 2;
         getContentPanel().add(btnRegister, c);
 
+        getContentPanel().getRootPane().setDefaultButton(btnRegister);
+
         btnRegister.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

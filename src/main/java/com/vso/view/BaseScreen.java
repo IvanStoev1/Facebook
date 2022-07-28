@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class BaseScreen extends JFrame{
-    private final JPanel contentPanel;
+    private static JPanel contentPanel;
 
     public BaseScreen() {
         contentPanel = new JPanel();
@@ -20,7 +20,7 @@ public abstract class BaseScreen extends JFrame{
 
     protected abstract LayoutManager getLayoutManager();
 
-    protected JPanel getContentPanel() {
+    protected static JPanel getContentPanel() {
         return contentPanel;
     }
 

@@ -1,6 +1,8 @@
 package com.vso.view;
 
+import com.vso.controller.auth.AuthController;
 import com.vso.controller.user.UserController;
+import com.vso.view.search.Search;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +10,11 @@ import java.awt.event.ActionEvent;
 
 public class HomeScreen extends BaseScreen {
 
-    private final UploadViewListener uploadViewCallback;
-    private final ProfileViewListener profileViewCallback;
+    private final Navigation navigation;
+    private final AuthController authController = new AuthController();
 
-    public HomeScreen(UploadViewListener uploadViewCallback, ProfileViewListener profileViewCallback){
-        System.out.println("home constructor");
-        this.uploadViewCallback = uploadViewCallback;
-        this.profileViewCallback = profileViewCallback;
+    public HomeScreen(Navigation navigation){
+        this.navigation = navigation;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Home Screen");
     }
@@ -24,7 +24,7 @@ public class HomeScreen extends BaseScreen {
     }
 
     protected void setupComponents() {
-        System.out.println("home SETUP COMPONENTS");
+
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -37,27 +37,40 @@ public class HomeScreen extends BaseScreen {
         JButton btnProfile = InitComponent.button("My Profile", c, 0, 2, 50, 50);
         getContentPanel().add(btnProfile, c);
 
+        JButton btnLogout = InitComponent.button("Logout", c, 0, 3, 50, 50);
+        getContentPanel().add(btnLogout, c);
+
+        btnLogout.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                authController.logoutUser();
+                dispose();
+                navigation.redirectFromHomeToLogin();
+            }
+        });
+
         btnOpenUpload.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                uploadViewCallback.onUploadSelected();
+                dispose();
+                navigation.redirectFromHomeToUploadView();
+            }
+        });
+
+        btnSearchUsers.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                    dispose();
+                    Search search = new Search(navigation);
+                    search.makeVisible();
             }
         });
 
         btnProfile.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new UserController();
-                profileViewCallback.onProfileSelected();
+                navigation.redirectFromHomeToProfile();
             }
         });
-    }
-
-    public interface UploadViewListener {
-        void onUploadSelected();
-    }
-
-    public interface ProfileViewListener {
-        void onProfileSelected();
     }
 }

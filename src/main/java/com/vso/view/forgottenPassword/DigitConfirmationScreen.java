@@ -16,6 +16,7 @@ public class DigitConfirmationScreen extends BaseScreen {
     private final Navigation navigation;
 
     public DigitConfirmationScreen(Navigation navigation) {
+        this.setTitle("Digit confirmation");
         this.navigation = navigation;
     }
 

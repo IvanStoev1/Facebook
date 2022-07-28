@@ -8,7 +8,8 @@ import com.vso.model.service.block.BlockUser;
 import com.vso.model.service.block.BlockUserImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
-import com.vso.view.SearchView.Search;
+import com.vso.view.Navigation;
+import com.vso.view.search.Search;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,16 +17,22 @@ import java.awt.event.ActionEvent;
 
 public class UserProfileView extends BaseScreen {
 
+    private final Navigation navigation = new Navigation();
     private final UserController userController = new UserController();
-    private final Search search = new Search();
+    private final Search search = new Search(navigation);
     private final BlockUser blockUser = new BlockUserImpl();
     private final FriendshipController friendshipController = new FriendshipController();
-    private final User requested;
+    private User requested;
+    private final GallerySection gallerySection = new GallerySection(requested, navigation);
 
     public UserProfileView(User requested) {
         this.requested = requested;
-        setTitle("My Profile");
+        setTitle(requested.getName());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    }
+
+    public void setUser(User requested) {
+        this.requested = requested;
     }
 
     @Override
@@ -33,18 +40,13 @@ public class UserProfileView extends BaseScreen {
         return new GridBagLayout();
     }
 
-    @Override
-    public void setupComponents() {
-
-    }
-
-    public void setComponents(){
+    public void setComponents() {
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
-        JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 200, 200, c, 0, 0, 10, 0);
+        JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(requested), 200, 200, c, 0, 0, 10, 0);
         assert lbAvatar != null;
         getContentPanel().add(lbAvatar, c);
 
@@ -54,11 +56,11 @@ public class UserProfileView extends BaseScreen {
         JToggleButton btnBlockUser = InitComponent.selectButton("Block User", c, 0, 1, 10, 0);
         getContentPanel().add(btnBlockUser, c);
 
-            if (friendshipController.isUserBlocked(loggedUser, requested)){
-                btnBlockUser.setSelected(true);
-            }
+        if (friendshipController.isUserBlocked(loggedUser, requested)) {
+            btnBlockUser.setSelected(true);
+        }
 
-        JButton btnBack = InitComponent.button("HOME", c, 0, 2, 10, 0);
+        JButton btnBack = InitComponent.button("BACK", c, 0, 2, 10, 0);
         getContentPanel().add(btnBack, c);
 
         JButton btnDeleteAccount = InitComponent.button("DELETE ACCOUNT", c, 1, 2, 10, 0);
@@ -69,15 +71,15 @@ public class UserProfileView extends BaseScreen {
         getContentPanel().add(btnUserPosts, c);
 
         int gridYInitial = 3;
-        GallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
+        gallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
 
-        gridYInitial = GallerySection.getLastYgrid(requested) + gridYInitial;
+        gridYInitial = gallerySection.getLastYgrid(requested) + gridYInitial;
         PostSection.setupPostSection(gridYInitial, getContentPanel());
 
         btnBlockUser.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (btnBlockUser.isSelected()){
+                if (btnBlockUser.isSelected()) {
                     friendshipController.blockUser(loggedUser, requested);
                     btnBlockUser.setText("BLOCKED");
                 }
@@ -90,9 +92,14 @@ public class UserProfileView extends BaseScreen {
         btnBack.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                setVisible(false);
+                dispose();
                 search.makeVisible();
             }
         });
+    }
+
+    @Override
+    public void setupComponents() {
+
     }
 }

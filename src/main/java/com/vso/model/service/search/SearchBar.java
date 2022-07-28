@@ -7,26 +7,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchBar {
+
     private UserDao userDao;
 
-    public SearchBar(UserDao userDao) {
-        this.userDao = userDao;
+    public SearchBar() {
     }
 
-    public List<User> getAllMatches(String name) {
-        return userDao.getAllUsers()
-                .stream()
-                .filter(user -> user.getName().equals(name) || first(user.getName()).equals(name)
-                        || last(user.getName()).equals(name))
-                .sorted()
-                .collect(Collectors.toList());
-    }
-
-    private String first(String name) {
-        return name.split(" ")[0];
-    }
-
-    private String last(String name) {
-        return name.split(" ")[1];
+    public static List<User> findUser(String userName) {
+        return UserDao.getAllUsers().stream().
+                filter(user -> user.getName().toUpperCase().
+                        contains(userName.toUpperCase())).
+                collect(Collectors.toList());
     }
 }

@@ -31,7 +31,7 @@ public class FriendshipController {
         if (loggedUser == null){
             systemMsgsView.showLoggedUserIsNull();
         } else if (requested == null){
-            systemMsgsView.showrequestedUserIsNull();
+            systemMsgsView.showRequestedUserIsNull();
         } else {
             blockUser.setFriendshipBlocked(loggedUser, requested);
         }

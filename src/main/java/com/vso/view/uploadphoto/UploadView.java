@@ -15,10 +15,8 @@ public class UploadView extends BaseScreen {
 
     private final PhotoController photoController = new PhotoController();
     private final UploadToHomeListener uploadToHomeCallback;
-//    private final InitComponent initComponent = new InitComponent();
 
     public UploadView(UploadToHomeListener uploadToHomeCallback) {
-        System.out.println("UPLOAD CONSTRUCTOR");
         this.uploadToHomeCallback = uploadToHomeCallback;
         setTitle("Uploader");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -31,7 +29,7 @@ public class UploadView extends BaseScreen {
 
     @Override
     protected void setupComponents() {
-        System.out.println("Upload SETUP COMPONENT");
+        System.out.println("UPLOAD VIEW COMPONENT");
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -53,6 +51,7 @@ public class UploadView extends BaseScreen {
         JButton btnHome = InitComponent.button("HOME", c, 0, 5, 50, 50);
         getContentPanel().add(btnHome, c);
 
+        getContentPanel().getRootPane().setDefaultButton(btnSave);
 
         btnUpload.addActionListener(new ActionListener() {
             @Override

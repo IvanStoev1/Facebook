@@ -31,7 +31,7 @@ public class SystemMsgsView extends JFrame {
                 "Logged user is null.");
     }
 
-    public void showrequestedUserIsNull() {
+    public void showRequestedUserIsNull() {
         JOptionPane.showMessageDialog(this,
                 "Requested user is null.");
     }
@@ -39,5 +39,10 @@ public class SystemMsgsView extends JFrame {
     public void showAccountDeleted() {
         JOptionPane.showMessageDialog(this,
                 "Your account was successfully deleted.");
+    }
+
+    public void showEmptyNameTextField() {
+        JOptionPane.showMessageDialog(this,
+                "Enter any name!");
     }
 }
