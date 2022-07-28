@@ -3,20 +3,25 @@ package com.vso.view.profile;
 import com.vso.controller.user.UserController;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
+import com.vso.view.Navigation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ProfileView extends BaseScreen {
 
     private final ProfileToHomeListener profileToHomeCallback;
     private final NewAvatarListener newAvatarCallback;
     private final UserController userController = new UserController();
+    private final Navigation navigation;
 
-    public ProfileView(ProfileToHomeListener profileToHomeCallback, NewAvatarListener newAvatarCallback) {
+    public ProfileView(ProfileToHomeListener profileToHomeCallback, NewAvatarListener newAvatarCallback, Navigation navigation) {
         System.out.println("PROFILE CONSTRUCTOR");
         this.profileToHomeCallback = profileToHomeCallback;
         this.newAvatarCallback = newAvatarCallback;
+        this.navigation = navigation;
         setTitle("My Profile");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
@@ -55,11 +60,22 @@ public class ProfileView extends BaseScreen {
         JButton btnUserPosts = InitComponent.button("USER POSTS", c, 2, 2, 10, 0);
         getContentPanel().add(btnUserPosts, c);
 
+        JButton settingsBtn = InitComponent.button("Settings", c, 3, 2, 10, 0);
+        getContentPanel().add(settingsBtn, c);
+
+
         int gridYInitial = 3;
         GallerySection.setupGallery(gridYInitial, getContentPanel()); //SETUP GALLERY COMPONENTS
 
         gridYInitial = GallerySection.getLastYgrid() + gridYInitial;
         PostSection.setupPostSection(gridYInitial, getContentPanel());
+
+        settingsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigation.redirectToProfileDataScreen();
+            }
+        });
 
         //TODO SOMETHING ELSE
         btnBlockUser.addActionListener(new AbstractAction() {

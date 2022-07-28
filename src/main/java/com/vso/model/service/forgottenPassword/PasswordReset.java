@@ -1,20 +1,21 @@
 package com.vso.model.service.forgottenPassword;
 
+import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.forgottenPassword.EmailFormScreen;
 
 public class PasswordReset {
-    private User user;
 
     public PasswordReset(User user) {
-        this.user = user;
+
     }
 
-    public boolean numbersMatch(int inputNumber) {
-        return inputNumber == user.getLastSentNumber();
+    public boolean numbersMatch(String inputNumber) {
+        return inputNumber.equals(String.valueOf(UserDao.getUserBy(EmailFormScreen.getEmail()).getLastSentNumber())) ;
     }
 
     public void reset(String password) {
-        AuthenticationServiceImpl.getLoggedUser().setPassword(password);
+        UserDao.getUserBy(EmailFormScreen.getEmail()).setPassword(password);
     }
 }

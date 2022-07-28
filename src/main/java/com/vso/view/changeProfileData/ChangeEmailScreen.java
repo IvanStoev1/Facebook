@@ -20,6 +20,7 @@ public class ChangeEmailScreen extends BaseScreen {
     private final Navigation navigation;
     private final ProfileDataService profileDataService;
     private final EmailValidator emailValidator;
+    private static String newEmail;
     public ChangeEmailScreen(Navigation navigation) {
         this.navigation = navigation;
         this.profileDataService = new ProfileDataServiceImpl(new EmailReset());
@@ -44,14 +45,14 @@ public class ChangeEmailScreen extends BaseScreen {
         getContentPanel().add(instruction1, c);
 
 
-        JTextField newEmail = new JTextField();
+        JTextField email = new JTextField();
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.insets = new Insets(0, 0, 0, 70);
         c.gridx = 1;
         c.gridy = 0;
-        getContentPanel().add(newEmail, c);
+        getContentPanel().add(email, c);
 
 
         JButton setEmailBtn = new JButton("Set new Email");
@@ -68,13 +69,17 @@ public class ChangeEmailScreen extends BaseScreen {
         setEmailBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(emailValidator.isEmailValid(newEmail.getText())){
+                newEmail = email.getText();
+                if(emailValidator.isEmailValid(email.getText())){
                     new EmailUtilityImpl().sendVerificationEmail(AuthenticationServiceImpl.getLoggedUser().getEmail());
-                    profileDataService.changeEmail(newEmail.getText());
                     navigation.redirectToDigitConformation();
                 }
 
             }
         });
+    }
+
+    public static String getNewEmail() {
+        return newEmail;
     }
 }

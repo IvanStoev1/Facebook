@@ -14,6 +14,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class UserDao {
@@ -60,9 +61,9 @@ public class UserDao {
         session.close();
     }
 
-    public static void setLastSentNumber(int lastSentNumber) {
+    public static void setLastSentNumber(int lastSentNumber,User user) {
         Session session = sessionFactory.openSession();
-        long loggedUserId = AuthenticationServiceImpl.getLoggedUser().getId();
+        long loggedUserId = user.getId();
         session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaUpdate<User> cr = cb.createCriteriaUpdate(User.class);
@@ -149,5 +150,25 @@ public class UserDao {
         session.getTransaction().commit();
         session.close();
         return user.toString();
+    }
+
+    public static Integer getLastSendNumber(User user) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> cr = cb.createQuery(User.class);
+        Root<User> root = cr.from(User.class);
+        cr.select(root);
+
+        Query<User> query = session.createQuery(cr);
+        List<User> resultList = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return Objects.requireNonNull(resultList.stream()
+                        .filter(user1 -> user1.getId() == user.getId())
+                        .findFirst()
+                        .orElse(null))
+                .getLastSentNumber();
     }
 }

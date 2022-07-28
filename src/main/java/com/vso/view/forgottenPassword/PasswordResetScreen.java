@@ -80,7 +80,7 @@ public class PasswordResetScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(password1.equals(password2)) {
+                if(password1.getText().equals(password2.getText())) {
                     UserDao.getUserBy(EmailFormScreen.getEmail()).setPassword(password1.getText());
                     new Message("Password reset successfully!");
                     AuthenticationServiceImpl.setLoggedUser(UserDao.getUserBy(EmailFormScreen.getEmail()));

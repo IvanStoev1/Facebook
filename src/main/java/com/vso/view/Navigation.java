@@ -49,7 +49,8 @@ public class Navigation {
 
         this.profileView = new ProfileView(
                 this::redirectFromProfileToHome,
-                this::redirectToNewAvatar);
+                this::redirectToNewAvatar,
+                this);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
       //  this.newAvatarSection = new NewAvatarSection(this::redirectFromNewAvatarToProfile);
