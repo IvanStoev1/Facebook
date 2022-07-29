@@ -8,6 +8,7 @@ import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,7 @@ public class Post {
     public void setPrivacy_status(PostPrivacyStatus privacy_status) {
         this.privacy_status = privacy_status;
     }
+
     @Enumerated(EnumType.STRING)
     @Column
     private PostPrivacyStatus privacy_status;
@@ -58,6 +60,9 @@ public class Post {
     public Post(String text, User user) {
         this.text = text;
         this.user = user;
+        this.date = LocalDate.now();
+        this.likes = new HashSet<>();
+        this.comments = new HashSet<>();
     }
 
     public void setLikes(Set<User> likes) {
