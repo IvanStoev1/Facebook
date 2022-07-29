@@ -20,7 +20,7 @@ public class FriendshipDao {
     public FriendshipDao() {
     }
 
-    public List<Friendship> getAllFriends(User loggedUser){
+    public static List<Friendship> getAllFriends(User loggedUser){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 

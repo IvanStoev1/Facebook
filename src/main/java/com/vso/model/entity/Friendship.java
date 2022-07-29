@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
 @Table(name = "friendships")
 public class Friendship {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,6 +27,7 @@ public class Friendship {
     private User requested;
 
     public Friendship() {
+
     }
 
     public Friendship(User requester, User requested, String friendship_status) {

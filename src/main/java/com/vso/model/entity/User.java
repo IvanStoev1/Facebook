@@ -85,8 +85,6 @@ public class User {
         return profileStatus;
     }
 
-
-
     public String getProfileRole() {
         return profileRole;
     }
@@ -121,5 +119,9 @@ public class User {
 
     public void setProfileStatus(String profileStatus) {
         this.profileStatus = profileStatus;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
