@@ -13,12 +13,12 @@ public class LoginSession {
         this.authController = authController;
     }
 
-    public void initSession() {
-        while (true) {
-            authenticationService.login(authController.getTextInput(), authController.getTextInput());
-            while (authenticationService.hasLoggedUser()) {
-                authController.logoutUser();
-            }
-        }
-    }
+//    public void initSession() {
+//        while (true) {
+//            authenticationService.login(authController.getTextInput(), authController.getTextInput());
+//            while (authenticationService.hasLoggedUser()) {
+//                authController.logoutUser();
+//            }
+//        }
+//    }
 }

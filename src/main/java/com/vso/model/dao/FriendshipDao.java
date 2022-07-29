@@ -42,10 +42,10 @@ public class FriendshipDao {
         return null;
     }
 
-    public void insertBlockedUser(Friendship blockedUser){
+    public void insertUser(Friendship user){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.persist(blockedUser);
+        session.persist(user);
         session.getTransaction().commit();
         session.close();
     }
