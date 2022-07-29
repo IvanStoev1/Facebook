@@ -5,28 +5,23 @@ import com.vso.view.changeProfileData.*;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
-import com.vso.view.profile.ProfileView;
+import com.vso.view.profile.MyProfileView;
 import com.vso.view.uploadphoto.UploadView;
 import com.vso.view.forgottenPassword.PasswordResetScreen;
 
 public class Navigation {
-
     private final AuthenticationScreen authenticationScreen;
     private final RegisterScreen registerScreen;
     private final EmailFormScreen emailForm;
     private final HomeScreen homeScreen;
     private final UploadView uploadView;
-    private final ProfileView profileView;
+    private final MyProfileView myProfileView;
     private final PasswordResetScreen passwordReset;
     private final DigitConfirmationScreen digitConfirmationScreen;
     private final ProfileDataScreen profileDataScreen;
     private final LoginScreen loginScreen;
     private final ChangeEmailScreen emailScreen;
-    private final AddEmailScreen addEmailScreen;
     private final ChangePasswordScreen changePasswordScreen;
-  //  private final NewAvatarSection newAvatarSection;
-
-
 
     public Navigation() {
         this.authenticationScreen = new AuthenticationScreen(
@@ -40,30 +35,15 @@ public class Navigation {
                 this::redirectToUploadView,
                 this::redirectToProfile);
         this.uploadView = new UploadView(this::redirectUploadToHome);
-      //  this.avatarView = new AvatarView(this::redirectFromAvatarToHome);
-        this.profileDataScreen = new ProfileDataScreen(this);
-        this.loginScreen = new LoginScreen(this);
-        this.emailScreen = new ChangeEmailScreen(this);
-        this.addEmailScreen = new AddEmailScreen(this);
-        this.changePasswordScreen = new ChangePasswordScreen(this);
-
-        this.profileView = new ProfileView(
+        this.myProfileView = new MyProfileView(
                 this::redirectFromProfileToHome,
-                this::redirectToNewAvatar,
                 this);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
-      //  this.newAvatarSection = new NewAvatarSection(this::redirectFromNewAvatarToProfile);
-    }
-
-    public void redirectFromNewAvatarToProfile(){
-       // newAvatarSection.hideScreen();
-        profileView.makeVisible();
-    }
-
-    public void redirectToNewAvatar(){
-        profileView.hideScreen();
-      //  newAvatarSection.makeVisible();
+        this.profileDataScreen = new ProfileDataScreen(this);
+        this.loginScreen = new LoginScreen(this);
+        this.emailScreen = new ChangeEmailScreen(this);
+        this.changePasswordScreen = new ChangePasswordScreen(this);
     }
 
     public void redirectRegisterToLogin(){
@@ -97,14 +77,14 @@ public class Navigation {
     }
 
     private void redirectToProfile(){
-        profileView.makeVisible();
-        profileView.setComponents();
+        myProfileView.makeVisible();
+        myProfileView.setComponents();
         homeScreen.hideScreen();
     }
 
     private void redirectFromProfileToHome(){
         homeScreen.makeVisible();
-        profileView.hideScreen();
+        myProfileView.hideScreen();
     }
 
     public void redirectToHomeScreenFromPassReset(){

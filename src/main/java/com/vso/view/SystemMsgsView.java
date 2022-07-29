@@ -25,4 +25,19 @@ public class SystemMsgsView extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "Image was successfully uploaded.");
     }
+
+    public void showLoggedUserIsNull() {
+        JOptionPane.showMessageDialog(this,
+                "Logged user is null.");
+    }
+
+    public void showrequestedUserIsNull() {
+        JOptionPane.showMessageDialog(this,
+                "Requested user is null.");
+    }
+
+    public void showAccountDeleted() {
+        JOptionPane.showMessageDialog(this,
+                "Your account was successfully deleted.");
+    }
 }

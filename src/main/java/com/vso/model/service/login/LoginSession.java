@@ -17,7 +17,7 @@ public class LoginSession {
         while (true) {
             authenticationService.login(authController.getTextInput(), authController.getTextInput());
             while (authenticationService.hasLoggedUser()) {
-                authController.processLoggedUserOptions();
+                authController.logoutUser();
             }
         }
     }

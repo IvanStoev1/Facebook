@@ -23,12 +23,12 @@ public class UserController {
         updateAvatarService.updateAvatarPhoto(newAvatarPhotoUrl);
     }
 
-    public String showUserAvatar(){
-        return userDao.accessUserAvatar();
+    public String showUserAvatar(User user){
+        return userDao.accessUserAvatar(user);
     }
 
-    public String userInfo(){
-        return userDao.accessUserInfo();
+    public String userInfo(User user){
+        return userDao.accessUserInfo(user);
     }
 
     public User getLoggedUser(){

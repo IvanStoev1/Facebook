@@ -1,6 +1,5 @@
 package com.vso.model.dao;
 
-import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
@@ -12,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,7 +19,7 @@ public class UserDao {
 
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public static List<User> getAllUsers(){
+    public static List<User> getAllUsers() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -61,7 +59,7 @@ public class UserDao {
         session.close();
     }
 
-    public static void setLastSentNumber(int lastSentNumber,User user) {
+    public static void setLastSentNumber(int lastSentNumber, User user) {
         Session session = sessionFactory.openSession();
         long loggedUserId = user.getId();
         session.beginTransaction();
@@ -77,7 +75,7 @@ public class UserDao {
     }
 
 
-    public boolean userExists(String email){
+    public boolean userExists(String email) {
         Optional<User> existingUser = getAllUsers()
                 .stream()
                 .filter(user -> user.getEmail().equals(email))
@@ -121,35 +119,36 @@ public class UserDao {
         session.getTransaction().commit();
         session.close();
     }
-    public String accessUserAvatar(){
-        if (AuthenticationServiceImpl.getLoggedUser() == null){
+
+    public String accessUserAvatar(User user) {
+        if (user == null) {
             return null;
         }
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+        User userAvatar = session.get(User.class, user.getId());
 
         session.getTransaction().commit();
         session.close();
 
-        return user.getAvatarUrl();
+        return userAvatar.getAvatarUrl();
     }
 
-    public String accessUserInfo(){
-        if (AuthenticationServiceImpl.getLoggedUser() == null){
+    public String accessUserInfo(User user) {
+        if (user == null) {
             return null;
         }
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user = session.get(User.class, AuthenticationServiceImpl.getLoggedUser().getId());
+        User userInfo = session.get(User.class, user.getId());
 
         session.getTransaction().commit();
         session.close();
-        return user.toString();
+        return userInfo.toString();
     }
 
     public static Integer getLastSendNumber(User user) {

@@ -48,7 +48,7 @@ public class PostSection extends BaseScreen {
                 lbPostId.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, Color.red));
                 controlPanel.add(lbPostId, c);
 
-                JLabel lbPhoto = InitComponent.imageLabel(userController.showUserAvatar(),60, 60, c, gridXInitial+1, gridYInitial, 0, 0);
+                JLabel lbPhoto = InitComponent.imageLabel(userController.showUserAvatar(loggedUser),60, 60, c, gridXInitial+1, gridYInitial, 0, 0);
                 assert lbPhoto != null;
                 lbPhoto.setPreferredSize(new Dimension(300, 80));
                 lbPhoto.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.red));

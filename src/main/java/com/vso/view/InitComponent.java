@@ -77,4 +77,15 @@ public class InitComponent {
 
         return txtField;
     }
+
+    public static JToggleButton selectButton(String text, GridBagConstraints c, int gridx, int gridy, int insetL, int insetR){
+        text = Objects.requireNonNullElse(text, ("SELECT BUTTON"));
+        JToggleButton button = new JToggleButton(text);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.insets = new Insets(0, insetL, 0, insetR);
+        c.gridx = gridx;
+        c.gridy = gridy;
+        return button;
+    }
 }
