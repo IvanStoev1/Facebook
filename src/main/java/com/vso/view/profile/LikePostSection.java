@@ -15,23 +15,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LikePhotoSection extends BaseScreen {
+public class LikePostSection extends BaseScreen {
 
     private final Navigation navigation;
-    private final UserController userController = new UserController();
-    private final PhotoLikeController photoLikeController = new PhotoLikeController();
+    private LikePostRecordSet likePostRecordSet = new LikePostRecordSet();
     private User user;
-    private static Photo newAvatar;
-    private static Post post;
+    private Post post;
 
-    public LikePhotoSection(Photo newAvatar, Navigation navigation, User user) {
+    public LikePostSection(Post post, Navigation navigation, User user) {
         this.navigation = navigation;
-        LikePhotoSection.newAvatar = newAvatar;
+        this.post = post;
         this.user = user;
         setSize(600, 400);
         makeVisible();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setTitle("Like Photos");
+        setTitle("Like Post");
     }
 
     @Override
@@ -43,31 +41,26 @@ public class LikePhotoSection extends BaseScreen {
         return new GridBagLayout();
     }
 
-    protected void setComponents(Photo photo) {
+    protected void setComponents(Post post) {
         getContentPanel().setLayout(getLayoutManagerr());
         GridBagConstraints c = new GridBagConstraints();
 
-        JButton btnLike = InitComponent.button(photoLikeController.countLikes(photo) + " Like", c, 0, 0, 10, 0);
+        //TODO in backend calculate likes for post: photoLikeController.countLikes(photo)
+        JButton btnLike = InitComponent.button(" Like", c, 0, 0, 10, 0);
         getContentPanel().add(btnLike, c);
 
-        JButton btnSelectAsAvatar = InitComponent.button("Select As Avatar", c, 1, 0, 0, 10);
-        getContentPanel().add(btnSelectAsAvatar, c);
+        JButton btnAddComment = InitComponent.button("Select As Avatar", c, 1, 0, 0, 10);
+        getContentPanel().add(btnAddComment, c);
 
-        LikePhotoResultSet.setComponents(1, getContentPanel(), photo);
+        JTextField txtComment = InitComponent.txtField(c, 1, 0, 0, 10);
+        getContentPanel().add(txtComment, c);
 
-        btnSelectAsAvatar.addActionListener(new ActionListener() {
+        LikePostRecordSet.setComponents(1, getContentPanel(), post);
+
+        btnAddComment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userController.setNewAvatar(newAvatar.getUrl());
-
-                java.awt.Window[] win = java.awt.Window.getWindows();
-                for (Window window : win) {
-                    window.dispose();
-                }
-
-                MyProfileView myProfile = new MyProfileView(navigation);
-                myProfile.setComponents();
-                myProfile.makeVisible();
+                //TODO Create new comment...........................................
             }
         });
 
@@ -98,10 +91,6 @@ public class LikePhotoSection extends BaseScreen {
     protected void setupComponents() {
     }
 
-    public void setId(Photo newAvatar) {
-        LikePhotoSection.newAvatar = newAvatar;
-    }
-
     public User getUser() {
         return user;
     }
@@ -109,4 +98,5 @@ public class LikePhotoSection extends BaseScreen {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
