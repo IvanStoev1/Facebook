@@ -21,7 +21,7 @@ public class PostDao {
     public PostDao() {
     }
 
-    public static List<Post> selectPostsByUserId(User thisUser) {
+    public List<Post> selectPostsByUserId(User thisUser) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
