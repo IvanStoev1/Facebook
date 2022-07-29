@@ -13,6 +13,7 @@ public class SearchBar {
     public SearchBar() {
     }
 
+
     public static List<User> findUser(String userName) {
         return UserDao.getAllUsers().stream().
                 filter(user -> user.getName().toUpperCase().

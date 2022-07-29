@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SearchController {
 
-    private final SearchBar searchBar = new SearchBar();
+    private static SearchBar searchBar;
 
     public SearchController() {
     }

@@ -23,11 +23,12 @@ public class LikePhotoResultSet extends BaseScreen {
         return new GridBagLayout();
     }
 
-    public static void setComponents(int gridYInitial, JPanel controlPanel, Photo photo){
+    protected void setComponents(int gridYInitial, Photo photo){
         try {
             int counter = 0;
             int gridXInitial = 0;
 
+            getContentPanel().setLayout(getLayoutManager());
             for (Likephoto like : photoLikeController.likesForThisPic(photo)) {
 
                 GridBagConstraints c = new GridBagConstraints();
@@ -37,12 +38,12 @@ public class LikePhotoResultSet extends BaseScreen {
                 assert lbPhoto != null;
                 lbPhoto.setPreferredSize(new Dimension(300, 80));
                 lbPhoto.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
-                controlPanel.add(lbPhoto, c);
+                getContentPanel().add(lbPhoto, c);
 
                 JLabel lbUserName = InitComponent.txtLabel(like.getUser().getName(), c, gridXInitial+1, gridYInitial, 0, 0);
                 lbUserName.setPreferredSize(new Dimension(300, 80));
                 lbUserName.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
-                controlPanel.add(lbUserName, c);
+                getContentPanel().add(lbUserName, c);
 
                 if (counter == 1) {
                     counter = 0;

@@ -29,7 +29,7 @@ public class PostDao {
         Root<Post> root = createQuery.from(Post.class);
 
         createQuery.select(root).orderBy(cb.desc(root.get("date")));;
-        //createQuery.where(cb.equal(root.get("user_id"), thisUser.getId()));
+        createQuery.where(cb.equal(root.get("user"), thisUser));
 
         Query<Post> query = session.createQuery(createQuery);
         if (query.getResultStream().findAny().isPresent()) {

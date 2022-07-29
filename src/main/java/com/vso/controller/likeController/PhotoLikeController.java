@@ -3,18 +3,18 @@ package com.vso.controller.likeController;
 import com.vso.model.dao.LikePhotoDao;
 import com.vso.model.entity.Likephoto;
 import com.vso.model.entity.Photo;
-import com.vso.model.service.like.LikePhotoService;
+import com.vso.model.service.like.LikePhotoServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PhotoLikeController {
 
-    private final LikePhotoService likePhotoService;
+    private final LikePhotoServiceImpl likePhotoService;
     private static final LikePhotoDao likePhotoDao = new LikePhotoDao();
 
     public PhotoLikeController() {
-        this.likePhotoService = new LikePhotoService();
+        this.likePhotoService = new LikePhotoServiceImpl();
     }
 
     public void setNewLike(Photo photo) {

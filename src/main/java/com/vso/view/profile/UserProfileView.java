@@ -17,48 +17,43 @@ import java.awt.event.ActionEvent;
 
 public class UserProfileView extends BaseScreen {
 
-    private final Navigation navigation = new Navigation();
     private final UserController userController = new UserController();
-    private final Search search = new Search(navigation);
     private final BlockUser blockUser = new BlockUserImpl();
     private final FriendshipController friendshipController = new FriendshipController();
-    private User requested;
-    private final GallerySection gallerySection = new GallerySection(requested, navigation);
+    private final GallerySection gallerySection = new GallerySection();
 
     public UserProfileView(User requested) {
-        this.requested = requested;
         setTitle(requested.getName());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setComponents(requested);
     }
 
-    public void setUser(User requested) {
-        this.requested = requested;
-    }
 
     @Override
     protected GridBagLayout getLayoutManager() {
         return new GridBagLayout();
     }
 
-    public void setComponents() {
+    public void setComponents(User requested) {
+        System.out.println("SOME USER IS HEEEERE>>>>>>>>>>>>>>>>>>>>>>>>>" + requested);
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
-        JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(requested), 200, 200, c, 0, 0, 10, 0);
+        JLabel lbAvatar = InitComponent.imageLabel(requested.getAvatarUrl(), 200, 200, c, 0, 0, 10, 0);
         assert lbAvatar != null;
         getContentPanel().add(lbAvatar, c);
 
-        JLabel lbUserInfo = InitComponent.txtLabel(userController.userInfo(requested), c, 1, 0, 10, 0);
+        JLabel lbUserInfo = InitComponent.txtLabel(requested.toString(), c, 1, 0, 10, 0);
         getContentPanel().add(lbUserInfo, c);
 
         JToggleButton btnBlockUser = InitComponent.selectButton("Block User", c, 0, 1, 10, 0);
         getContentPanel().add(btnBlockUser, c);
 
-        if (friendshipController.isUserBlocked(loggedUser, requested)) {
-            btnBlockUser.setSelected(true);
-        }
+//        if (friendshipController.isUserBlocked(loggedUser, requested)) {
+//            btnBlockUser.setSelected(true);
+//        }
 
         JButton btnBack = InitComponent.button("BACK", c, 0, 2, 10, 0);
         getContentPanel().add(btnBack, c);
@@ -71,35 +66,35 @@ public class UserProfileView extends BaseScreen {
         getContentPanel().add(btnUserPosts, c);
 
         int gridYInitial = 3;
-        gallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
+//        GallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
 
-        gridYInitial = gallerySection.getLastYgrid(requested) + gridYInitial;
-        PostSection.setupPostSection(gridYInitial, getContentPanel());
+        gridYInitial = GallerySection.getLastYgrid(requested) + gridYInitial;
+//        PostSection.setupPostSection(gridYInitial, getContentPanel(), requested, navigation);
 
-        btnBlockUser.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (btnBlockUser.isSelected()) {
-                    friendshipController.blockUser(loggedUser, requested);
-                    btnBlockUser.setText("BLOCKED");
-                }
-                friendshipController.unblockUser(loggedUser, requested);
-                btnBlockUser.setText("Block User");
-            }
-        });
+//        btnBlockUser.addActionListener(new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                if (btnBlockUser.isSelected()) {
+//                    friendshipController.blockUser(loggedUser, requested);
+//                    btnBlockUser.setText("BLOCKED");
+//                }
+//                friendshipController.unblockUser(loggedUser, requested);
+//                btnBlockUser.setText("Block User");
+//            }
+//        });
 
 
-        btnBack.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-                search.makeVisible();
-            }
-        });
+//        btnBack.addActionListener(new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                dispose();
+//                search.makeVisible();
+//            }
+//        });
     }
 
     @Override
-    public void setupComponents() {
+    protected void setupComponents() {
 
     }
 }

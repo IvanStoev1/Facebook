@@ -2,8 +2,6 @@ package com.vso.view.auth;
 
 import com.vso.controller.auth.AuthController;
 import com.vso.view.BaseScreen;
-import com.vso.model.service.authentication.AuthenticationService;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;

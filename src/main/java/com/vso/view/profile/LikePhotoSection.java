@@ -3,7 +3,6 @@ package com.vso.view.profile;
 import com.vso.controller.likeController.PhotoLikeController;
 import com.vso.controller.user.UserController;
 import com.vso.model.entity.Photo;
-import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
@@ -17,21 +16,22 @@ import java.awt.event.ActionListener;
 
 public class LikePhotoSection extends BaseScreen {
 
-    private final Navigation navigation;
+    private Navigation navigation;
     private final UserController userController = new UserController();
     private final PhotoLikeController photoLikeController = new PhotoLikeController();
+    private LikePhotoResultSet likePhotoResultSet;
     private User user;
-    private static Photo newAvatar;
-    private static Post post;
+    private Photo newAvatar;
 
-    public LikePhotoSection(Photo newAvatar, Navigation navigation, User user) {
+    public LikePhotoSection() {
         this.navigation = navigation;
-        LikePhotoSection.newAvatar = newAvatar;
+        this.newAvatar = newAvatar;
         this.user = user;
+        this.likePhotoResultSet = new LikePhotoResultSet();
         setSize(600, 400);
-        makeVisible();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setTitle("Like Photos");
+        setTitle("Like Photos 2");
+        makeVisible();
     }
 
     @Override
@@ -39,57 +39,36 @@ public class LikePhotoSection extends BaseScreen {
         return new GridBagLayout();
     }
 
-    protected static GridBagLayout getLayoutManagerr() {
-        return new GridBagLayout();
-    }
 
-    protected void setComponents(Photo photo) {
-        getContentPanel().setLayout(getLayoutManagerr());
+    public static void setComponents(Photo newAvatar, User user) {
+
         GridBagConstraints c = new GridBagConstraints();
 
-        JButton btnLike = InitComponent.button(photoLikeController.countLikes(photo) + " Like", c, 0, 0, 10, 0);
+        JButton btnLike = InitComponent.button( " Like", c, 0, 0, 10, 0);
+        //TODO + LIKE + photoLikeController.countLikes(newAvatar) +
         getContentPanel().add(btnLike, c);
 
         JButton btnSelectAsAvatar = InitComponent.button("Select As Avatar", c, 1, 0, 0, 10);
         getContentPanel().add(btnSelectAsAvatar, c);
 
-        LikePhotoResultSet.setComponents(1, getContentPanel(), photo);
+        //likePhotoResultSet.setComponents(1, newAvatar);
 
         btnSelectAsAvatar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userController.setNewAvatar(newAvatar.getUrl());
-
-                java.awt.Window[] win = java.awt.Window.getWindows();
-                for (Window window : win) {
-                    window.dispose();
-                }
-
-                MyProfileView myProfile = new MyProfileView(navigation);
-                myProfile.setComponents();
-                myProfile.makeVisible();
+//                userController.setNewAvatar(newAvatar.getUrl());
+//                Window[] win = Window.getWindows();
+//                for (Window window : win) window.dispose();
+//                MyProfileView profileView = new MyProfileView(navigation);
+//                profileView.setComponents();
+//                profileView.makeVisible();
             }
         });
 
         btnLike.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Window[] win = Window.getWindows();
-                if (user == AuthenticationServiceImpl.getLoggedUser()) {
-
-                    for (Window window : win) window.dispose();
-
-                    MyProfileView profileView = new MyProfileView(navigation);
-                    profileView.makeVisible();
-                    profileView.setComponents();
-                } else {
-
-                    for (Window window : win) window.dispose();
-
-                    UserProfileView profile = new UserProfileView(user);
-                    profile.makeVisible();
-                    profile.setComponents();
-                }
+                //TODO................................
             }
         });
     }
@@ -99,7 +78,7 @@ public class LikePhotoSection extends BaseScreen {
     }
 
     public void setId(Photo newAvatar) {
-        LikePhotoSection.newAvatar = newAvatar;
+        this.newAvatar = newAvatar;
     }
 
     public User getUser() {
@@ -108,5 +87,9 @@ public class LikePhotoSection extends BaseScreen {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setNavigation(Navigation navigation){
+        this.navigation = navigation;
     }
 }

@@ -114,6 +114,8 @@ public class AuthenticationScreen extends BaseScreen {
                     systemMsgsView.showLoginFail();
                 } else {
                     homeScreenCallback.loginSuccessful();
+                    email.setText("");
+                    password.setText("");
                 }
             }
         });
@@ -129,7 +131,6 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 forgottenPassCallback.onForgottenPassSelected();
-
             }
         });
     }

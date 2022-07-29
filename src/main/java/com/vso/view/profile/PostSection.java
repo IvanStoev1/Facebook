@@ -19,8 +19,6 @@ public class PostSection extends BaseScreen {
 
     private static final PostController postController = new PostControllerImpl();
     private static final UserController userController = new UserController();
-    private static Navigation navigation;
-    private static User user;
 
     public PostSection() {
     }
@@ -34,7 +32,7 @@ public class PostSection extends BaseScreen {
     protected void setupComponents() {
     }
 
-    public static void setupPostSection(int gridYInitial, JPanel controlPanel) {
+    public static void setupPostSection(int gridYInitial, JPanel controlPanel, User user) {
         User loggedUser = userController.getLoggedUser();
         try {
             int counter = 0;
@@ -42,8 +40,7 @@ public class PostSection extends BaseScreen {
 
             for (Post post : posts()) {
 
-                GridBagConstraints c;
-                c = new GridBagConstraints();
+                GridBagConstraints c = new GridBagConstraints();
                 counter++;
 
                 JLabel lbPhoto = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 60, 60, c, gridXInitial, gridYInitial, 10, 0);
@@ -74,8 +71,8 @@ public class PostSection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        LikePostSection likePostSection = new LikePostSection(post, navigation, user);
-                        likePostSection.setComponents(post);
+//                        LikePostSection likePostSection = new LikePostSection(post, navigation, user);
+//                        likePostSection.setComponents(post);
                         System.out.println("Yay you clicked me + " + id);
                     }
                 });

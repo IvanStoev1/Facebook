@@ -15,14 +15,14 @@ import java.util.List;
 
 public class GallerySection extends BaseScreen {
 
-    private final Navigation navigation;
+    private Navigation navigation;
     private static final PhotoController photoController = new PhotoController();
     private User user;
 
-    public GallerySection(User user, Navigation navigation) {
-        this.navigation = navigation;
-        this.user = user;
+    public GallerySection() {
+
     }
+
 
     public void setUser(User user) {
         this.user = user;
@@ -33,8 +33,8 @@ public class GallerySection extends BaseScreen {
         return new GridBagLayout();
     }
 
-    public void setupGallery(int gridYInitial, JPanel controlPanel, User user) {
-        Navigation navigation = new Navigation();
+    public static void setupGallery(int gridYInitial, JPanel controlPanel, User user) {
+
         try {
             int counter = 0;
             int gridXInitial = 0;
@@ -62,8 +62,7 @@ public class GallerySection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        new LikePhotoSection(newAvatar, navigation, user);
-                        //new LikeCommentPost(newAvatar, navigation, user);
+                        LikePhotoSection.setComponents(photo, user);
                     }
                 });
             }
@@ -72,7 +71,7 @@ public class GallerySection extends BaseScreen {
         }
     }
 
-    public int getLastYgrid(User user) {
+    public static int getLastYgrid(User user) {
 
         if (gallery(user) != null) {
             int printedComponents = gallery(user).size();
@@ -85,7 +84,7 @@ public class GallerySection extends BaseScreen {
         }
     }
 
-    private List<Photo> gallery(User user) throws NullPointerException {
+    private static List<Photo> gallery(User user) throws NullPointerException {
         return photoController.showUserPhotos(user);
     }
 

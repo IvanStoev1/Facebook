@@ -20,7 +20,7 @@ public abstract class BaseScreen extends JFrame{
 
     protected abstract LayoutManager getLayoutManager();
 
-    protected static JPanel getContentPanel() {
+    protected JPanel getContentPanel() {
         return contentPanel;
     }
 

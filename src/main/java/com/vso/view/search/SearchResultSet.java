@@ -16,11 +16,12 @@ import java.awt.event.MouseEvent;
 
 public class SearchResultSet extends BaseScreen {
 
-    private static final Navigation navigation = new Navigation();
-    private final Search search;
+    private static Navigation navigation;
+    private static SearchController searchController;
+    private Search search;
 
-    public SearchResultSet(Search search) {
-        this.search = search;
+    public SearchResultSet(Navigation navigation){
+        SearchResultSet.navigation = navigation;
     }
 
     @Override
@@ -28,13 +29,13 @@ public class SearchResultSet extends BaseScreen {
         return new GridBagLayout();
     }
     //TODO STATIC
-    public void setComponents(int gridYInitial, JPanel controlPanel, String userName){
+    public static void setComponents(int gridYInitial, JPanel controlPanel, String userName){
         try {
             int counter = 0;
             int gridXInitial = 0;
 
             for (User user : SearchController.findUser(userName)) {
-
+                System.out.println("THIS IS WHAT I FOUND: " + user);
                 GridBagConstraints c = new GridBagConstraints();
                 counter++;
 
@@ -68,16 +69,19 @@ public class SearchResultSet extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (user == AuthenticationServiceImpl.getLoggedUser()){
-                            search.hideScreen();
-                            MyProfileView profileView = new MyProfileView(navigation);
-                            profileView.makeVisible();
-                            profileView.setComponents();
-                        } else {
-                            search.hideScreen();
+                        if (user.getId() == AuthenticationServiceImpl.getLoggedUser().getId()){
+
+                            MyProfileView myProfileView = new MyProfileView(navigation);
+                            myProfileView.setComponents();
+                            myProfileView.makeVisible();
+                            System.out.println("MY PROFILE " + AuthenticationServiceImpl.getLoggedUser());
+
+                        } else if (user.getId() != AuthenticationServiceImpl.getLoggedUser().getId()){
+
+                            System.out.println("SOMEONE ELSE " + user);
                             UserProfileView profile = new UserProfileView(user);
                             profile.makeVisible();
-                            profile.setComponents();
+
                         }
                     }
                 });
@@ -91,5 +95,4 @@ public class SearchResultSet extends BaseScreen {
     protected void setupComponents() {
 
     }
-
 }

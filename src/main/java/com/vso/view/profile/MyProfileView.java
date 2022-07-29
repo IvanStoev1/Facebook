@@ -8,7 +8,6 @@ import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 import com.vso.view.Navigation;
-import com.vso.view.deleted.DeletedScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +16,12 @@ import java.awt.event.ActionEvent;
 public class MyProfileView extends BaseScreen {
 
     private final Navigation navigation;
-    AuthController authController = new AuthController();
-    UserController userController = new UserController();
-    DeleteAccountController deleteAccountController = new DeleteAccountController();
+    private static AuthController authController;
+    private static final UserController userController = new UserController();
+    private static DeleteAccountController deleteAccountController;
+    private static final GallerySection gallerySection = new GallerySection();
 
-    public MyProfileView(Navigation navigation) { //
+    public MyProfileView(Navigation navigation) {
         this.navigation = navigation;
         setTitle("My Profile");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -34,15 +34,16 @@ public class MyProfileView extends BaseScreen {
     }
 
     @Override
-    public void setupComponents() {
+    protected void setupComponents() {
 
     }
 
     public void setComponents(){
         System.out.println("My profile components are set");
-        GallerySection gallerySection = new GallerySection(AuthenticationServiceImpl.getLoggedUser(), navigation);
+
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
+
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 200, 200, c, 0, 0, 10, 0);
@@ -66,10 +67,10 @@ public class MyProfileView extends BaseScreen {
         getContentPanel().add(btnUserPosts, c);
 
         int gridYInitial = 3;
-        gallerySection.setupGallery(gridYInitial, getContentPanel(), loggedUser); //SETUP GALLERY COMPONENTS
+        GallerySection.setupGallery(gridYInitial, getContentPanel(), loggedUser); //SETUP GALLERY COMPONENTS
 
-        gridYInitial = gallerySection.getLastYgrid(loggedUser) + gridYInitial;
-        PostSection.setupPostSection(gridYInitial, getContentPanel());
+        gridYInitial = GallerySection.getLastYgrid(loggedUser) + gridYInitial;
+        PostSection.setupPostSection(gridYInitial, getContentPanel(), loggedUser);
 
         btnDeleteAccount.addActionListener(new AbstractAction() {
             @Override
@@ -77,9 +78,7 @@ public class MyProfileView extends BaseScreen {
                 deleteAccountController.setDeleteAccount(loggedUser);
                 authController.logoutUser();
                 hideScreen();
-                DeletedScreen deletedScreen = new DeletedScreen();
-                deletedScreen.setComponents();
-                deletedScreen.setVisible(true);
+                navigation.redirectFromProfileToLogin();
             }
         });
 

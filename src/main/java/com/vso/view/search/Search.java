@@ -11,13 +11,12 @@ import java.awt.event.ActionListener;
 public class Search extends BaseScreen {
 
     private final Navigation navigation;
-    private final SearchController searchController = new SearchController();
+    private static SearchController searchController;
     private final SystemMsgsView systemMsgsView = new SystemMsgsView();
-    private final SearchResultSet searchResultSet;
+    private static SearchResultSet searchResultSet;
 
     public Search(Navigation navigation) {
         this.navigation = navigation;
-        this.searchResultSet = new SearchResultSet(this);
         setTitle("Search friends");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setComponent();
@@ -30,10 +29,6 @@ public class Search extends BaseScreen {
 
     @Override
     protected void setupComponents() {
-
-    }
-
-    public void setComponent() {
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
@@ -79,8 +74,10 @@ public class Search extends BaseScreen {
                     systemMsgsView.showEmptyNameTextField();
                 } else {
                     if (SearchController.findUser(userName) != null) {
+                        System.out.println(SearchController.findUser(userName));
+                        System.out.println(userName);
                         //TODO STATIC
-                        searchResultSet.setComponents(gridYInitial, getContentPanel(), userName);
+                        SearchResultSet.setComponents(gridYInitial, getContentPanel(), userName);
                         makeVisible();
                         btnSearch.setVisible(false);
                         btnNewSearch.setVisible(true);
@@ -88,5 +85,9 @@ public class Search extends BaseScreen {
                 }
             }
         });
+    }
+
+    protected void setComponent() {
+
     }
 }
