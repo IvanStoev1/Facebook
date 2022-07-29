@@ -1,9 +1,7 @@
 package com.vso.model.dao;
 
-import com.vso.model.entity.Photo;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -13,10 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-
-import static java.util.function.Predicate.not;
 
 public class UserDao {
 
@@ -105,47 +100,5 @@ public class UserDao {
         session.getTransaction().commit();
         session.close();
         return userInfo.toString();
-    }
-
-    public static List<Post> getPostsBy(User user) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cr = cb.createQuery(User.class);
-        Root<User> root = cr.from(User.class);
-        cr.select(root);
-
-        Query<User> query = session.createQuery(cr);
-        List<User> resultList = query.getResultList();
-        session.getTransaction().commit();
-        session.close();
-
-        return Objects.requireNonNull(resultList.stream()
-                        .filter(user1 -> user1.getId() == user.getId())
-                        .findFirst()
-                        .orElse(null))
-                .getPosts();
-    }
-
-    public static List<Photo> getPhotosBy(User user) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cr = cb.createQuery(User.class);
-        Root<User> root = cr.from(User.class);
-        cr.select(root);
-
-        Query<User> query = session.createQuery(cr);
-        List<User> resultList = query.getResultList();
-        session.getTransaction().commit();
-        session.close();
-
-        return Objects.requireNonNull(resultList.stream()
-                        .filter(user1 -> user1.getId() == user.getId())
-                        .findFirst()
-                        .orElse(null))
-                .getPhotos();
     }
 }

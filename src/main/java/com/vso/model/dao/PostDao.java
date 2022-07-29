@@ -2,6 +2,7 @@ package com.vso.model.dao;
 
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -10,7 +11,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PostDao {
 
@@ -19,8 +21,7 @@ public class PostDao {
     public PostDao() {
     }
 
-    public List<Post> selectPostsByUserId(User thisUser) {
-
+    public static List<Post> selectPostsByUserId(User thisUser) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -39,5 +40,26 @@ public class PostDao {
         session.close();
 
         return null;
+    }
+
+    public static List<Post> getOrderedPosts() {
+        List<Post> requestedPosts = Objects.requireNonNull(
+                        FriendshipDao.getAllFriends(AuthenticationServiceImpl.getLoggedUser()))
+                .stream()
+                .flatMap(friendship -> friendship.getRequested().getPosts().stream())
+                .collect(Collectors.toList());
+
+        List<Post> requestersPosts = Objects.requireNonNull(
+                        FriendshipDao.getAllFriends(AuthenticationServiceImpl.getLoggedUser()))
+                .stream()
+                .flatMap(friendship -> friendship.getRequester().getPosts().stream())
+                .collect(Collectors.toList());
+
+        requestedPosts.addAll(requestersPosts);
+        Set<Post> allUnique = new HashSet<>(requestedPosts);
+        ArrayList<Post> uniqueList = new ArrayList<>(allUnique);
+        Collections.sort(uniqueList);
+        Collections.reverse(uniqueList);
+        return uniqueList;
     }
 }

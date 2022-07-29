@@ -7,13 +7,14 @@ import org.hibernate.type.descriptor.java.LocalDateJavaType;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements Comparable<Post> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,5 +128,13 @@ public class Post {
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        if(getDate() == null || post.getDate() == null) {
+            return 0;
+        }
+        return getDate().compareTo(post.getDate());
     }
 }
