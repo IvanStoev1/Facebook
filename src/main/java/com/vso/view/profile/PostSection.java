@@ -5,6 +5,7 @@ import com.vso.controller.postController.PostControllerImpl;
 import com.vso.controller.user.UserController;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 
@@ -31,7 +32,7 @@ public class PostSection extends BaseScreen {
     }
 
     public static void setupPostSection(int gridYInitial, JPanel controlPanel){
-        User loggedUser = userController.getLoggedUser();
+        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
         try {
             int counter = 0;
             int gridXInitial = 0;
@@ -91,8 +92,7 @@ public class PostSection extends BaseScreen {
 
     public static List<Post> posts() {
         //TODO Chage the way user is passed
-        User loggedUser = userController.getLoggedUser();
+        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
         return postController.getAllPostsForUser(loggedUser);
     }
-
 }

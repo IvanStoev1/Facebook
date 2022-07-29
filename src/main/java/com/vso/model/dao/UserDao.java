@@ -2,7 +2,6 @@ package com.vso.model.dao;
 
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.CriteriaUpdate;

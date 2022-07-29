@@ -30,8 +30,4 @@ public class UserController {
     public String userInfo(User user){
         return userDao.accessUserInfo(user);
     }
-
-    public User getLoggedUser(){
-        return AuthenticationServiceImpl.getLoggedUser();
-    }
 }
