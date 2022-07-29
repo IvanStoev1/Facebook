@@ -85,8 +85,6 @@ public class User {
         return profileStatus;
     }
 
-
-
     public String getProfileRole() {
         return profileRole;
     }
