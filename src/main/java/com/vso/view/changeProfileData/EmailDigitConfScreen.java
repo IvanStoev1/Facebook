@@ -1,26 +1,24 @@
-package com.vso.view.forgottenPassword;
+package com.vso.view.changeProfileData;
 
 import com.vso.model.dao.UserDao;
-
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.changeProfileData.EmailReset;
 import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.model.service.forgottenPassword.PasswordReset;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
-import com.vso.view.changeProfileData.ChangeEmailScreen;
+import com.vso.view.forgottenPassword.EmailFormScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DigitConfirmationScreen extends BaseScreen {
+public class EmailDigitConfScreen extends BaseScreen {
 
     private final Navigation navigation;
 
-    public DigitConfirmationScreen(Navigation navigation) {
+    public EmailDigitConfScreen(Navigation navigation) {
         this.navigation = navigation;
     }
 
@@ -63,9 +61,11 @@ public class DigitConfirmationScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if  (new PasswordReset(UserDao.getUserBy(EmailFormScreen.getEmail())).numbersMatch(digit.getText())){
+                EmailReset emailReset = new EmailReset();
+                if  ( emailReset.numbersMatch(digit.getText())){
                     new Message("Reset approved!");
-                    navigation.redirectToPassReset();
+                    new ProfileDataServiceImpl(emailReset).changeEmail(ChangeEmailScreen.getNewEmail());
+                    navigation.redirectToHomeScreen();
                 } else {
                     new Message("Numbers mismatch!");
                 }
