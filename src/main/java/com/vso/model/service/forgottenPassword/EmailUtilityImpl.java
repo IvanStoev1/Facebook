@@ -2,7 +2,7 @@ package com.vso.model.service.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.login.LoginSession;
+//import com.vso.model.service.login.LoginSession;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -31,8 +31,9 @@ public class EmailUtilityImpl implements EmailUtility {
     public void sendVerificationEmail(String to) {
         int number = new Random().nextInt(99999 - 10000 + 1) + 10000;
         String subject = "5-digit number verification";
-        String content = "Your 5-digit number for password reset is: \n" + number;
+        String content = "Your 5-digit number is : \n" + number;
         UserDao.getUserBy(to).setLastSentNumber(number);
+        UserDao.setLastSentNumber(number,UserDao.getUserBy(to));
         sendEmail(to, subject, content);
     }
 

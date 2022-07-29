@@ -12,13 +12,14 @@ import com.vso.view.Navigation;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MyProfileView extends BaseScreen {
 
-    private final Navigation navigation;
+    private Navigation navigation;
     private static AuthController authController;
     private static final UserController userController = new UserController();
-    private static DeleteAccountController deleteAccountController;
+    private static DeleteAccountController deleteAccountController = new DeleteAccountController();
     private static final GallerySection gallerySection = new GallerySection();
 
     public MyProfileView(Navigation navigation) {
@@ -26,6 +27,9 @@ public class MyProfileView extends BaseScreen {
         setTitle("My Profile");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         System.out.println("My profile CONSTRUCTOR is set");
+    }
+
+    public MyProfileView() {
     }
 
     @Override
@@ -38,7 +42,7 @@ public class MyProfileView extends BaseScreen {
 
     }
 
-    public void setComponents(){
+    public void setComponents() {
         System.out.println("My profile components are set");
 
         getContentPanel().setLayout(getLayoutManager());
@@ -66,18 +70,29 @@ public class MyProfileView extends BaseScreen {
         JButton btnUserPosts = InitComponent.button("NEW POST", c, 2, 2, 10, 0);
         getContentPanel().add(btnUserPosts, c);
 
+        JButton settingsBtn = InitComponent.button("Settings", c, 3, 2, 10, 0);
+        getContentPanel().add(settingsBtn, c);
+
+
         int gridYInitial = 3;
         GallerySection.setupGallery(gridYInitial, getContentPanel(), loggedUser); //SETUP GALLERY COMPONENTS
 
         gridYInitial = GallerySection.getLastYgrid(loggedUser) + gridYInitial;
         PostSection.setupPostSection(gridYInitial, getContentPanel(), loggedUser);
 
+        settingsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigation.redirectToProfileDataScreen();
+            }
+        });
+
         btnDeleteAccount.addActionListener(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 deleteAccountController.setDeleteAccount(loggedUser);
-                authController.logoutUser();
-                hideScreen();
+                dispose();
                 navigation.redirectFromProfileToLogin();
             }
         });

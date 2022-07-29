@@ -1,7 +1,7 @@
 package com.vso.view.forgottenPassword;
 
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
-import com.vso.model.service.forgottenPassword.EmailValidator;
+import com.vso.model.service.forgottenPassword.EmailValidatorImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
@@ -83,7 +83,7 @@ public class EmailFormScreen extends BaseScreen {
             public void actionPerformed(ActionEvent e) {
                 email = emailTf.getText();
 
-                if (new EmailValidator().isEmailValid(email)) {
+                if (new EmailValidatorImpl().isEmailValid(email)) {
                     new EmailUtilityImpl().sendVerificationEmail(email);
                     new Message("Email sent!");
                     navigation.redirectToDigitConformation();

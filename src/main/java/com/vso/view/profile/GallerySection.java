@@ -23,7 +23,6 @@ public class GallerySection extends BaseScreen {
 
     }
 
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -62,7 +61,10 @@ public class GallerySection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        LikePhotoSection.setComponents(photo, user);
+                        LikePhotoSection ls = new LikePhotoSection();
+                        ls.setComponents(photo, user, controlPanel);
+                        ls.makeVisible();
+                        //LikePhotoSection.setComponents(photo, user, controlPanel);
                     }
                 });
             }

@@ -2,6 +2,9 @@ package com.vso.view.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.model.service.changeProfileData.EmailResetImpl;
+import com.vso.model.service.changeProfileData.ProfileDataService;
+import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
@@ -14,9 +17,11 @@ import java.awt.event.ActionListener;
 public class PasswordResetScreen extends BaseScreen {
 
     private final Navigation navigation;
+    private final ProfileDataService profileDataService;
 
     public PasswordResetScreen(Navigation navigation) {
         this.navigation = navigation;
+        this.profileDataService = new ProfileDataServiceImpl(new EmailResetImpl());
     }
 
     @Override
@@ -75,7 +80,7 @@ public class PasswordResetScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(password1.equals(password2)) {
+                if(password1.getText().equals(password2.getText())) {
                     UserDao.getUserBy(EmailFormScreen.getEmail()).setPassword(password1.getText());
                     new Message("Password reset successfully!");
                     AuthenticationServiceImpl.setLoggedUser(UserDao.getUserBy(EmailFormScreen.getEmail()));

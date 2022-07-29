@@ -79,7 +79,8 @@ public class SearchResultSet extends BaseScreen {
                         } else if (user.getId() != AuthenticationServiceImpl.getLoggedUser().getId()){
 
                             System.out.println("SOMEONE ELSE " + user);
-                            UserProfileView profile = new UserProfileView(user);
+                            UserProfileView profile = new UserProfileView(user).setComponents(user);
+                            //profile.setComponents(user);
                             profile.makeVisible();
 
                         }

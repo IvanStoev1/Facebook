@@ -9,7 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PhotoDao {
 
@@ -73,6 +76,17 @@ public class PhotoDao {
         session.persist(newPhoto);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public void likePost(User user, Photo photo) {
+        Set<User> likes;
+        if(photo.getLikes() != null)
+            likes = photo.getLikes();
+        else {
+            likes = new HashSet<>();
+        }
+        likes.add(user);
+        photo.setLikes(likes);
     }
 
 }

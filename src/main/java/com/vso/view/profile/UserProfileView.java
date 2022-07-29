@@ -25,7 +25,7 @@ public class UserProfileView extends BaseScreen {
     public UserProfileView(User requested) {
         setTitle(requested.getName());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setComponents(requested);
+
     }
 
 

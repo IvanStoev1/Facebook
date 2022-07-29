@@ -1,13 +1,12 @@
 package com.vso.view.profile;
 
-import com.vso.controller.postController.PostController;
-import com.vso.controller.postController.PostControllerImpl;
+import com.vso.controller.post.PostController;
 import com.vso.controller.user.UserController;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
+import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
-import com.vso.view.Navigation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class PostSection extends BaseScreen {
 
-    private static final PostController postController = new PostControllerImpl();
+    private static final PostController postController = new PostController();
     private static final UserController userController = new UserController();
 
     public PostSection() {
@@ -33,7 +32,8 @@ public class PostSection extends BaseScreen {
     }
 
     public static void setupPostSection(int gridYInitial, JPanel controlPanel, User user) {
-        User loggedUser = userController.getLoggedUser();
+        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
+
         try {
             int counter = 0;
             int gridXInitial = 0;
@@ -84,9 +84,10 @@ public class PostSection extends BaseScreen {
 
     public static List<Post> posts() {
         //TODO Chage the way user is passed
-        User loggedUser = userController.getLoggedUser();
+        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
         return postController.getAllPostsForUser(loggedUser);
     }
+
 //TODO FIX IT WHEN BACKEND IS READY..........................
 //    public static String multilineText(Post post) {
 //        int textSize = post.getDescription().length() - 1;

@@ -40,7 +40,7 @@ public class HomeScreen extends BaseScreen {
         JButton btnFriendRequest = InitComponent.button("Requests", c, 0, 3, 50, 50);
         getContentPanel().add(btnFriendRequest, c);
 
-        JButton btnLogout = InitComponent.button("Logout", c, 0, 4, 50, 50);
+        JButton btnLogout = InitComponent.button("Logout", c, 0, 5, 50, 50);
         getContentPanel().add(btnLogout, c);
 
         btnFriendRequest.addActionListener(new AbstractAction() {

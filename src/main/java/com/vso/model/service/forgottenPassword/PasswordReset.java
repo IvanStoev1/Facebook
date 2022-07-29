@@ -1,19 +1,7 @@
 package com.vso.model.service.forgottenPassword;
 
-import com.vso.model.entity.User;
+public interface PasswordReset {
+    boolean numbersMatch(String inputNumber);
 
-public class PasswordReset {
-    private User user;
-
-    public PasswordReset(User user) {
-        this.user = user;
-    }
-
-    public boolean numbersMatch(int inputNumber) {
-        return inputNumber == user.getLastSentNumber();
-    }
-
-    public void reset(String password) {
-        user.setPassword(password);
-    }
+    void reset(String password);
 }
