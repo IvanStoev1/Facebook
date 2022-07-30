@@ -25,7 +25,7 @@ public class MyProfileView extends BaseScreen {
     public MyProfileView(Navigation navigation) {
         this.navigation = navigation;
         setTitle("My Profile");
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         System.out.println("My profile CONSTRUCTOR is set");
     }
 
@@ -43,7 +43,6 @@ public class MyProfileView extends BaseScreen {
     }
 
     public void setComponents() {
-        System.out.println("My profile components are set");
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
@@ -61,7 +60,7 @@ public class MyProfileView extends BaseScreen {
         getContentPanel().add(btnBlockUser, c);
         btnBlockUser.setEnabled(false);
 
-        JButton btnBack = InitComponent.button("BACK", c, 0, 2, 10, 0);
+        JButton btnBack = InitComponent.button("HOME", c, 0, 2, 10, 0);
         getContentPanel().add(btnBack, c);
 
         JButton btnDeleteAccount = InitComponent.button("DELETE ACCOUNT", c, 1, 2, 10, 0);
@@ -92,6 +91,7 @@ public class MyProfileView extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 deleteAccountController.setDeleteAccount(loggedUser);
+                System.out.println(loggedUser.getName() + " " + loggedUser.getProfileStatus());
                 dispose();
                 navigation.redirectFromProfileToLogin();
             }
@@ -100,7 +100,8 @@ public class MyProfileView extends BaseScreen {
         btnBack.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
+                Window[] win = Window.getWindows();
+                for (Window window : win) window.dispose();
                 navigation.redirectFromProfileToHome();
             }
         });

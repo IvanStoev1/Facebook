@@ -4,6 +4,8 @@ import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 
+import java.util.Objects;
+
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private static User loggedUser;
@@ -25,8 +27,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public LoginStatus login(String email, String password) {
-        User user = database.getUserBy(email);
-        if (user != null && user.getPassword().equals(password)) {
+        User user = UserDao.getUserBy(email);
+        if (user != null && user.getPassword().equals(password)
+                && !Objects.equals(user.getProfileStatus(), "deleted")) {
             AuthenticationServiceImpl.loggedUser = user;
             return LoginStatus.SUCCESS_USER;
         }

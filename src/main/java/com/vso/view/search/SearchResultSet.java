@@ -7,6 +7,7 @@ import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 import com.vso.view.Navigation;
 import com.vso.view.profile.MyProfileView;
+import com.vso.view.profile.TestProfile;
 import com.vso.view.profile.UserProfileView;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class SearchResultSet extends BaseScreen {
     private static SearchController searchController;
     private Search search;
 
-    public SearchResultSet(Navigation navigation){
+    public SearchResultSet(Navigation navigation) {
         SearchResultSet.navigation = navigation;
     }
 
@@ -28,8 +29,9 @@ public class SearchResultSet extends BaseScreen {
     protected GridBagLayout getLayoutManager() {
         return new GridBagLayout();
     }
+
     //TODO STATIC
-    public static void setComponents(int gridYInitial, JPanel controlPanel, String userName){
+    public static void setComponents(int gridYInitial, JPanel controlPanel, String userName) {
         try {
             int counter = 0;
             int gridXInitial = 0;
@@ -45,16 +47,16 @@ public class SearchResultSet extends BaseScreen {
                 lbPhoto.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
                 controlPanel.add(lbPhoto, c);
 
-                JLabel lbPostId = InitComponent.txtLabel(user.getName(), c, gridXInitial+1, gridYInitial, 0, 0);
+                JLabel lbPostId = InitComponent.txtLabel(user.getName(), c, gridXInitial + 1, gridYInitial, 0, 0);
                 lbPostId.setPreferredSize(new Dimension(300, 80));
                 lbPostId.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
                 controlPanel.add(lbPostId, c);
 
-                JToggleButton tgbtnFriendshipStatus = InitComponent.tgBtnFriendship("Add Friend", c, gridXInitial+2, gridYInitial, 20, 5);
+                JToggleButton tgbtnFriendshipStatus = InitComponent.tgBtnFriendship("Add Friend", c, gridXInitial + 2, gridYInitial, 20, 5);
                 tgbtnFriendshipStatus.setPreferredSize(new Dimension(100, 50));
                 controlPanel.add(tgbtnFriendshipStatus, c);
 
-                JToggleButton tgbtnBlockUser = InitComponent.tgBtnFriendship("Block User", c, gridXInitial+3, gridYInitial, 0, 20);
+                JToggleButton tgbtnBlockUser = InitComponent.tgBtnFriendship("Block User", c, gridXInitial + 3, gridYInitial, 0, 20);
                 tgbtnBlockUser.setPreferredSize(new Dimension(100, 50));
                 controlPanel.add(tgbtnBlockUser, c);
 
@@ -69,19 +71,23 @@ public class SearchResultSet extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (user.getId() == AuthenticationServiceImpl.getLoggedUser().getId()){
+                        if (user.getId() == AuthenticationServiceImpl.getLoggedUser().getId()) {
 
                             MyProfileView myProfileView = new MyProfileView(navigation);
                             myProfileView.setComponents();
                             myProfileView.makeVisible();
                             System.out.println("MY PROFILE " + AuthenticationServiceImpl.getLoggedUser());
 
-                        } else if (user.getId() != AuthenticationServiceImpl.getLoggedUser().getId()){
+                        } else if (user.getId() != AuthenticationServiceImpl.getLoggedUser().getId()) {
 
                             System.out.println("SOMEONE ELSE " + user);
-                            UserProfileView profile = new UserProfileView(user).setComponents(user);
-                            //profile.setComponents(user);
-                            profile.makeVisible();
+//                            UserProfileView profile = new UserProfileView(user);
+//                            profile.setComponents(user);
+//                            profile.makeVisible();
+
+                            TestProfile test = new TestProfile(user);
+                            test.setComponents(user);
+                            test.makeVisible();
 
                         }
                     }

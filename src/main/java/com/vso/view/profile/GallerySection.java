@@ -1,6 +1,7 @@
 package com.vso.view.profile;
 
 import com.vso.controller.photo.PhotoController;
+import com.vso.controller.user.UserController;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
 import com.vso.view.BaseScreen;
@@ -16,6 +17,7 @@ import java.util.List;
 public class GallerySection extends BaseScreen {
 
     private Navigation navigation;
+    private static final UserController userController = new UserController();
     private static final PhotoController photoController = new PhotoController();
     private User user;
 
@@ -61,10 +63,12 @@ public class GallerySection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        LikePhotoSection ls = new LikePhotoSection();
-                        ls.setComponents(photo, user, controlPanel);
-                        ls.makeVisible();
-                        //LikePhotoSection.setComponents(photo, user, controlPanel);
+                userController.setNewAvatar(newAvatar.getUrl());
+                Window[] win = Window.getWindows();
+                for (Window window : win) window.dispose();
+                MyProfileView profileView = new MyProfileView();
+                profileView.setComponents();
+                profileView.makeVisible();
                     }
                 });
             }

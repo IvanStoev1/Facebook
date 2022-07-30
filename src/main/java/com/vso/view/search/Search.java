@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class Search extends BaseScreen {
 
-    private final Navigation navigation;
+    private Navigation navigation;
     private static SearchController searchController;
     private final SystemMsgsView systemMsgsView = new SystemMsgsView();
     private static SearchResultSet searchResultSet;
@@ -20,6 +20,9 @@ public class Search extends BaseScreen {
         setTitle("Search friends");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setComponent();
+    }
+
+    public Search() {
     }
 
     @Override
@@ -74,9 +77,10 @@ public class Search extends BaseScreen {
                     systemMsgsView.showEmptyNameTextField();
                 } else {
                     if (SearchController.findUser(userName) != null) {
+
                         System.out.println(SearchController.findUser(userName));
                         System.out.println(userName);
-                        //TODO STATIC
+
                         SearchResultSet.setComponents(gridYInitial, getContentPanel(), userName);
                         makeVisible();
                         btnSearch.setVisible(false);

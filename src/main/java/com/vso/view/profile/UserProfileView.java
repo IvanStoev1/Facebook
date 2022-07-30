@@ -8,7 +8,6 @@ import com.vso.model.service.block.BlockUser;
 import com.vso.model.service.block.BlockUserImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
-import com.vso.view.Navigation;
 import com.vso.view.search.Search;
 
 import javax.swing.*;
@@ -21,10 +20,13 @@ public class UserProfileView extends BaseScreen {
     private final BlockUser blockUser = new BlockUserImpl();
     private final FriendshipController friendshipController = new FriendshipController();
     private final GallerySection gallerySection = new GallerySection();
+    private final Search search = new Search();
 
     public UserProfileView(User requested) {
         setTitle(requested.getName());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setComponents(requested);
+        makeVisible();
 
     }
 
@@ -35,7 +37,7 @@ public class UserProfileView extends BaseScreen {
     }
 
     public void setComponents(User requested) {
-        System.out.println("SOME USER IS HEEEERE>>>>>>>>>>>>>>>>>>>>>>>>>" + requested);
+
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         getContentPanel().setLayout(getLayoutManager());
@@ -51,9 +53,9 @@ public class UserProfileView extends BaseScreen {
         JToggleButton btnBlockUser = InitComponent.selectButton("Block User", c, 0, 1, 10, 0);
         getContentPanel().add(btnBlockUser, c);
 
-//        if (friendshipController.isUserBlocked(loggedUser, requested)) {
-//            btnBlockUser.setSelected(true);
-//        }
+        if (friendshipController.isUserBlocked(loggedUser, requested)) {
+            btnBlockUser.setSelected(true);
+        }
 
         JButton btnBack = InitComponent.button("BACK", c, 0, 2, 10, 0);
         getContentPanel().add(btnBack, c);
@@ -66,31 +68,31 @@ public class UserProfileView extends BaseScreen {
         getContentPanel().add(btnUserPosts, c);
 
         int gridYInitial = 3;
-//        GallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
+        GallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
 
         gridYInitial = GallerySection.getLastYgrid(requested) + gridYInitial;
-//        PostSection.setupPostSection(gridYInitial, getContentPanel(), requested, navigation);
+        PostSection.setupPostSection(gridYInitial, getContentPanel(), requested);
 
-//        btnBlockUser.addActionListener(new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                if (btnBlockUser.isSelected()) {
-//                    friendshipController.blockUser(loggedUser, requested);
-//                    btnBlockUser.setText("BLOCKED");
-//                }
-//                friendshipController.unblockUser(loggedUser, requested);
-//                btnBlockUser.setText("Block User");
-//            }
-//        });
+        btnBlockUser.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (btnBlockUser.isSelected()) {
+                    friendshipController.blockUser(loggedUser, requested);
+                    btnBlockUser.setText("BLOCKED");
+                }
+                friendshipController.unblockUser(loggedUser, requested);
+                btnBlockUser.setText("Block User");
+            }
+        });
 
 
-//        btnBack.addActionListener(new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                dispose();
-//                search.makeVisible();
-//            }
-//        });
+        btnBack.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+                search.makeVisible();
+            }
+        });
     }
 
     @Override

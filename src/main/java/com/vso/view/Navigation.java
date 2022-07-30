@@ -1,9 +1,7 @@
 package com.vso.view;
 
 //import com.vso.view.profile.LikeCommentPost;
-import com.vso.view.feed.NewsFeedScreen;
 import com.vso.view.profile.GallerySection;
-import com.vso.view.profile.LikePhotoSection;
 //import com.vso.view.profile.LikePostSection;
 import com.vso.view.requests.Requests;
 import com.vso.view.search.Search;
@@ -31,9 +29,6 @@ public class Navigation {
     private final Requests requests;
     private final SearchResultSet searchResultSet;
     private final GallerySection gallerySection;
-//    private final LikeCommentPost likeCommentPost;
-//    private final LikePostSection likePostSection;
-//    private final LikePhotoSection likePhotoSection;
     private final ProfileDataScreen profileDataScreen;
     private final LoginScreen loginScreen;
     private final ChangeEmailScreen emailScreen;
@@ -55,15 +50,13 @@ public class Navigation {
         this.search = new Search(this);
         this.requests = new Requests(this);
         this.searchResultSet = new SearchResultSet(this);
-//        this.likeCommentPost = new LikeCommentPost(this);
-//        this.likePostSection = new LikePostSection(this);
-//        this.likePhotoSection = new LikePhotoSection(this);
         this.gallerySection = new GallerySection();
         this.profileDataScreen = new ProfileDataScreen(this);
         this.loginScreen = new LoginScreen(this);
         this.emailScreen = new ChangeEmailScreen(this);
         this.changePasswordScreen = new ChangePasswordScreen(this);
     }
+
 
     public void redirectFromHomeToRequests() {
         homeScreen.hideScreen();
@@ -117,12 +110,6 @@ public class Navigation {
         uploadView.makeVisible();
     }
 
-    public void redirectFromHomeToProfile(){
-        homeScreen.hideScreen();
-        myProfileView.setComponents();
-        myProfileView.makeVisible();
-    }
-
     public void redirectFromProfileToHome(){
         homeScreen.makeVisible();
         myProfileView.hideScreen();
@@ -143,45 +130,6 @@ public class Navigation {
         passwordReset.makeVisible();
     }
 
-    public void startNavigation () {
-        authenticationScreen.makeVisible();
-    }
-
-    public void redirectFromSearchResultSetToMyProfile() {
-        search.hideScreen();
-        myProfileView.setComponents();
-        myProfileView.makeVisible();
-    }
-
-//    public void redirectFromLikeCommentPostToMyProfile() {
-//        likeCommentPost.hideScreen();
-//        myProfileView.setComponents();
-//        myProfileView.makeVisible();
-//    }
-
-//    public void redirectFromPostSectionToMyProfile() {
-//        likePostSection.hideScreen();
-//        myProfileView.setComponents();
-//        myProfileView.makeVisible();
-//    }
-
-//    public void redirectFromLikePhotoSectionToMyProfile() {
-//        likePhotoSection.hideScreen();
-//        myProfileView.setComponents();
-//        myProfileView.makeVisible();
-//    }
-//
-//    public void openLikePhotoSection() {
-//        likePhotoSection.setComponents();
-//        likePhotoSection.makeVisible();
-//    }
-
-//    public void redirectToSearch() {
-//        homeScreen.hideScreen();
-//        search.setComponent();
-//        search.makeVisible();
-//    }
-
     public void redirectToLoginScreen() {
         profileDataScreen.hideScreen();
         loginScreen.makeVisible();
@@ -201,5 +149,9 @@ public class Navigation {
     public void redirectToChangePasswordScreen(){
         loginScreen.hideScreen();
         changePasswordScreen.makeVisible();
+    }
+
+    public void startNavigation () {
+        authenticationScreen.makeVisible();
     }
 }

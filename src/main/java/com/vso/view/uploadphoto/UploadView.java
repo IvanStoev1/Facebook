@@ -29,7 +29,7 @@ public class UploadView extends BaseScreen {
 
     @Override
     protected void setupComponents() {
-        System.out.println("UPLOAD VIEW COMPONENT");
+
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
