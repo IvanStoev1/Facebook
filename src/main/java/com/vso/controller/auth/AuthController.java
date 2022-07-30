@@ -1,6 +1,5 @@
 package com.vso.controller.auth;
 
-
 import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;

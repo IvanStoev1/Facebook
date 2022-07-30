@@ -3,8 +3,6 @@ package com.vso.model.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
-import java.lang.annotation.Target;
-
 @Entity
 @Table(name = "friendships")
 public class Friendship {

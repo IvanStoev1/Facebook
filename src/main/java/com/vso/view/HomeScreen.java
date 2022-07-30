@@ -43,6 +43,9 @@ public class HomeScreen extends BaseScreen {
         JButton btnLogout = InitComponent.button("Logout", c, 0, 5, 50, 50);
         getContentPanel().add(btnLogout, c);
 
+        JButton btnFeed = InitComponent.button("News Feed", c, 0, 7, 50, 50);
+        getContentPanel().add(btnFeed, c);
+
         btnFriendRequest.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -80,6 +83,13 @@ public class HomeScreen extends BaseScreen {
                 MyProfileView myProfileView = new MyProfileView(navigation);
                 myProfileView.setComponents();
                 myProfileView.makeVisible();
+            }
+        });
+
+        btnFeed.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigation.redirectToFeed();
             }
         });
     }

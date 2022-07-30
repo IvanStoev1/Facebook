@@ -6,6 +6,7 @@ import com.vso.view.Navigation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class Requests extends BaseScreen {
 
@@ -26,7 +27,7 @@ public class Requests extends BaseScreen {
 
     }
 
-    public void setComponents(){
+    public void setComponents() {
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -36,6 +37,19 @@ public class Requests extends BaseScreen {
         lbUserName.setPreferredSize(new Dimension(300, 80));
         lbUserName.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
         getContentPanel().add(lbUserName, c);
+        addHomeBtn(c, gridXInitial, gridYInitial);
 
+    }
+
+    private void addHomeBtn(GridBagConstraints c, int gridXInitial, int gridYInitial) {
+        JButton homeBtn = InitComponent.button("HOME", c, gridXInitial, gridYInitial, 900, 300);
+        getContentPanel().add(homeBtn, c);
+
+        homeBtn.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigation.redirectRequestsToHome();
+            }
+        });
     }
 }

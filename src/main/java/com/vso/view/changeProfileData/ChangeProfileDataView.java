@@ -1,4 +1,4 @@
-package com.vso.view.changeProfileData;
+package com.vso.view.changeprofiledata;
 
 import javax.swing.*;
 

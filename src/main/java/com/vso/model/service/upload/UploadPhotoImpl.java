@@ -18,13 +18,12 @@ public class UploadPhotoImpl implements UploadPhoto {
     }
 
     @Override
-    public void uploadPictures(String description, String imageSource) {
+    public void uploadPicture(String description, String imageSource) {
         uploadPhotoInDirectory(imageSource);
         uploadPhotoInDatabase(description, imageSource);
     }
 
     private void uploadPhotoInDirectory(String imageSource) {
-
         Path pasteTo = Path.of(uploadDestination(imageSource));
         Path copyFrom = Path.of(imageSource);
 

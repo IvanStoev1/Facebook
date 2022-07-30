@@ -12,9 +12,10 @@ public class PostController {
 
     public PostController() {
         this.postDao = new PostDao();
+
     }
 
     public List<Post> getAllPostsForUser(User thisUser){
-        return postDao.selectPostsByUserId(thisUser);
+        return PostDao.selectPostsByUserId(thisUser);
     }
 }

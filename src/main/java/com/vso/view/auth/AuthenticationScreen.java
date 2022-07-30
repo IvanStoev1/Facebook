@@ -67,7 +67,7 @@ public class AuthenticationScreen extends BaseScreen {
         c.insets = new Insets(0, 50, 0, 5);
         getContentPanel().add(label1, c);
 
-        JTextField password = new JTextField(11);
+        JPasswordField password = new JPasswordField(11);
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
@@ -124,6 +124,8 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 authCallback.onRegisterSelected();
+                email.setText("");
+                password.setText("");
             }
         });
 
@@ -131,6 +133,8 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 forgottenPassCallback.onForgottenPassSelected();
+                email.setText("");
+                password.setText("");
             }
         });
     }

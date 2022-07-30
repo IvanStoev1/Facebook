@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 
 public class Search extends BaseScreen {
 
-    private Navigation navigation;
     private static SearchController searchController;
-    private final SystemMsgsView systemMsgsView = new SystemMsgsView();
     private static SearchResultSet searchResultSet;
+    private final SystemMsgsView systemMsgsView = new SystemMsgsView();
+    private Navigation navigation;
 
     public Search(Navigation navigation) {
         this.navigation = navigation;

@@ -1,24 +1,22 @@
-package com.vso.model.service.changeProfileData;
+package com.vso.model.service.changeprofiledata;
 
 import com.vso.model.dao.UserDao;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.forgottenPassword.EmailUtility;
-import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
-import com.vso.model.service.forgottenPassword.PasswordReset;
-import com.vso.model.service.forgottenPassword.PasswordResetImpl;
+import com.vso.model.service.forgottenpassword.EmailUtility;
+import com.vso.model.service.forgottenpassword.EmailUtilityImpl;
+import com.vso.model.service.forgottenpassword.PasswordReset;
+import com.vso.model.service.forgottenpassword.PasswordResetImpl;
 
 public class ProfileDataServiceImpl implements ProfileDataService{
 
-    private PasswordReset passwordReset;
-    private EmailUtility emailUtility;
-    private EmailReset emailReset;
+    private final EmailUtility emailUtility;
+    private final PasswordReset passwordReset;
+    private final EmailReset emailReset;
 
     public ProfileDataServiceImpl(EmailReset emailReset) {
-        this.passwordReset = new PasswordResetImpl(AuthenticationServiceImpl.getLoggedUser());
         this.emailUtility = new EmailUtilityImpl();
+        this.passwordReset = new PasswordResetImpl();
         this.emailReset = emailReset;
     }
-
 
     @Override
     public void changePassword(String newPassword ){
@@ -28,8 +26,6 @@ public class ProfileDataServiceImpl implements ProfileDataService{
 
     @Override
     public void changeEmail(String newEmail) {
-        //int lastSentNumber = emailUtility.sendVerificationEmail(AuthenticationServiceImpl.getLoggedUser().getEmail());
-       // UserDao.setLastSentNumber(lastSentNumber);
         emailReset.reset(newEmail);
         UserDao.setNewEmail(newEmail);
     }

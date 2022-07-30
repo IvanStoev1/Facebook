@@ -1,4 +1,4 @@
-package com.vso.view.changeProfileData;
+package com.vso.view.changeprofiledata;
 
 import com.vso.view.BaseScreen;
 import com.vso.view.Navigation;
@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class AddEmailScreen extends BaseScreen {
 
     private Navigation navigation;
+
     public AddEmailScreen(Navigation navigation) {
         this.navigation = navigation;
     }

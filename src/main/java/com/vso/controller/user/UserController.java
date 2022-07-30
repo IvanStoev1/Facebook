@@ -3,7 +3,6 @@ package com.vso.controller.user;
 import com.vso.model.dao.PhotoDao;
 import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.avatar.UpdateAvatarService;
 import com.vso.model.service.avatar.UpdateAvatarServiceImpl;
 

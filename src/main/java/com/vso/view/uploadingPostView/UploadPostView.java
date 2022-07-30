@@ -1,4 +1,4 @@
-package com.vso.view.uploadingPostView;
+package com.vso.view.uploadingpostview;
 
 import com.vso.model.entity.Post;
 

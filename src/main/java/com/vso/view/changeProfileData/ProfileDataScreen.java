@@ -1,7 +1,6 @@
-package com.vso.view.changeProfileData;
+package com.vso.view.changeprofiledata;
 
 import com.vso.view.BaseScreen;
-import com.vso.view.HomeScreen;
 import com.vso.view.Navigation;
 import com.vso.view.profile.MyProfileView;
 

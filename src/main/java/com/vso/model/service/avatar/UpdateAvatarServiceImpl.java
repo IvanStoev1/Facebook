@@ -13,9 +13,8 @@ import org.hibernate.cfg.Configuration;
 
 public class UpdateAvatarServiceImpl implements UpdateAvatarService {
 
-    private final PhotoDao photoDao;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
+    private final PhotoDao photoDao;
 
     public UpdateAvatarServiceImpl() {
         this.photoDao = new PhotoDao();

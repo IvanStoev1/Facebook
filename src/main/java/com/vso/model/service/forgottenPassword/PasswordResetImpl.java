@@ -1,12 +1,11 @@
-package com.vso.model.service.forgottenPassword;
+package com.vso.model.service.forgottenpassword;
 
 import com.vso.model.dao.UserDao;
-import com.vso.model.entity.User;
-import com.vso.view.forgottenPassword.EmailFormScreen;
+import com.vso.view.forgottenpassword.EmailFormScreen;
 
 public class PasswordResetImpl implements PasswordReset {
 
-    public PasswordResetImpl(User user) {
+    public PasswordResetImpl() {
 
     }
 

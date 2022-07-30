@@ -1,4 +1,4 @@
-package com.vso.view.changeProfileData;
+package com.vso.view.changeprofiledata;
 
 import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.service.authentication.AuthenticationService;
@@ -8,13 +8,13 @@ import com.vso.view.Navigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Base64;
 
 public class LoginScreen extends BaseScreen {
 
     private final Navigation navigation;
     private final AuthenticationService authenticationService;
     private final ChangeProfileDataView profileDataView;
+
     public LoginScreen(Navigation navigation) {
         this.navigation = navigation;
         this.authenticationService = new AuthenticationServiceImpl();

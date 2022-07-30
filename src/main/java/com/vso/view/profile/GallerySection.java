@@ -16,10 +16,10 @@ import java.util.List;
 
 public class GallerySection extends BaseScreen {
 
-    private Navigation navigation;
     private static final UserController userController = new UserController();
     private static final PhotoController photoController = new PhotoController();
     private User user;
+    private Navigation navigation;
 
     public GallerySection() {
 

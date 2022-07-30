@@ -1,7 +1,7 @@
-package com.vso.view.forgottenPassword;
+package com.vso.view.forgottenpassword;
 
-import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
-import com.vso.model.service.forgottenPassword.EmailValidatorImpl;
+import com.vso.model.service.forgottenpassword.EmailUtilityImpl;
+import com.vso.model.service.forgottenpassword.EmailValidatorImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
 
 public class EmailFormScreen extends BaseScreen {
 
-    private final Navigation navigation;
     private static String email;
+    private final Navigation navigation;
 
     public EmailFormScreen(Navigation navigation) {
         this.setTitle("Forgot password?");

@@ -44,7 +44,6 @@ public class PhotoDao {
         return null;
     }
 
-    //@Transactional
     public Integer getLast() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -80,7 +79,7 @@ public class PhotoDao {
 
     public void likePost(User user, Photo photo) {
         Set<User> likes;
-        if(photo.getLikes() != null)
+        if (photo.getLikes() != null)
             likes = photo.getLikes();
         else {
             likes = new HashSet<>();

@@ -1,4 +1,4 @@
-package com.vso.model.service.changeProfileData;
+package com.vso.model.service.changeprofiledata;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
