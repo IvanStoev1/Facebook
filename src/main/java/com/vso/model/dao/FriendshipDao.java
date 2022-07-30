@@ -29,7 +29,7 @@ public class FriendshipDao {
         Root<Friendship> root = criteriaQuery.from(Friendship.class);
 
         criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("user_id_requester"), loggedUser));
+        criteriaQuery.where(cb.equal(root.get("requester"), loggedUser));
 
         Query<Friendship> findAllFriends = session.createQuery(criteriaQuery);
         if (findAllFriends.getResultStream().findAny().isPresent()) {
@@ -42,10 +42,10 @@ public class FriendshipDao {
         return null;
     }
 
-    public void insertBlockedUser(Friendship blockedUser){
+    public void insertUser(Friendship user){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.persist(blockedUser);
+        session.persist(user);
         session.getTransaction().commit();
         session.close();
     }

@@ -1,10 +1,11 @@
 package com.vso.view.forgottenPassword;
 
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
-import com.vso.model.service.forgottenPassword.EmailValidator;
+import com.vso.model.service.forgottenPassword.EmailValidatorImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
+import com.vso.view.auth.AuthenticationScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,8 @@ public class EmailFormScreen extends BaseScreen {
     private static String email;
 
     public EmailFormScreen(Navigation navigation) {
+        this.setTitle("Forgot password?");
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.navigation = navigation;
     }
 
@@ -56,12 +59,31 @@ public class EmailFormScreen extends BaseScreen {
         c.insets = new Insets(5, 0, 0, 0);
         getContentPanel().add(submitBtn, c);
 
+        JButton btnBack = new JButton("Back");
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 2;
+        c.ipadx = 2;
+        c.ipady = 2;
+        c.gridwidth = 0;
+        c.insets = new Insets(5, 0, 0, 0);
+        getContentPanel().add(btnBack, c);
+
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideScreen();
+                AuthenticationScreen login = new AuthenticationScreen();
+                login.makeVisible();
+            }
+        });
+
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 email = emailTf.getText();
 
-                if (new EmailValidator().isEmailValid(email)) {
+                if (new EmailValidatorImpl().isEmailValid(email)) {
                     new EmailUtilityImpl().sendVerificationEmail(email);
                     new Message("Email sent!");
                     navigation.redirectToDigitConformation();

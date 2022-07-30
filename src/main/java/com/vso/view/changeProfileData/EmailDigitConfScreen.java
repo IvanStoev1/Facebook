@@ -1,13 +1,11 @@
 package com.vso.view.changeProfileData;
 
-import com.vso.model.dao.UserDao;
 import com.vso.model.service.changeProfileData.EmailReset;
+import com.vso.model.service.changeProfileData.EmailResetImpl;
 import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
-import com.vso.model.service.forgottenPassword.PasswordReset;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
-import com.vso.view.forgottenPassword.EmailFormScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,7 +59,7 @@ public class EmailDigitConfScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmailReset emailReset = new EmailReset();
+                EmailReset emailReset = new EmailResetImpl();
                 if  ( emailReset.numbersMatch(digit.getText())){
                     new Message("Reset approved!");
                     new ProfileDataServiceImpl(emailReset).changeEmail(ChangeEmailScreen.getNewEmail());

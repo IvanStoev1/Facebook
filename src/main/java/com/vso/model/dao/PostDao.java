@@ -29,8 +29,9 @@ public class PostDao {
         CriteriaQuery<Post> createQuery = cb.createQuery(Post.class);
         Root<Post> root = createQuery.from(Post.class);
 
-        createQuery.select(root).orderBy(cb.desc(root.get("date")));;
-        //createQuery.where(cb.equal(root.get("user_id"), thisUser.getId()));
+        createQuery.select(root).orderBy(cb.desc(root.get("date")));
+        ;
+        createQuery.where(cb.equal(root.get("user"), thisUser));
 
         Query<Post> query = session.createQuery(createQuery);
         if (query.getResultStream().findAny().isPresent()) {
@@ -61,5 +62,16 @@ public class PostDao {
         Collections.sort(uniqueList);
         Collections.reverse(uniqueList);
         return uniqueList;
+    }
+
+    public void likePost(User user, Post post) {
+        Set<User> likes;
+        if (post.getLikes() != null)
+            likes = post.getLikes();
+        else {
+            likes = new HashSet<>();
+        }
+        likes.add(user);
+        post.setLikes(likes);
     }
 }

@@ -1,11 +1,12 @@
 package com.vso.view.profile;
 
 import com.vso.controller.photo.PhotoController;
+import com.vso.controller.user.UserController;
 import com.vso.model.entity.Photo;
 import com.vso.model.entity.User;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
+import com.vso.view.Navigation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +16,13 @@ import java.util.List;
 
 public class GallerySection extends BaseScreen {
 
+    private Navigation navigation;
+    private static final UserController userController = new UserController();
     private static final PhotoController photoController = new PhotoController();
     private User user;
 
-    public GallerySection(User user) {
-        this.user = user;
+    public GallerySection() {
+
     }
 
     public void setUser(User user) {
@@ -27,7 +30,7 @@ public class GallerySection extends BaseScreen {
     }
 
     @Override
-    protected GridBagLayout getLayoutManager() {
+    protected LayoutManager getLayoutManager() {
         return new GridBagLayout();
     }
 
@@ -60,8 +63,12 @@ public class GallerySection extends BaseScreen {
                 lbPhoto.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        LikeCommentPhotoSection likeCommentPhotoSection = new LikeCommentPhotoSection(newAvatar);
-                        likeCommentPhotoSection.setId(newAvatar);
+                userController.setNewAvatar(newAvatar.getUrl());
+                Window[] win = Window.getWindows();
+                for (Window window : win) window.dispose();
+                MyProfileView profileView = new MyProfileView();
+                profileView.setComponents();
+                profileView.makeVisible();
                     }
                 });
             }
@@ -70,9 +77,9 @@ public class GallerySection extends BaseScreen {
         }
     }
 
-    public static int getLastYgrid(User user){
+    public static int getLastYgrid(User user) {
 
-        if(gallery(user) != null) {
+        if (gallery(user) != null) {
             int printedComponents = gallery(user).size();
             if (printedComponents % 3 == 0) {
                 return printedComponents / 3;
@@ -84,8 +91,7 @@ public class GallerySection extends BaseScreen {
     }
 
     private static List<Photo> gallery(User user) throws NullPointerException {
-        User loggedUser = AuthenticationServiceImpl.getLoggedUser();
-        return photoController.showUserPhotos(loggedUser);
+        return photoController.showUserPhotos(user);
     }
 
     @Override
