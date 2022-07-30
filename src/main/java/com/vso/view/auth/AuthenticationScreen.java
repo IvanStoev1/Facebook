@@ -124,6 +124,8 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 authCallback.onRegisterSelected();
+                email.setText("");
+                password.setText("");
             }
         });
 
@@ -131,6 +133,8 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 forgottenPassCallback.onForgottenPassSelected();
+                email.setText("");
+                password.setText("");
             }
         });
     }
