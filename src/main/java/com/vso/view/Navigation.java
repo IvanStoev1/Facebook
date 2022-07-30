@@ -1,6 +1,8 @@
 package com.vso.view;
 
 //import com.vso.view.profile.LikeCommentPost;
+
+import com.vso.view.feed.NewsFeedScreen;
 import com.vso.view.profile.GallerySection;
 //import com.vso.view.profile.LikePostSection;
 import com.vso.view.requests.Requests;
@@ -33,6 +35,7 @@ public class Navigation {
     private final LoginScreen loginScreen;
     private final ChangeEmailScreen emailScreen;
     private final ChangePasswordScreen changePasswordScreen;
+    private final NewsFeedScreen newsFeedScreen;
 
     public Navigation() {
         this.authenticationScreen = new AuthenticationScreen(
@@ -55,14 +58,14 @@ public class Navigation {
         this.loginScreen = new LoginScreen(this);
         this.emailScreen = new ChangeEmailScreen(this);
         this.changePasswordScreen = new ChangePasswordScreen(this);
+        this.newsFeedScreen = new NewsFeedScreen(this);
     }
 
 
     public void redirectFromHomeToRequests() {
         homeScreen.hideScreen();
-        requests.setComponents();
+        requests.setupComponents();
         requests.makeVisible();
-
     }
 
     public void redirectFromProfileToLogin() {
@@ -75,47 +78,63 @@ public class Navigation {
         homeScreen.makeVisible();
     }
 
-    public void redirectFromHomeToLogin(){
+    public void redirectFromHomeToLogin() {
         homeScreen.dispose();
         authenticationScreen.makeVisible();
     }
 
-    public void redirectRegisterToLogin(){
+    public void redirectRegisterToLogin() {
         registerScreen.hideScreen();
         authenticationScreen.makeVisible();
     }
 
-    public void redirectToRegister(){
+    public void redirectToRegister() {
         authenticationScreen.hideScreen();
         registerScreen.makeVisible();
     }
 
-    public void redirectToForgottenPass(){
+    public void redirectToForgottenPass() {
         authenticationScreen.hideScreen();
         emailForm.makeVisible();
     }
 
-    public void redirectToHomeScreen(){
+    public void redirectToHomeScreen() {
         authenticationScreen.hideScreen();
         homeScreen.makeVisible();
     }
 
-    public void redirectUploadToHome(){
+    public void redirectUploadToHome() {
         uploadView.hideScreen();
         homeScreen.makeVisible();
     }
 
-    public void redirectFromHomeToUploadView(){
+    public void redirectFeedToHome() {
+        newsFeedScreen.hideScreen();
+        homeScreen.makeVisible();
+    }
+
+    public void redirectRequestsToHome() {
+        requests.hideScreen();
+        homeScreen.makeVisible();
+    }
+
+
+    public void redirectFromHomeToUploadView() {
         homeScreen.hideScreen();
         uploadView.makeVisible();
     }
 
-    public void redirectFromProfileToHome(){
+    public void redirectFromProfileToHome() {
         homeScreen.makeVisible();
         myProfileView.hideScreen();
     }
 
-    public void redirectToHomeScreenFromPassReset(){
+    public void redirectToFeed() {
+        homeScreen.hideScreen();
+        newsFeedScreen.makeVisible();
+    }
+
+    public void redirectToHomeScreenFromPassReset() {
         passwordReset.hideScreen();
         homeScreen.makeVisible();
     }
@@ -140,18 +159,17 @@ public class Navigation {
         emailScreen.makeVisible();
     }
 
-
-    public void redirectToProfileDataScreen(){
+    public void redirectToProfileDataScreen() {
         authenticationScreen.hideScreen();
         profileDataScreen.makeVisible();
     }
 
-    public void redirectToChangePasswordScreen(){
+    public void redirectToChangePasswordScreen() {
         loginScreen.hideScreen();
         changePasswordScreen.makeVisible();
     }
 
-    public void startNavigation () {
+    public void startNavigation() {
         authenticationScreen.makeVisible();
     }
 }

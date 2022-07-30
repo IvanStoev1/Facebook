@@ -19,9 +19,10 @@ public class PostDao {
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public PostDao() {
+
     }
 
-    public List<Post> selectPostsByUserId(User thisUser) {
+    public static List<Post> selectPostsByUserId(User thisUser) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -30,16 +31,16 @@ public class PostDao {
         Root<Post> root = createQuery.from(Post.class);
 
         createQuery.select(root).orderBy(cb.desc(root.get("date")));
-        ;
         createQuery.where(cb.equal(root.get("user"), thisUser));
 
         Query<Post> query = session.createQuery(createQuery);
+
         if (query.getResultStream().findAny().isPresent()) {
             return query.getResultList();
         }
+
         session.getTransaction().commit();
         session.close();
-
         return null;
     }
 
@@ -61,7 +62,10 @@ public class PostDao {
         ArrayList<Post> uniqueList = new ArrayList<>(allUnique);
         Collections.sort(uniqueList);
         Collections.reverse(uniqueList);
-        return uniqueList;
+        AuthenticationServiceImpl.getLoggedUser().getPosts().add(new Post());
+
+        return AuthenticationServiceImpl.getLoggedUser().getPosts();
+//        return null;
     }
 
     public void likePost(User user, Post post) {

@@ -2,6 +2,7 @@ package com.vso.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,7 @@ public class User {
         this.name = name;
         this.age = age;
         this.avatarUrl = avatarUrl;
+        posts = new ArrayList<>();
     }
 
     public User() {
