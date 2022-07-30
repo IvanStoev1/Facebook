@@ -24,7 +24,11 @@ public class AuthController {
 
     public void createUser (int age, String name, String email, String password, String repeatPassword, String avatarUrl){
         User user = UserDao.getUserBy(email);
-        if (password.equals(repeatPassword) && user == null) {
+        if (password.equals(repeatPassword)
+                && user == null
+                && !Objects.equals(email, "")
+                && !Objects.equals(name, "")
+                && !Objects.equals(password,"")) {
             authentication.registerUser(email, password, name, age, avatarUrl);
         } else {
             messagesView.showRegisterError();

@@ -2,6 +2,7 @@ package com.vso.controller.friendship;
 
 import com.vso.model.entity.Friendship;
 import com.vso.model.entity.User;
+import com.vso.model.service.block.BlockUser;
 import com.vso.model.service.block.BlockUserImpl;
 import com.vso.model.service.friend.FriendService;
 import com.vso.model.service.friend.FriendServiceImpl;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class FriendshipController {
 
-    private final BlockUserImpl blockUser = new BlockUserImpl();
-    private final FriendServiceImpl friendService = new FriendServiceImpl();
+    private final BlockUser blockUser = new BlockUserImpl();
+    private final FriendService friendService = new FriendServiceImpl();
     private final SystemMsgsView systemMsgsView = new SystemMsgsView();
 
     public FriendshipController() {
@@ -48,7 +49,7 @@ public class FriendshipController {
 
     public long getFriendshipId(User loggedUser, User requested) {
         long friendshipId = -1;
-        for (Friendship friendship : blockUser.allFriendships(loggedUser)) {
+        for (Friendship friendship : friendService.getAllFriends(loggedUser)) {
             if (requested == friendship.getRequested()) {
                 friendshipId = friendship.getId();
             }
@@ -62,7 +63,7 @@ public class FriendshipController {
         } else if (requested == null) {
             systemMsgsView.showRequestedUserIsNull();
         } else {
-            friendService.setFriendshipStatusPending(getFriendshipId(loggedUser, requested));
+           friendService.sendFriendRequest(loggedUser,requested);
         }
     }
 
@@ -72,7 +73,7 @@ public class FriendshipController {
         } else if (requested == null) {
             systemMsgsView.showRequestedUserIsNull();
         } else {
-            friendService.setFriendshipStatusAccepted(getFriendshipId(requested, loggedUser));
+            friendService.setFriendshipStatusAccepted(getFriendshipId(loggedUser, requested));
         }
     }
 
@@ -92,7 +93,7 @@ public class FriendshipController {
         } else {
             for (Friendship friendship : friendService.getAllFriends(loggedUser)) {
                 if (loggedUser == friendship.getRequested() && friendship.getFriendship_status().equals("pending")) {
-                    return friendService.getAllFriends(loggedUser);
+                    return (List<Friendship>) friendship;
                 }
             }
         }

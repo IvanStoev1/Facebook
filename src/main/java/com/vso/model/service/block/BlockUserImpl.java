@@ -30,6 +30,6 @@ public class BlockUserImpl implements BlockUser {
 
     @Override
     public List<Friendship> allFriendships(User loggedUser){
-        return friendshipDao.getAllFriends(loggedUser);
+        return FriendshipDao.getAllFriends(loggedUser);
     }
 }
