@@ -40,6 +40,7 @@ public class Photo {
     private Set<User> likes;
 
 //TODO TRYING TO SET LIKES FOR PHOTOS----------------------------------------
+
     public Photo() {
     }
 
@@ -72,6 +73,7 @@ public class Photo {
     public void setLikes(Set<User> likes) {
         this.likes = likes;
     }
+
 //TODO TRYING TO SET LIKES FOR PHOTOS----------------------------------------
 
     public Integer getId() {

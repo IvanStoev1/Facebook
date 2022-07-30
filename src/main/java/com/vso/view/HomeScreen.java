@@ -76,13 +76,6 @@ public class HomeScreen extends BaseScreen {
             }
         });
 
-        btnFeed.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                navigation.redirectToFeed();
-            }
-        });
-
         btnProfile.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -90,6 +83,13 @@ public class HomeScreen extends BaseScreen {
                 MyProfileView myProfileView = new MyProfileView(navigation);
                 myProfileView.setComponents();
                 myProfileView.makeVisible();
+            }
+        });
+
+        btnFeed.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                navigation.redirectToFeed();
             }
         });
     }

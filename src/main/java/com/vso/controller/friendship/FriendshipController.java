@@ -20,7 +20,6 @@ public class FriendshipController {
     }
 
     public boolean isUserBlocked(User loggedUser, User requested) {
-
         if (blockUser.allFriendships(loggedUser) == null) {
             return false;
         }

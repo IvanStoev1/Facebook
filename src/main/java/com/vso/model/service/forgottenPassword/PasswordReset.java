@@ -1,4 +1,4 @@
-package com.vso.model.service.forgottenPassword;
+package com.vso.model.service.forgottenpassword;
 
 public interface PasswordReset {
     boolean numbersMatch(String inputNumber);

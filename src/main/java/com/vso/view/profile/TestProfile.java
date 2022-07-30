@@ -18,14 +18,13 @@ import java.awt.event.ActionListener;
 
 public class TestProfile extends BaseScreen {
 
-    private Navigation navigation;
-    private static AuthController authController;
     private static final UserController userController = new UserController();
     private static final DeleteAccountController deleteAccountController = new DeleteAccountController();
     private static final GallerySection gallerySection = new GallerySection();
     private static final FriendshipController friendship = new FriendshipController();
     private static final Search search = new Search();
-
+    private static AuthController authController;
+    private Navigation navigation;
 
     public TestProfile(Navigation navigation) {
         this.navigation = navigation;

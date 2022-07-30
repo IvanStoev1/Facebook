@@ -27,7 +27,7 @@ public class PhotoController {
     public void uploadPhoto(String description, String imageSource) {
         if (imageSource.isEmpty()) systemMsgsView.showEmptyFileChooser();
         else {
-            uploadPhoto.uploadPictures(description, imageSource);
+            uploadPhoto.uploadPicture(description, imageSource);
             systemMsgsView.showSuccessfulUpload();
         }
     }

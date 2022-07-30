@@ -4,11 +4,12 @@ import com.vso.model.dao.UserDao;
 import com.vso.model.entity.Post;
 import com.vso.model.entity.User;
 import com.vso.model.enumaration.PostPrivacyStatus;
-import com.vso.view.uploadingPostView.UploadPostView;
+import com.vso.view.uploadingpostview.UploadPostView;
 
 import java.time.LocalDate;
 
 public class UploadingServiceImpl implements UploadingService {
+
     private User author;
     private UploadPostView uploadPostView;
     private Post post;
@@ -34,8 +35,8 @@ public class UploadingServiceImpl implements UploadingService {
                 "Add description:");
         String description = uploadPostView.getTextInput();
         post.setText(description);
-        LocalDate todaysDate = LocalDate.now();
-        post.setDate(todaysDate);
+        LocalDate today = LocalDate.now();
+        post.setDate(today);
         post.setPrivacy_status(choosePrivacyStatus());
         post.setUser(author);
     }
@@ -45,14 +46,17 @@ public class UploadingServiceImpl implements UploadingService {
                 "1.Everyone\n" +
                 "2.Only friends");
         int userOption = uploadPostView.getNumber();
-        if(userOption > 2 || userOption < 0){
+        if (userOption > 2 || userOption < 0) {
             uploadPostView.getText("Invalid input");
             choosePrivacyStatus();
         }
         switch (userOption) {
-            case 1 : return PostPrivacyStatus.EVERYONE;
-            case 2 : return PostPrivacyStatus.ONLY_FRIENDS;
-            default : return null;
+            case 1:
+                return PostPrivacyStatus.EVERYONE;
+            case 2:
+                return PostPrivacyStatus.ONLY_FRIENDS;
+            default:
+                return null;
         }
     }
 

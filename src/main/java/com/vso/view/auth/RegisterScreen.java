@@ -12,8 +12,8 @@ import java.io.File;
 public class RegisterScreen extends BaseScreen {
 
     private final RegisterViewListener registerViewCallback;
-    SystemMsgsView view;
     private final AuthController controller;
+    SystemMsgsView view;
 
     public RegisterScreen(RegisterViewListener registerViewCallback) {
         this.registerViewCallback = registerViewCallback;

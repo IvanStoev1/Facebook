@@ -62,10 +62,8 @@ public class PostDao {
         ArrayList<Post> uniqueList = new ArrayList<>(allUnique);
         Collections.sort(uniqueList);
         Collections.reverse(uniqueList);
-        AuthenticationServiceImpl.getLoggedUser().getPosts().add(new Post());
 
-        return AuthenticationServiceImpl.getLoggedUser().getPosts();
-//        return null;
+        return getOrderedPosts();
     }
 
     public void likePost(User user, Post post) {

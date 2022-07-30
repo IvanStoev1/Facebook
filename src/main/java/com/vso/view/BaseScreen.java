@@ -3,7 +3,8 @@ package com.vso.view;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class BaseScreen extends JFrame{
+public abstract class BaseScreen extends JFrame {
+
     private static JPanel contentPanel;
 
     public BaseScreen() {

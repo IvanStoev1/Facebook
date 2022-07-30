@@ -7,7 +7,6 @@ import com.vso.view.Navigation;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Requests extends BaseScreen {
 
@@ -15,7 +14,7 @@ public class Requests extends BaseScreen {
 
     public Requests(Navigation navigation) {
         this.navigation = navigation;
-        setupComponents();
+        setComponents();
     }
 
     @Override
@@ -24,9 +23,14 @@ public class Requests extends BaseScreen {
     }
 
     @Override
-    public void setupComponents() {
+    protected void setupComponents() {
+
+    }
+
+    public void setComponents() {
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
+
         int gridXInitial = 0;
         int gridYInitial = 0;
         JLabel lbUserName = InitComponent.txtLabel("FRIEND REQUEST", c, gridXInitial, gridYInitial, 0, 0);
@@ -34,9 +38,10 @@ public class Requests extends BaseScreen {
         lbUserName.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.blue));
         getContentPanel().add(lbUserName, c);
         addHomeBtn(c, gridXInitial, gridYInitial);
+
     }
 
-    private void addHomeBtn(GridBagConstraints c, int gridXInitial, int gridYInitial){
+    private void addHomeBtn(GridBagConstraints c, int gridXInitial, int gridYInitial) {
         JButton homeBtn = InitComponent.button("HOME", c, gridXInitial, gridYInitial, 900, 300);
         getContentPanel().add(homeBtn, c);
 
@@ -46,6 +51,5 @@ public class Requests extends BaseScreen {
                 navigation.redirectRequestsToHome();
             }
         });
-
     }
 }

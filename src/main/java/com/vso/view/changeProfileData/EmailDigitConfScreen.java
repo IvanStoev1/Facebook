@@ -1,8 +1,8 @@
-package com.vso.view.changeProfileData;
+package com.vso.view.changeprofiledata;
 
-import com.vso.model.service.changeProfileData.EmailReset;
-import com.vso.model.service.changeProfileData.EmailResetImpl;
-import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
+import com.vso.model.service.changeprofiledata.EmailReset;
+import com.vso.model.service.changeprofiledata.EmailResetImpl;
+import com.vso.model.service.changeprofiledata.ProfileDataServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
@@ -60,7 +60,7 @@ public class EmailDigitConfScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EmailReset emailReset = new EmailResetImpl();
-                if  ( emailReset.numbersMatch(digit.getText())){
+                if (emailReset.numbersMatch(digit.getText())) {
                     new Message("Reset approved!");
                     new ProfileDataServiceImpl(emailReset).changeEmail(ChangeEmailScreen.getNewEmail());
                     navigation.redirectToHomeScreen();

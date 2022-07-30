@@ -16,11 +16,11 @@ import java.awt.event.ActionListener;
 
 public class MyProfileView extends BaseScreen {
 
-    private Navigation navigation;
-    private static AuthController authController;
     private static final UserController userController = new UserController();
-    private static DeleteAccountController deleteAccountController = new DeleteAccountController();
     private static final GallerySection gallerySection = new GallerySection();
+    private static DeleteAccountController deleteAccountController = new DeleteAccountController();
+    private static AuthController authController;
+    private Navigation navigation;
 
     public MyProfileView(Navigation navigation) {
         this.navigation = navigation;

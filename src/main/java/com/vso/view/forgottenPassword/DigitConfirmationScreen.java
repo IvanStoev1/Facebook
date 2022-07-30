@@ -1,8 +1,6 @@
-package com.vso.view.forgottenPassword;
+package com.vso.view.forgottenpassword;
 
-import com.vso.model.dao.UserDao;
-
-import com.vso.model.service.forgottenPassword.PasswordResetImpl;
+import com.vso.model.service.forgottenpassword.PasswordResetImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Message;
 import com.vso.view.Navigation;
@@ -60,7 +58,7 @@ public class DigitConfirmationScreen extends BaseScreen {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if  (new PasswordResetImpl(UserDao.getUserBy(EmailFormScreen.getEmail())).numbersMatch(digit.getText())){
+                if  (new PasswordResetImpl().numbersMatch(digit.getText())){
                     new Message("Reset approved!");
                     navigation.redirectToPassReset();
                 } else {

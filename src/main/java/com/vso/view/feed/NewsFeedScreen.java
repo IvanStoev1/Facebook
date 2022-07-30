@@ -1,8 +1,6 @@
 package com.vso.view.feed;
 
-import com.vso.model.dao.PostDao;
 import com.vso.model.entity.Post;
-import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
@@ -32,8 +30,20 @@ public class NewsFeedScreen extends BaseScreen {
         getContentPanel().setLayout(new GridLayout(10, 1, 20, 15));
         getContentPanel().setBackground(new Color(104, 128, 255, 104));
         addHomeBtn();
-//        PostDao.getOrderedPosts().forEach(this::drawPost);
-//        PostDao.selectPostsByUserId(AuthenticationServiceImpl.getLoggedUser()).forEach(post -> drawPost(post));
+    }
+
+    private void draw(Post post) {
+        JLabel postVisual = new JLabel("<html>" + post.getUser().getName() + ": " + post.getDate().toString()
+                + "<br/>" + post.getText() + "<br/>" +
+                post.getLikes().size() + " likes, " +
+                post.getComments().size() + " comments" +
+                "</html>", SwingConstants.CENTER);
+        postVisual.setForeground(Color.BLACK);
+        postVisual.setBorder(new LineBorder(Color.BLACK));
+        postVisual.setFont(new Font(Font.DIALOG, Font.PLAIN, 19));
+        postVisual.setOpaque(true);
+        postVisual.setBackground(new Color(208, 226, 255));
+        getContentPanel().add(postVisual);
     }
 
     private void addHomeBtn() {
@@ -48,25 +58,4 @@ public class NewsFeedScreen extends BaseScreen {
             }
         });
     }
-
-    private void drawPost(Post post) {
-        JLabel postVisual = new JLabel("<html>" + post.getUser().getName() + ": " + post.getDate().toString()
-                + "<br/>" + post.getText() + "<br/>" +
-                post.getLikes().size() + " likes, " +
-                post.getComments().size() + " comments" +
-                "</html>", SwingConstants.CENTER);
-        postVisual.setForeground(Color.BLACK);
-        postVisual.setBorder(new LineBorder(Color.BLACK));
-        postVisual.setFont(new Font(Font.DIALOG, Font.PLAIN, 19));
-        postVisual.setOpaque(true);
-        postVisual.setBackground(new Color(208, 226, 255));
-        getContentPanel().add(postVisual);
-    }
-
-//    public static void main(String[] args) {
-//        User user = new User("luizasvetoslavova16@gmail.com", "1234", "Lu", 16, "ddz");
-//        user.getPosts().add(new Post("Hi hi!", user));
-//        AuthenticationServiceImpl.setLoggedUser(user);
-//        new NewsFeedScreen(new Navigation()).makeVisible();
-//    }
 }
