@@ -27,6 +27,11 @@ public class SystemMsgsView extends JFrame {
                 "Image was successfully uploaded.");
     }
 
+    public void showRegisterSuccess(){
+        JOptionPane.showMessageDialog(this,
+                "Registration successful");
+    }
+
     public void showRegisterError() {
         JOptionPane.showMessageDialog(this,
                 "User already exists or passwords don't match");
