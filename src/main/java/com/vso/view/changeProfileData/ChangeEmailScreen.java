@@ -73,7 +73,7 @@ public class ChangeEmailScreen extends BaseScreen {
                 newEmail = email.getText();
                 if(emailValidator.isEmailValid(email.getText())){
                     new EmailUtilityImpl().sendVerificationEmail(AuthenticationServiceImpl.getLoggedUser().getEmail());
-                    navigation.redirectToDigitConformation();
+                    navigation.redirectToEmailDigitConformation();
                 }
 
             }
