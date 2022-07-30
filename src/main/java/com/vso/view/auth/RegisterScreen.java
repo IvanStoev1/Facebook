@@ -2,8 +2,6 @@ package com.vso.view.auth;
 
 import com.vso.controller.auth.AuthController;
 import com.vso.view.BaseScreen;
-import com.vso.model.service.authentication.AuthenticationService;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;
@@ -125,6 +123,8 @@ public class RegisterScreen extends BaseScreen {
         c.gridy = 5;
         c.gridwidth = 2;
         getContentPanel().add(btnRegister, c);
+
+        getContentPanel().getRootPane().setDefaultButton(btnRegister);
 
         btnRegister.addActionListener(new AbstractAction() {
             @Override

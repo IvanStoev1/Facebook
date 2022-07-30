@@ -8,7 +8,7 @@ import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 import com.vso.view.Navigation;
-import com.vso.view.deletedView.DeletedScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,17 +16,20 @@ import java.awt.event.ActionListener;
 
 public class MyProfileView extends BaseScreen {
 
-    private final ProfileToHomeListener profileToHomeCallback;
-    private final AuthController authController = new AuthController();
-    private final UserController userController = new UserController();
-    private final Navigation navigation;
-    private final DeleteAccountController deleteAccountController = new DeleteAccountController();
+    private Navigation navigation;
+    private static AuthController authController;
+    private static final UserController userController = new UserController();
+    private static DeleteAccountController deleteAccountController = new DeleteAccountController();
+    private static final GallerySection gallerySection = new GallerySection();
 
-    public MyProfileView(ProfileToHomeListener profileToHomeCallback, Navigation navigation) {
-        this.profileToHomeCallback = profileToHomeCallback;
-        setTitle("My Profile");
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    public MyProfileView(Navigation navigation) {
         this.navigation = navigation;
+        setTitle("My Profile");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        System.out.println("My profile CONSTRUCTOR is set");
+    }
+
+    public MyProfileView() {
     }
 
     @Override
@@ -35,7 +38,7 @@ public class MyProfileView extends BaseScreen {
     }
 
     @Override
-    public void setupComponents() {
+    protected void setupComponents() {
 
     }
 
@@ -43,6 +46,7 @@ public class MyProfileView extends BaseScreen {
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
+
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 200, 200, c, 0, 0, 10, 0);
@@ -56,13 +60,13 @@ public class MyProfileView extends BaseScreen {
         getContentPanel().add(btnBlockUser, c);
         btnBlockUser.setEnabled(false);
 
-        JButton btnHome = InitComponent.button("HOME", c, 0, 2, 10, 0);
-        getContentPanel().add(btnHome, c);
+        JButton btnBack = InitComponent.button("HOME", c, 0, 2, 10, 0);
+        getContentPanel().add(btnBack, c);
 
         JButton btnDeleteAccount = InitComponent.button("DELETE ACCOUNT", c, 1, 2, 10, 0);
         getContentPanel().add(btnDeleteAccount, c);
 
-        JButton btnUserPosts = InitComponent.button("USER POSTS", c, 2, 2, 10, 0);
+        JButton btnUserPosts = InitComponent.button("NEW POST", c, 2, 2, 10, 0);
         getContentPanel().add(btnUserPosts, c);
 
         JButton settingsBtn = InitComponent.button("Settings", c, 3, 2, 10, 0);
@@ -73,7 +77,7 @@ public class MyProfileView extends BaseScreen {
         GallerySection.setupGallery(gridYInitial, getContentPanel(), loggedUser); //SETUP GALLERY COMPONENTS
 
         gridYInitial = GallerySection.getLastYgrid(loggedUser) + gridYInitial;
-        PostSection.setupPostSection(gridYInitial, getContentPanel());
+        PostSection.setupPostSection(gridYInitial, getContentPanel(), loggedUser);
 
         settingsBtn.addActionListener(new ActionListener() {
             @Override
@@ -87,23 +91,19 @@ public class MyProfileView extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 deleteAccountController.setDeleteAccount(loggedUser);
-                authController.logoutUser();
-                hideScreen();
-                DeletedScreen deletedScreen = new DeletedScreen();
-                deletedScreen.setComponents();
-                deletedScreen.setVisible(true);
+                System.out.println(loggedUser.getName() + " " + loggedUser.getProfileStatus());
+                dispose();
+                navigation.redirectFromProfileToLogin();
             }
         });
 
-        btnHome.addActionListener(new AbstractAction() {
+        btnBack.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                profileToHomeCallback.onHomeSelected();
+                Window[] win = Window.getWindows();
+                for (Window window : win) window.dispose();
+                navigation.redirectFromProfileToHome();
             }
         });
-    }
-
-    public interface ProfileToHomeListener {
-        void onHomeSelected();
     }
 }

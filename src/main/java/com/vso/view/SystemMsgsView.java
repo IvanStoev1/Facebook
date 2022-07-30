@@ -46,4 +46,10 @@ public class SystemMsgsView extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "Your account was successfully deleted.");
     }
+
+    public void showEmptyNameTextField() {
+        JOptionPane.showMessageDialog(this,
+                "Enter any name!");
+    }
 }
+

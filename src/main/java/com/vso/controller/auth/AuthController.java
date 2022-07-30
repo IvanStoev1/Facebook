@@ -5,12 +5,9 @@ import com.vso.model.dao.UserDao;
 import com.vso.model.entity.User;
 import com.vso.model.service.authentication.AuthenticationService;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.view.Message;
 import com.vso.view.SystemMsgsView;
 
-import javax.swing.*;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class AuthController {
 

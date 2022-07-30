@@ -1,8 +1,9 @@
 package com.vso.model.entity;
 
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "photos")
@@ -24,7 +25,21 @@ public class Photo {
     @JoinColumn(name = "user_id")
     private User user;
 
+//TODO TRYING TO SET LIKES FOR PHOTOS----------------------------------------
+    @ManyToOne
+    @JoinColumn(name = "parent_photo_id")
+    private Photo parentPhoto;
 
+    @OneToMany(mappedBy = "parentPhoto", fetch = FetchType.EAGER)
+    private Set<Photo> comments;
+
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "like_photos",
+            joinColumns = {@JoinColumn(name = "photo_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<User> likes;
+
+//TODO TRYING TO SET LIKES FOR PHOTOS----------------------------------------
     public Photo() {
     }
 
@@ -33,6 +48,31 @@ public class Photo {
         this.description = description;
         this.url = url;
     }
+
+    public Photo getParentPhoto() {
+        return parentPhoto;
+    }
+
+    public void setParentPhoto(Photo parentPhoto) {
+        this.parentPhoto = parentPhoto;
+    }
+
+    public Set<Photo> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Photo> comments) {
+        this.comments = comments;
+    }
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
+//TODO TRYING TO SET LIKES FOR PHOTOS----------------------------------------
 
     public Integer getId() {
         return id;

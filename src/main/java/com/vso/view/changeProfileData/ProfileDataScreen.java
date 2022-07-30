@@ -1,7 +1,9 @@
 package com.vso.view.changeProfileData;
 
 import com.vso.view.BaseScreen;
+import com.vso.view.HomeScreen;
 import com.vso.view.Navigation;
+import com.vso.view.profile.MyProfileView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +58,23 @@ public class ProfileDataScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 navigation.redirectToChangeEmailScreen();
+            }
+        });
+
+        JButton home = new JButton("BACK");
+        g.fill = GridBagConstraints.HORIZONTAL;
+        g.gridx = 0;
+        g.gridy = 2;
+        g.weightx = 1;
+        g.insets = new Insets(50, 50, 0, 50);
+        getContentPanel().add(home, g);
+
+        home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                MyProfileView myProfileView = new MyProfileView();
+                myProfileView.makeVisible();
             }
         });
     }
