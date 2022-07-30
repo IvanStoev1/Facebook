@@ -157,9 +157,8 @@ public class Navigation {
     public void redirectToEmailDigitConformation() {
         emailScreen.hideScreen();
         emailDigitConfScreen.makeVisible();
-
+    }
         public void startNavigation() {
             authenticationScreen.makeVisible();
         }
     }
-}
