@@ -1,13 +1,20 @@
 package com.vso.view;
 
+//import com.vso.view.profile.LikeCommentPost;
+import com.vso.view.profile.GallerySection;
+//import com.vso.view.profile.LikePostSection;
+import com.vso.view.requests.Requests;
+import com.vso.view.search.Search;
 import com.vso.view.auth.AuthenticationScreen;
 import com.vso.view.changeProfileData.*;
 import com.vso.view.forgottenPassword.DigitConfirmationScreen;
 import com.vso.view.forgottenPassword.EmailFormScreen;
 import com.vso.view.auth.RegisterScreen;
 import com.vso.view.profile.MyProfileView;
+import com.vso.view.search.SearchResultSet;
 import com.vso.view.uploadphoto.UploadView;
 import com.vso.view.forgottenPassword.PasswordResetScreen;
+
 
 public class Navigation {
     private final AuthenticationScreen authenticationScreen;
@@ -18,6 +25,10 @@ public class Navigation {
     private final MyProfileView myProfileView;
     private final PasswordResetScreen passwordReset;
     private final DigitConfirmationScreen digitConfirmationScreen;
+    private final Search search;
+    private final Requests requests;
+    private final SearchResultSet searchResultSet;
+    private final GallerySection gallerySection;
     private final ProfileDataScreen profileDataScreen;
     private final LoginScreen loginScreen;
     private final ChangeEmailScreen emailScreen;
@@ -32,15 +43,15 @@ public class Navigation {
         );
         this.registerScreen = new RegisterScreen(this::redirectRegisterToLogin);
         this.emailForm = new EmailFormScreen(this);
-        this.homeScreen = new HomeScreen(
-                this::redirectToUploadView,
-                this::redirectToProfile);
+        this.homeScreen = new HomeScreen(this);
         this.uploadView = new UploadView(this::redirectUploadToHome);
-        this.myProfileView = new MyProfileView(
-                this::redirectFromProfileToHome,
-                this);
+        this.myProfileView = new MyProfileView(this);
         this.passwordReset = new PasswordResetScreen(this);
         this.digitConfirmationScreen = new DigitConfirmationScreen(this);
+        this.search = new Search(this);
+        this.requests = new Requests(this);
+        this.searchResultSet = new SearchResultSet(this);
+        this.gallerySection = new GallerySection();
         this.profileDataScreen = new ProfileDataScreen(this);
         this.loginScreen = new LoginScreen(this);
         this.emailScreen = new ChangeEmailScreen(this);
@@ -48,48 +59,65 @@ public class Navigation {
         this.emailDigitConfScreen = new EmailDigitConfScreen(this);
     }
 
-    public void redirectRegisterToLogin(){
+
+    public void redirectFromHomeToRequests() {
+        homeScreen.hideScreen();
+        requests.setComponents();
+        requests.makeVisible();
+
+    }
+
+    public void redirectFromProfileToLogin() {
+        myProfileView.dispose();
+        authenticationScreen.makeVisible();
+    }
+
+    public void redirectFromSearchToHome() {
+        search.dispose();
+        homeScreen.makeVisible();
+    }
+
+    public void redirectFromHomeToLogin() {
+        homeScreen.dispose();
+        authenticationScreen.makeVisible();
+    }
+
+    public void redirectRegisterToLogin() {
         registerScreen.hideScreen();
         authenticationScreen.makeVisible();
     }
 
-    public void redirectToRegister(){
+    public void redirectToRegister() {
         authenticationScreen.hideScreen();
         registerScreen.makeVisible();
     }
 
-    public void redirectToForgottenPass(){
+    public void redirectToForgottenPass() {
         authenticationScreen.hideScreen();
         emailForm.makeVisible();
     }
 
-    public void redirectToHomeScreen(){
+    public void redirectToHomeScreen() {
         authenticationScreen.hideScreen();
         homeScreen.makeVisible();
     }
 
-    private void redirectUploadToHome(){
+    public void redirectUploadToHome() {
         uploadView.hideScreen();
         homeScreen.makeVisible();
     }
 
-    private void redirectToUploadView(){
+    public void redirectFromHomeToUploadView() {
         homeScreen.hideScreen();
         uploadView.makeVisible();
     }
 
-    private void redirectToProfile(){
-        myProfileView.makeVisible();
-        myProfileView.setComponents();
-        homeScreen.hideScreen();
-    }
-
-    private void redirectFromProfileToHome(){
+    public void redirectFromProfileToHome() {
         homeScreen.makeVisible();
         myProfileView.hideScreen();
     }
 
-    public void redirectToHomeScreenFromPassReset(){
+    public void redirectToHomeScreenFromPassReset() {
         passwordReset.hideScreen();
         homeScreen.makeVisible();
     }
@@ -104,10 +132,6 @@ public class Navigation {
         passwordReset.makeVisible();
     }
 
-    public void startNavigation () {
-        authenticationScreen.makeVisible();
-    }
-
     public void redirectToLoginScreen() {
         profileDataScreen.hideScreen();
         loginScreen.makeVisible();
@@ -119,18 +143,23 @@ public class Navigation {
     }
 
 
-    public void redirectToProfileDataScreen(){
+    public void redirectToProfileDataScreen() {
         authenticationScreen.hideScreen();
         profileDataScreen.makeVisible();
     }
 
-    public void redirectToChangePasswordScreen(){
+    public void redirectToChangePasswordScreen() {
         loginScreen.hideScreen();
         changePasswordScreen.makeVisible();
     }
 
-    public void redirectToEmailDigitConformation(){
+
+    public void redirectToEmailDigitConformation() {
         emailScreen.hideScreen();
         emailDigitConfScreen.makeVisible();
+
+        public void startNavigation() {
+            authenticationScreen.makeVisible();
+        }
     }
 }

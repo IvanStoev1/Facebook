@@ -2,7 +2,7 @@ package com.vso.view.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.changeProfileData.EmailReset;
+import com.vso.model.service.changeProfileData.EmailResetImpl;
 import com.vso.model.service.changeProfileData.ProfileDataService;
 import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.view.BaseScreen;
@@ -21,7 +21,7 @@ public class PasswordResetScreen extends BaseScreen {
 
     public PasswordResetScreen(Navigation navigation) {
         this.navigation = navigation;
-        this.profileDataService = new ProfileDataServiceImpl(new EmailReset());
+        this.profileDataService = new ProfileDataServiceImpl(new EmailResetImpl());
     }
 
     @Override

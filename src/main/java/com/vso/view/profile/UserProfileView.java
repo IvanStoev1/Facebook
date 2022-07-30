@@ -8,7 +8,7 @@ import com.vso.model.service.block.BlockUser;
 import com.vso.model.service.block.BlockUserImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
-import com.vso.view.SearchView.Search;
+import com.vso.view.search.Search;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,48 +17,47 @@ import java.awt.event.ActionEvent;
 public class UserProfileView extends BaseScreen {
 
     private final UserController userController = new UserController();
-    private final Search search = new Search();
     private final BlockUser blockUser = new BlockUserImpl();
     private final FriendshipController friendshipController = new FriendshipController();
-    private final User requested;
+    private final GallerySection gallerySection = new GallerySection();
+    private final Search search = new Search();
 
     public UserProfileView(User requested) {
-        this.requested = requested;
-        setTitle("My Profile");
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setTitle(requested.getName());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setComponents(requested);
+        makeVisible();
+
     }
+
 
     @Override
     protected GridBagLayout getLayoutManager() {
         return new GridBagLayout();
     }
 
-    @Override
-    public void setupComponents() {
+    public void setComponents(User requested) {
 
-    }
-
-    public void setComponents(){
         User loggedUser = AuthenticationServiceImpl.getLoggedUser();
 
         getContentPanel().setLayout(getLayoutManager());
         GridBagConstraints c = new GridBagConstraints();
 
-        JLabel lbAvatar = InitComponent.imageLabel(userController.showUserAvatar(loggedUser), 200, 200, c, 0, 0, 10, 0);
+        JLabel lbAvatar = InitComponent.imageLabel(requested.getAvatarUrl(), 200, 200, c, 0, 0, 10, 0);
         assert lbAvatar != null;
         getContentPanel().add(lbAvatar, c);
 
-        JLabel lbUserInfo = InitComponent.txtLabel(userController.userInfo(requested), c, 1, 0, 10, 0);
+        JLabel lbUserInfo = InitComponent.txtLabel(requested.toString(), c, 1, 0, 10, 0);
         getContentPanel().add(lbUserInfo, c);
 
         JToggleButton btnBlockUser = InitComponent.selectButton("Block User", c, 0, 1, 10, 0);
         getContentPanel().add(btnBlockUser, c);
 
-            if (friendshipController.isUserBlocked(loggedUser, requested)){
-                btnBlockUser.setSelected(true);
-            }
+        if (friendshipController.isUserBlocked(loggedUser, requested)) {
+            btnBlockUser.setSelected(true);
+        }
 
-        JButton btnBack = InitComponent.button("HOME", c, 0, 2, 10, 0);
+        JButton btnBack = InitComponent.button("BACK", c, 0, 2, 10, 0);
         getContentPanel().add(btnBack, c);
 
         JButton btnDeleteAccount = InitComponent.button("DELETE ACCOUNT", c, 1, 2, 10, 0);
@@ -72,12 +71,12 @@ public class UserProfileView extends BaseScreen {
         GallerySection.setupGallery(gridYInitial, getContentPanel(), requested); //SETUP GALLERY COMPONENTS
 
         gridYInitial = GallerySection.getLastYgrid(requested) + gridYInitial;
-        PostSection.setupPostSection(gridYInitial, getContentPanel());
+        PostSection.setupPostSection(gridYInitial, getContentPanel(), requested);
 
         btnBlockUser.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (btnBlockUser.isSelected()){
+                if (btnBlockUser.isSelected()) {
                     friendshipController.blockUser(loggedUser, requested);
                     btnBlockUser.setText("BLOCKED");
                 }
@@ -90,9 +89,14 @@ public class UserProfileView extends BaseScreen {
         btnBack.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                setVisible(false);
+                dispose();
                 search.makeVisible();
             }
         });
+    }
+
+    @Override
+    protected void setupComponents() {
+
     }
 }

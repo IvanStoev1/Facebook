@@ -1,12 +1,12 @@
 package com.vso.view.changeProfileData;
 
-import com.vso.model.dao.UserDao;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.changeProfileData.EmailReset;
+import com.vso.model.service.changeProfileData.EmailResetImpl;
 import com.vso.model.service.changeProfileData.ProfileDataService;
 import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
 import com.vso.model.service.forgottenPassword.EmailValidator;
+import com.vso.model.service.forgottenPassword.EmailValidatorImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Navigation;
 
@@ -23,8 +23,8 @@ public class ChangeEmailScreen extends BaseScreen {
     private static String newEmail;
     public ChangeEmailScreen(Navigation navigation) {
         this.navigation = navigation;
-        this.profileDataService = new ProfileDataServiceImpl(new EmailReset());
-        this.emailValidator = new EmailValidator();
+        this.profileDataService = new ProfileDataServiceImpl(new EmailResetImpl());
+        this.emailValidator = new EmailValidatorImpl();
     }
 
     @Override

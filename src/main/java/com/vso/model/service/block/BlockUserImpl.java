@@ -20,8 +20,7 @@ public class BlockUserImpl implements BlockUser {
         blockedUser.setRequester(loggedUser);
         blockedUser.setRequested(requested);
         blockedUser.setFriendship_status("blocked");
-        friendshipDao.insertBlockedUser(blockedUser);
-
+        friendshipDao.insertUser(blockedUser);
     }
 
     @Override
@@ -31,6 +30,6 @@ public class BlockUserImpl implements BlockUser {
 
     @Override
     public List<Friendship> allFriendships(User loggedUser){
-        return friendshipDao.getAllFriends(loggedUser);
+        return FriendshipDao.getAllFriends(loggedUser);
     }
 }

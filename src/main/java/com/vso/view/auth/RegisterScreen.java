@@ -2,8 +2,6 @@ package com.vso.view.auth;
 
 import com.vso.controller.auth.AuthController;
 import com.vso.view.BaseScreen;
-import com.vso.model.service.authentication.AuthenticationService;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;
@@ -126,16 +124,21 @@ public class RegisterScreen extends BaseScreen {
         c.gridwidth = 2;
         getContentPanel().add(btnRegister, c);
 
+        getContentPanel().getRootPane().setDefaultButton(btnRegister);
+
         btnRegister.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (Integer.parseInt(txtAge.getText()) < 14){
+                if (txtName.getText().isEmpty()
+                        || Integer.parseInt(txtAge.getText()) < 14
+                        || txtEmailField.getText().isEmpty()) {
                     view.showRegisterFail();
                 } else {
                     controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),
                             txtPassword.getText(),
                             txtRepeatPassword.getText(),
                             addDefaultAvatar());
+                            view.showRegisterSuccess();
                     registerViewCallback.onRegisterSuccessful();
                 }
             }
