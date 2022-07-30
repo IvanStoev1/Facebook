@@ -129,7 +129,9 @@ public class RegisterScreen extends BaseScreen {
         btnRegister.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (Integer.parseInt(txtAge.getText()) < 14){
+                if (txtName.getText().isEmpty()
+                        || Integer.parseInt(txtAge.getText()) < 14
+                        || txtEmailField.getText().isEmpty()) {
                     view.showRegisterFail();
                 } else {
                     controller.createUser(Integer.parseInt(txtAge.getText()), txtName.getText(), txtEmailField.getText(),

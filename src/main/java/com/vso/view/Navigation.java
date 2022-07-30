@@ -46,6 +46,12 @@ public class Navigation {
         this.changePasswordScreen = new ChangePasswordScreen(this);
     }
 
+    public void redirectToNewAvatar(){
+        myProfileView.hideScreen();
+//        newAvatarSection.makeVisible();
+
+    }
+
     public void redirectRegisterToLogin(){
         registerScreen.hideScreen();
         authenticationScreen.makeVisible();

@@ -14,14 +14,11 @@ import org.hibernate.query.Query;
 
 public class DeleteAccount {
 
-    UserDao database;
     static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public DeleteAccount() {
-        this.database = new UserDao();
 
     }
-
     public void deleteAccount(User user) {
         String status = "deleted";
         Session session = sessionFactory.openSession();
