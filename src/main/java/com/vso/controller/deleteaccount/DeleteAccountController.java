@@ -1,12 +1,13 @@
 package com.vso.controller.deleteaccount;
 
 import com.vso.model.entity.User;
-import com.vso.model.service.DeleteAccount;
+import com.vso.model.service.deleteaccount.DeleteAccount;
+import com.vso.model.service.deleteaccount.DeleteAccountImpl;
 import com.vso.view.SystemMsgsView;
 
 public class DeleteAccountController {
 
-    private final DeleteAccount deleteAccount = new DeleteAccount();
+    private final DeleteAccount deleteAccount = new DeleteAccountImpl();
     private final SystemMsgsView systemMsgsView = new SystemMsgsView();
 
     public DeleteAccountController() {
