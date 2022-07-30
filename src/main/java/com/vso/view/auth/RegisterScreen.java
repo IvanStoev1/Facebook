@@ -138,6 +138,7 @@ public class RegisterScreen extends BaseScreen {
                             txtPassword.getText(),
                             txtRepeatPassword.getText(),
                             addDefaultAvatar());
+                            view.showRegisterSuccess();
                     registerViewCallback.onRegisterSuccessful();
                 }
             }
