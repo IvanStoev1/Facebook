@@ -14,9 +14,8 @@ import com.vso.view.search.Search;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class TestProfile extends BaseScreen {
+public class UserProfile extends BaseScreen {
 
     private static final UserController userController = new UserController();
     private static final DeleteAccountController deleteAccountController = new DeleteAccountController();
@@ -26,13 +25,13 @@ public class TestProfile extends BaseScreen {
     private static AuthController authController;
     private Navigation navigation;
 
-    public TestProfile(Navigation navigation) {
+    public UserProfile(Navigation navigation) {
         this.navigation = navigation;
         setTitle("User");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
-    public TestProfile(User requested) {
+    public UserProfile(User requested) {
         setTitle(requested.getName());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }

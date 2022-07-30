@@ -7,7 +7,7 @@ import com.vso.view.BaseScreen;
 import com.vso.view.InitComponent;
 import com.vso.view.Navigation;
 import com.vso.view.profile.MyProfileView;
-import com.vso.view.profile.TestProfile;
+import com.vso.view.profile.UserProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,7 +84,7 @@ public class SearchResultSet extends BaseScreen {
 //                            profile.setComponents(user);
 //                            profile.makeVisible();
 
-                            TestProfile test = new TestProfile(user);
+                            UserProfile test = new UserProfile(user);
                             test.setComponents(user);
                             test.makeVisible();
 
