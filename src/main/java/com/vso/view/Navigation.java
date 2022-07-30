@@ -22,6 +22,7 @@ public class Navigation {
     private final LoginScreen loginScreen;
     private final ChangeEmailScreen emailScreen;
     private final ChangePasswordScreen changePasswordScreen;
+    private final EmailDigitConfScreen emailDigitConfScreen;
 
     public Navigation() {
         this.authenticationScreen = new AuthenticationScreen(
@@ -44,6 +45,7 @@ public class Navigation {
         this.loginScreen = new LoginScreen(this);
         this.emailScreen = new ChangeEmailScreen(this);
         this.changePasswordScreen = new ChangePasswordScreen(this);
+        this.emailDigitConfScreen = new EmailDigitConfScreen(this);
     }
 
     public void redirectRegisterToLogin(){
@@ -125,5 +127,10 @@ public class Navigation {
     public void redirectToChangePasswordScreen(){
         loginScreen.hideScreen();
         changePasswordScreen.makeVisible();
+    }
+
+    public void redirectToEmailDigitConformation(){
+        emailScreen.hideScreen();
+        emailDigitConfScreen.makeVisible();
     }
 }
