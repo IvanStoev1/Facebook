@@ -1,8 +1,8 @@
-package com.vso.view.changeprofiledata;
+package com.vso.view.changeProfileData;
 
-import com.vso.model.service.changeprofiledata.EmailResetImpl;
-import com.vso.model.service.changeprofiledata.ProfileDataService;
-import com.vso.model.service.changeprofiledata.ProfileDataServiceImpl;
+import com.vso.model.service.changeProfileData.EmailResetImpl;
+import com.vso.model.service.changeProfileData.ProfileDataService;
+import com.vso.model.service.changeProfileData.ProfileDataServiceImpl;
 import com.vso.view.BaseScreen;
 import com.vso.view.Navigation;
 
