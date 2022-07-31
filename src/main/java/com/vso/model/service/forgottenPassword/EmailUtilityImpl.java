@@ -1,8 +1,6 @@
 package com.vso.model.service.forgottenPassword;
 
 import com.vso.model.dao.UserDao;
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
-import com.vso.model.service.login.LoginSession;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

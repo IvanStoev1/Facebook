@@ -3,11 +3,8 @@ package com.vso.model.entity;
 import com.vso.model.enumaration.PostPrivacyStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.type.descriptor.java.LocalDateJavaType;
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

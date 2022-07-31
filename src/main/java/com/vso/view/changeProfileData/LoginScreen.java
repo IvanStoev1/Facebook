@@ -8,7 +8,6 @@ import com.vso.view.Navigation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Base64;
 
 public class LoginScreen extends BaseScreen {
 

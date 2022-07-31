@@ -1,7 +1,5 @@
 package com.vso.view;
 
-import com.vso.model.service.authentication.AuthenticationServiceImpl;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -21,6 +19,17 @@ public class InitComponent {
         c.insets = new Insets(0, insetL, 0, insetR);
         c.gridx = gridx;
         c.gridy = gridy;
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.cyan);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(UIManager.getColor("control"));
+            }
+        });
+
         return button;
     }
 
@@ -50,6 +59,7 @@ public class InitComponent {
             c.insets = new Insets(0, insetL, 0, insetR); //L = 10, R = 0;
             c.gridx = gridx;
             c.gridy = gridy;
+
             return label;
         }
         return null;
@@ -86,6 +96,37 @@ public class InitComponent {
         c.insets = new Insets(0, insetL, 0, insetR);
         c.gridx = gridx;
         c.gridy = gridy;
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.cyan);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(UIManager.getColor("control"));
+            }
+        });
         return button;
+    }
+
+    public static JToggleButton tgBtnFriendship(String text, GridBagConstraints c, int gridx, int gridy, int insetL, int insetR){
+        JToggleButton tgBtnFriendship = new JToggleButton(text);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.insets = new Insets(0, insetL, 0, insetR);
+        c.gridx = gridx;
+        c.gridy = gridy;
+
+        tgBtnFriendship.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tgBtnFriendship.setBackground(Color.cyan);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tgBtnFriendship.setBackground(UIManager.getColor("control"));
+            }
+        });
+
+        return tgBtnFriendship;
     }
 }

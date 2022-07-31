@@ -11,9 +11,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserDao {
 
@@ -74,7 +76,6 @@ public class UserDao {
         session.close();
     }
 
-
     public boolean userExists(String email) {
         Optional<User> existingUser = getAllUsers()
                 .stream()
@@ -103,7 +104,6 @@ public class UserDao {
         session.getTransaction().commit();
         session.close();
     }
-
 
     public static void setNewPassword(String newPassword) {
         Session session = sessionFactory.openSession();
@@ -169,5 +169,12 @@ public class UserDao {
                         .findFirst()
                         .orElse(null))
                 .getLastSentNumber();
+    }
+
+    public static List<User> findUser(String userName) {
+        return getAllUsers().stream().
+                filter(user -> user.getName().toUpperCase().
+                        contains(userName.toUpperCase())).
+                collect(Collectors.toList());
     }
 }

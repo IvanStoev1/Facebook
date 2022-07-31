@@ -1,9 +1,10 @@
 package com.vso.view;
 
-import java.awt.*;
-import java.awt.geom.*;
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 
 public class Message extends AbstractBorder {
 

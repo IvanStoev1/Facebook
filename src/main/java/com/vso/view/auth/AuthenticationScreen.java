@@ -1,8 +1,8 @@
 package com.vso.view.auth;
 
-import com.vso.view.BaseScreen;
 import com.vso.model.enumaration.LoginStatus;
 import com.vso.model.service.authentication.AuthenticationServiceImpl;
+import com.vso.view.BaseScreen;
 import com.vso.view.SystemMsgsView;
 
 import javax.swing.*;
@@ -13,9 +13,10 @@ public class AuthenticationScreen extends BaseScreen {
 
     SystemMsgsView systemMsgsView;
     AuthenticationServiceImpl authenticationService;
-    private final AuthScreenListener authCallback;
-    private final ForgottenPassListener forgottenPassCallback;
-    private final HomeScreenListener homeScreenCallback;
+    AuthScreenListener authCallback;
+    ForgottenPassListener forgottenPassCallback;
+    HomeScreenListener homeScreenCallback;
+
 
     public AuthenticationScreen(AuthScreenListener authCallback, ForgottenPassListener forgottenPassCallback, HomeScreenListener homeScreenCallback) {
         setTitle("Login Screen");
@@ -27,8 +28,13 @@ public class AuthenticationScreen extends BaseScreen {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public AuthenticationScreen() {
+        setTitle("Login Screen");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
     @Override
-    protected GridBagLayout getLayoutManager() {
+    protected LayoutManager getLayoutManager() {
         return new GridBagLayout();
     }
 
@@ -98,6 +104,8 @@ public class AuthenticationScreen extends BaseScreen {
         c.insets = new Insets(10, 50, 0, 5);
         getContentPanel().add(forgottenPass, c);
 
+        getContentPanel().getRootPane().setDefaultButton(login);
+
         login.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -106,6 +114,8 @@ public class AuthenticationScreen extends BaseScreen {
                     systemMsgsView.showLoginFail();
                 } else {
                     homeScreenCallback.loginSuccessful();
+                    email.setText("");
+                    password.setText("");
                 }
             }
         });
@@ -121,7 +131,6 @@ public class AuthenticationScreen extends BaseScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 forgottenPassCallback.onForgottenPassSelected();
-
             }
         });
     }
@@ -137,7 +146,3 @@ public class AuthenticationScreen extends BaseScreen {
     }
 
 }
-
-
-
-

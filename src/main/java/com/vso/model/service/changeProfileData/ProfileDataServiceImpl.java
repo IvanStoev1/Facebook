@@ -5,6 +5,7 @@ import com.vso.model.service.authentication.AuthenticationServiceImpl;
 import com.vso.model.service.forgottenPassword.EmailUtility;
 import com.vso.model.service.forgottenPassword.EmailUtilityImpl;
 import com.vso.model.service.forgottenPassword.PasswordReset;
+import com.vso.model.service.forgottenPassword.PasswordResetImpl;
 
 public class ProfileDataServiceImpl implements ProfileDataService{
 
@@ -13,7 +14,7 @@ public class ProfileDataServiceImpl implements ProfileDataService{
     private EmailReset emailReset;
 
     public ProfileDataServiceImpl(EmailReset emailReset) {
-        this.passwordReset = new PasswordReset(AuthenticationServiceImpl.getLoggedUser());
+        this.passwordReset = new PasswordResetImpl(AuthenticationServiceImpl.getLoggedUser());
         this.emailUtility = new EmailUtilityImpl();
         this.emailReset = emailReset;
     }
